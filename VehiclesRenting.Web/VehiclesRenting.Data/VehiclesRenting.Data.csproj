@@ -15,4 +15,13 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VehiclesRenting.Common\VehiclesRenting.Common.csproj" />
+    <ProjectReference Include="..\VehiclesRenting.Data.Models\VehiclesRenting.Data.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
