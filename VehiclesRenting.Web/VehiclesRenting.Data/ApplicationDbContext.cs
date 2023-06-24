@@ -1,4 +1,4 @@
-﻿namespace VehiclesRenting.Web.Data
+﻿namespace VehiclesRenting.Data
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;

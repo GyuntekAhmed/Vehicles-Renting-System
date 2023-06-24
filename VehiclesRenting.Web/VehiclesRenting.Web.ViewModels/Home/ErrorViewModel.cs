@@ -1,4 +1,4 @@
-namespace VehiclesRenting.Web.Models
+namespace VehiclesRenting.Web.ViewModels.Home
 {
     public class ErrorViewModel
     {
