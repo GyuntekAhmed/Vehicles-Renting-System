@@ -10,6 +10,10 @@
         public void Configure(EntityTypeBuilder<Car> builder)
         {
             builder
+                .Property(c => c.CreatedOn)
+                .HasDefaultValue(DateTime.UtcNow);
+
+            builder
                 .HasOne(c => c.Category)
                 .WithMany(c => c.Cars)
                 .HasForeignKey(c => c.CategoryId)

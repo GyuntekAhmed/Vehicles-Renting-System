@@ -1,9 +1,9 @@
 ﻿namespace VehiclesRenting.Services.Interfaces
 {
-    using Web.ViewModels.Home;
+    using VehiclesRenting.Web.ViewModels.Home;
 
     public interface IMotorcycleService
     {
-        IEnumerable<MotorcycleIndexViewModel> AllMotorcyclesAsync();
+        Task<IEnumerable<IndexViewModel>> AllMotorcyclesAsync();
     }
 }

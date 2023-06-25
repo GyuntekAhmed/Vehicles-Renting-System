@@ -4,6 +4,6 @@
 
     public interface ICarService
     {
-        Task<IEnumerable<CarIndexViewModel>> AllCarsAsync();
+        Task<IEnumerable<IndexViewModel>> AllCarsAsync();
     }
 }

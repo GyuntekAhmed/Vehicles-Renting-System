@@ -1,4 +1,6 @@
-﻿namespace VehiclesRenting.Services
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace VehiclesRenting.Services
 {
     using Interfaces;
     using Data;
@@ -13,9 +15,19 @@
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<MotorcycleIndexViewModel> AllMotorcyclesAsync()
+        public async Task<IEnumerable<IndexViewModel>> AllMotorcyclesAsync()
         {
-            throw new NotImplementedException();
+            IEnumerable<MotorcycleIndexViewModel> allMotorcycles = await dbContext
+                .Motorcycles
+                .Select(m => new MotorcycleIndexViewModel()
+                {
+                    Id = m.Id.ToString(),
+                    Brand = m.Brand,
+                    ImageUrl = m.ImageUrl,
+                })
+                .ToArrayAsync();
+
+            return allMotorcycles;
         }
     }
 }

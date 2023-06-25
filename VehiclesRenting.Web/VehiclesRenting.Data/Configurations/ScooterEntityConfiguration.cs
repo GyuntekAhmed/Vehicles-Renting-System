@@ -10,6 +10,10 @@
         public void Configure(EntityTypeBuilder<Scooter> builder)
         {
             builder
+                .Property(s => s.CreatedOn)
+                .HasDefaultValue(DateTime.UtcNow);
+
+            builder
                 .HasOne(s => s.Category)
                 .WithMany(c => c.Scooters)
                 .HasForeignKey(s => s.CategoryId)

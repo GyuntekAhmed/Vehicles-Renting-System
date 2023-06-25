@@ -1,9 +1,14 @@
 ﻿namespace VehiclesRenting.Services.Interfaces
 {
-    using Web.ViewModels.Home;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using VehiclesRenting.Web.ViewModels.Home;
 
     public interface IScooterService
     {
-        Task<IEnumerable<ScooterIndexViewModel>> AllScootersAsync();
+        Task<IEnumerable<IndexViewModel>> AllScootersAsync();
     }
 }

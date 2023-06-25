@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesRenting.Services", "VehiclesRenting.Services\VehiclesRenting.Services.csproj", "{C9E940F1-83BC-4B07-AA6F-2D8594773D9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesRenting.Web.Infrastructure", "VehiclesRenting.Web.Infrastructure\VehiclesRenting.Web.Infrastructure.csproj", "{8885549E-40AB-42D1-89C5-DE8AF5BA619D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C9E940F1-83BC-4B07-AA6F-2D8594773D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9E940F1-83BC-4B07-AA6F-2D8594773D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9E940F1-83BC-4B07-AA6F-2D8594773D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8885549E-40AB-42D1-89C5-DE8AF5BA619D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8885549E-40AB-42D1-89C5-DE8AF5BA619D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8885549E-40AB-42D1-89C5-DE8AF5BA619D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8885549E-40AB-42D1-89C5-DE8AF5BA619D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{0CD3C4D2-B57F-4736-9CC6-D802F569D897} = {3D44BFE2-B74C-4BE8-829F-0274C281AF43}
 		{6684A600-3895-4AAD-B127-58BCEDC13401} = {86B9F9ED-8B40-4BBD-A000-05E9C5495D8D}
 		{C9E940F1-83BC-4B07-AA6F-2D8594773D9E} = {5B0ED872-B0AF-4185-81B3-3C826B640FFA}
+		{8885549E-40AB-42D1-89C5-DE8AF5BA619D} = {86B9F9ED-8B40-4BBD-A000-05E9C5495D8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF6DFBD3-B880-490D-847C-47C3A8E177D1}

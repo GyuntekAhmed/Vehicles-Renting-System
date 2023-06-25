@@ -32,6 +32,8 @@
 
         public decimal PricePerDay { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         [Required]
         [MaxLength(ColorMaxLength)]
         public string Color { get; set; } = null!;

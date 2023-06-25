@@ -1,9 +1,11 @@
 ﻿namespace VehiclesRenting.Services
 {
+    using Microsoft.EntityFrameworkCore;
+
     using Interfaces;
     using Data;
     using Web.ViewModels.Home;
-    
+
     public class ScooterService : IScooterService
     {
         private readonly VehiclesRentingDbContext dbContext;
@@ -13,9 +15,18 @@
             this.dbContext = dbContext;
         }
 
-        public Task<IEnumerable<ScooterIndexViewModel>> AllScootersAsync()
+        public async Task<IEnumerable<IndexViewModel>> AllScootersAsync()
         {
-            throw new NotImplementedException();
+            IEnumerable<IndexViewModel> assScooters = await dbContext.Scooters
+                .Select(s => new IndexViewModel()
+                {
+                    Id = s.Id.ToString(),
+                    Brand = s.Brand,
+                    ImageUrl = s.ImageUrl,
+                })
+                .ToArrayAsync();
+
+            return assScooters;
         }
     }
 }

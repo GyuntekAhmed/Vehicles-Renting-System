@@ -24,6 +24,8 @@
 
         public decimal PricePerDay { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         [Required]
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = null!;

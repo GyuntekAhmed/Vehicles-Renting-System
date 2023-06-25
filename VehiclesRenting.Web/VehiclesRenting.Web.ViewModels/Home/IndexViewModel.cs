@@ -1,6 +1,6 @@
 ﻿namespace VehiclesRenting.Web.ViewModels.Home
 {
-    public class MotorcycleIndexViewModel
+    public class IndexViewModel
     {
         public string Id { get; set; } = null!;
 
