@@ -73,11 +73,5 @@
             public const int PhoneNumberMinLength = 5;
             public const int PhoneNumberMaxLength = 20;
         }
-
-        public static class User
-        {
-            public const int CurrentAddressMinLength = 2;
-            public const int CurrentAddressMaxLength = 150;
-        }
     }
 }

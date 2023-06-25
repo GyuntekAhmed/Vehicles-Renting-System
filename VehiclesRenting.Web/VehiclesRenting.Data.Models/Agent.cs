@@ -21,6 +21,8 @@
         [Required]
         [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; } = null!;
+
+        public string? Address { get; set; }
         
 
         public Guid UserId { get; set; }
