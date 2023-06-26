@@ -1,40 +1,26 @@
-﻿using VehiclesRenting.Services.Interfaces;
-
-namespace VehiclesRenting.Web.Controllers
+﻿namespace VehiclesRenting.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Diagnostics;
 
+    using Services.Interfaces;
     using ViewModels.Home;
 
     public class HomeController : Controller
     {
-        private readonly ICarService carService;
-        private readonly IMotorcycleService motorcycleService;
-        private readonly IScooterService scooterService;
+        private readonly IVehicleService vehicleService;
 
-        public HomeController(ICarService carService, IMotorcycleService motorcycleService, IScooterService scooterService)
+        public HomeController(IVehicleService vehicleService)
         {
-            this.carService = carService;
-            this.motorcycleService = motorcycleService;
-            this.scooterService = scooterService;
+            this.vehicleService = vehicleService;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<IndexViewModel> carViewModel = await carService.AllCarsAsync();
-            IEnumerable<IndexViewModel> motorViewModel = await motorcycleService.AllMotorcyclesAsync();
-            IEnumerable<IndexViewModel> scooterViewModel = await scooterService.AllScootersAsync();
+            IEnumerable<IndexViewModel> vehicleViewModels = await this.vehicleService.AllVehiclesAsync();
 
-            var allModels = new List<object>
-            {
-                carViewModel,
-                motorViewModel,
-                scooterViewModel,
-            };
-
-            return View(allModels);
+            return View(vehicleViewModels);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

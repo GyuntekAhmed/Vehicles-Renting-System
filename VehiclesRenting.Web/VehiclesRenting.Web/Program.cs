@@ -1,3 +1,6 @@
+using VehiclesRenting.Services;
+using VehiclesRenting.Services.Interfaces;
+
 namespace VehiclesRenting.Web
 {
     using Microsoft.EntityFrameworkCore;
@@ -28,6 +31,8 @@ namespace VehiclesRenting.Web
                 })
                 .AddEntityFrameworkStores<VehiclesRentingDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IVehicleService, VehicleService>();
 
             var app = builder.Build();
 
