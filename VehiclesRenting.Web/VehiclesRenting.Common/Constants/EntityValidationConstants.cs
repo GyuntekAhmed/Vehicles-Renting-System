@@ -1,4 +1,4 @@
-﻿namespace VehiclesRenting.Common
+﻿namespace VehiclesRenting.Common.Constants
 {
     public static class EntityValidationConstants
     {

@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.EntityValidationConstants.Car;
+    using static VehiclesRenting.Common.Constants.EntityValidationConstants.Car;
 
     public class Car
     {

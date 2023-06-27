@@ -1,5 +1,6 @@
 ﻿namespace VehiclesRenting.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -7,7 +8,7 @@
     using Services.Interfaces;
     using ViewModels.Home;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IVehicleService vehicleService;
 
@@ -16,6 +17,7 @@
             this.vehicleService = vehicleService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             IEnumerable<IndexViewModel> vehicleViewModels = await this.vehicleService.AllVehiclesAsync();

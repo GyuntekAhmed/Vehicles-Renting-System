@@ -1,7 +1,6 @@
-﻿using System.Reflection;
-
-namespace VehiclesRenting.Data
+﻿namespace VehiclesRenting.Data
 {
+    using System.Reflection;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;

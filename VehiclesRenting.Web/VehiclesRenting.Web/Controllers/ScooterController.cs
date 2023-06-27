@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    public class ScooterController : Controller
+    public class ScooterController : BaseController
     {
         [AllowAnonymous]
         public async Task<IActionResult> All()
