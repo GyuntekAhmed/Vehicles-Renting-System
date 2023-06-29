@@ -27,6 +27,7 @@
                     Id = c.Id.ToString(),
                     Brand = c.Brand,
                     ImageUrl = c.ImageUrl,
+                    CategoryName = c.Category.Name,
                 })
                 .ToListAsync();
 
@@ -37,6 +38,7 @@
                     Id = m.Id.ToString(),
                     Brand = m.Brand,
                     ImageUrl = m.ImageUrl,
+                    CategoryName = m.Category.Name,
                 })
                 .ToListAsync();
 
@@ -47,6 +49,7 @@
                     Id = s.Id.ToString(),
                     Brand = s.Brand,
                     ImageUrl = s.ImageUrl,
+                    CategoryName = s.Category.Name,
                 })
                 .ToListAsync();
 

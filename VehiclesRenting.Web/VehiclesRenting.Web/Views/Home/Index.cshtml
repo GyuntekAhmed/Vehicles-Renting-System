@@ -15,8 +15,9 @@
         <p class="lead">
             @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Car" asp-action="Add" class="btn btn-primary btn-lg"
-                   role="button">Add Car</a>
+                <a asp-controller="Car" asp-action="Add" class="btn btn-primary btn-lg"role="button">Add Car</a>
+                <a asp-controller="Motorcycle" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Motorcycle</a>
+                <a asp-controller="Scooter" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Scooter</a>
             }
         </p>
     </div>
@@ -32,8 +33,21 @@
          src="@vehicle.ImageUrl" alt="@vehicle.Brand">
     <div class="carousel-caption d-none d-md-block">
         <h5>
-            <a class="btn btn-primary" asp-controller="Car" aspaction="Details"
-               asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
+            @if (vehicle.CategoryName == "Cars")
+            {
+                <a class="btn btn-primary" asp-controller="Car" aspaction="Details"
+                   asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
+            }
+            @if (vehicle.CategoryName == "Motorcycle")
+            {
+                <a class="btn btn-primary" asp-controller="Motorcycle" aspaction="Details"
+                   asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
+            }
+            @if (vehicle.CategoryName == "Scooter")
+            {
+                <a class="btn btn-primary" asp-controller="Scooter" aspaction="Details"
+                   asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
+            }
         </h5>
     </div>
     </div>

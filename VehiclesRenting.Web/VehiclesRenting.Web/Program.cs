@@ -33,6 +33,7 @@ namespace VehiclesRenting.Web
 
             builder.Services.AddScoped<IVehicleService, VehicleService>();
             builder.Services.AddScoped<IAgentService, AgentService>();
+            builder.Services.AddScoped<ICarService, CarService>();
 
             var app = builder.Build();
 
