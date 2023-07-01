@@ -204,9 +204,7 @@ namespace VehiclesRenting.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 25, 20, 27, 10, 892, DateTimeKind.Utc).AddTicks(5678));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CurrentAddress")
                         .IsRequired()
@@ -248,27 +246,27 @@ namespace VehiclesRenting.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1df5bb39-9b46-405b-84ee-ef47bbae46de"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("53ee2a22-6e5f-4610-9eab-1d3ffc30d08c"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Hyundai",
                             CategoryId = 1,
                             Color = "Black",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 986, DateTimeKind.Utc).AddTicks(6278),
                             CurrentAddress = "Silistra, Center",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/4b/Hyundai_Santa_Fe_%28TM%29_PHEV_FL_IMG_6648.jpg",
                             Model = "Santa fe",
                             PricePerDay = 40m,
                             RegistrationNumber = "CC1835AX",
-                            RenterId = new Guid("3d2d9e6d-038b-4ff5-90b8-4eebc4c48426")
+                            RenterId = new Guid("c42ef5d1-0c67-4dc2-9467-ec9947baa83f")
                         },
                         new
                         {
-                            Id = new Guid("8159cf93-5835-4334-b523-5a6bdd37285d"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("9464b95b-bd4d-4f5f-b9b6-a5a4f0c8c4a1"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Mercedes",
                             CategoryId = 1,
                             Color = "White",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 986, DateTimeKind.Utc).AddTicks(6360),
                             CurrentAddress = "Silistra, Center",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Mercedes-Benz_W223_IMG_6663.jpg/1200px-Mercedes-Benz_W223_IMG_6663.jpg",
                             Model = "S-Class",
@@ -277,12 +275,12 @@ namespace VehiclesRenting.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2e3a6e04-25bb-462c-a832-f3823c107081"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("daea8025-3752-41b6-aa39-9a09d4f4e566"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Ford Mustang",
                             CategoryId = 1,
                             Color = "Gray",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 986, DateTimeKind.Utc).AddTicks(6398),
                             CurrentAddress = "Silistra, East",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/f6/1967_Ford_Mustang_Shelby_GT-500_Eleanor.jpg",
                             Model = "GT500 Shelby",
@@ -312,7 +310,7 @@ namespace VehiclesRenting.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Cars"
+                            Name = "Car"
                         },
                         new
                         {
@@ -321,8 +319,108 @@ namespace VehiclesRenting.Data.Migrations
                         },
                         new
                         {
-                            Id = 3,
-                            Name = "Scooter"
+                            Id = 5,
+                            Name = "Yacht"
+                        });
+                });
+
+            modelBuilder.Entity("VehiclesRenting.Data.Models.Jet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AgentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrentAddress")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("PricePerDay")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("RenterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgentId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("RenterId");
+
+                    b.ToTable("Jets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c38cfa95-212f-4960-9fd7-0ad11ba9aee9"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
+                            Brand = "Yamaha",
+                            CategoryId = 4,
+                            Color = "Black",
+                            CreatedOn = new DateTime(2023, 7, 1, 18, 9, 46, 987, DateTimeKind.Local).AddTicks(1229),
+                            CurrentAddress = "Varna, Black Sea",
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/7d/2020_Yamaha_FX_SVHO_WaveRunner.jpg",
+                            Model = "Wave Runner",
+                            PricePerDay = 50m,
+                            RenterId = new Guid("c42ef5d1-0c67-4dc2-9467-ec9947baa83f")
+                        },
+                        new
+                        {
+                            Id = new Guid("cbf2fb92-ed47-42a7-8b5c-6fb91f1c8650"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
+                            Brand = "Honda",
+                            CategoryId = 4,
+                            Color = "Red",
+                            CreatedOn = new DateTime(2023, 7, 1, 18, 9, 46, 987, DateTimeKind.Local).AddTicks(1345),
+                            CurrentAddress = "Burgas",
+                            ImageUrl = "https://getmyboat-user-images1.imgix.net/images/626ebcd126768/-processed.jpg",
+                            Model = "PWC",
+                            PricePerDay = 60m
+                        },
+                        new
+                        {
+                            Id = new Guid("7a29aace-0c02-4aff-ba39-d722d6686243"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
+                            Brand = "Yamaha",
+                            CategoryId = 4,
+                            Color = "Blue",
+                            CreatedOn = new DateTime(2023, 7, 1, 18, 9, 46, 987, DateTimeKind.Local).AddTicks(1355),
+                            CurrentAddress = "Balchik",
+                            ImageUrl = "https://d1kqllve43agrl.cloudfront.net/imgs/Yamaha-superjet-701-bj-2008-17754.jpeg",
+                            Model = "Superjet 701",
+                            PricePerDay = 45m
                         });
                 });
 
@@ -349,9 +447,7 @@ namespace VehiclesRenting.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 25, 20, 27, 10, 893, DateTimeKind.Utc).AddTicks(3527));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CurrentAddress")
                         .IsRequired()
@@ -393,27 +489,27 @@ namespace VehiclesRenting.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2aa01878-7eb9-462f-9683-792f254dc287"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("58940271-f37a-4158-997f-7f5f8f0a374a"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Honda",
                             CategoryId = 2,
                             Color = "Red",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 987, DateTimeKind.Utc).AddTicks(5670),
                             CurrentAddress = "Ruse, Center",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Honda750NR.jpg/1200px-Honda750NR.jpg",
                             Model = "NR-L",
                             PricePerDay = 30m,
                             RegistrationNumber = "CC3552OB",
-                            RenterId = new Guid("3d2d9e6d-038b-4ff5-90b8-4eebc4c48426")
+                            RenterId = new Guid("c42ef5d1-0c67-4dc2-9467-ec9947baa83f")
                         },
                         new
                         {
-                            Id = new Guid("25177135-9450-4427-a45f-3af09b6286cf"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("3d286f57-c1f6-464a-8982-b4ee8b96eaa4"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Suzuki",
                             CategoryId = 2,
                             Color = "Blue",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 987, DateTimeKind.Utc).AddTicks(5701),
                             CurrentAddress = "Silistra, Center",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/GSXR1000K5.jpg/640px-GSXR1000K5.jpg",
                             Model = "GSX-R1000K5",
@@ -422,12 +518,12 @@ namespace VehiclesRenting.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("867573a9-0f05-46ef-9913-8cc00b1b5b41"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("6c7799bb-d535-4845-bf19-2331660d1f20"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Harley-Davidson",
                             CategoryId = 2,
                             Color = "Gray",
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 987, DateTimeKind.Utc).AddTicks(5706),
                             CurrentAddress = "Silistra, West",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/1/13/Harley_5-06.jpg",
                             Model = "VRSC",
@@ -454,9 +550,7 @@ namespace VehiclesRenting.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 25, 20, 27, 10, 894, DateTimeKind.Utc).AddTicks(194));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CurrentAddress")
                         .IsRequired()
@@ -488,34 +582,34 @@ namespace VehiclesRenting.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("664304e9-2e09-4bda-9a41-4c2bac441aec"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("a64ca7af-bd7e-4ead-8fbc-d03bf2a4ab88"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Xiomi",
                             CategoryId = 3,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 987, DateTimeKind.Utc).AddTicks(9993),
                             CurrentAddress = "Silistra, Center",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Xiaomi_M365.jpg/1200px-Xiaomi_M365.jpg",
                             PricePerDay = 12m,
-                            RenterId = new Guid("3d2d9e6d-038b-4ff5-90b8-4eebc4c48426")
+                            RenterId = new Guid("c42ef5d1-0c67-4dc2-9467-ec9947baa83f")
                         },
                         new
                         {
-                            Id = new Guid("43566f0c-0812-4100-8a99-3157813a7bf7"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("d7ffa275-e610-4b64-98be-40aef5a91c6b"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "E-scooter",
                             CategoryId = 3,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 988, DateTimeKind.Utc).AddTicks(29),
                             CurrentAddress = "Silistra, North",
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Elektrische-tretroller.jpg/800px-Elektrische-tretroller.jpg",
                             PricePerDay = 7m
                         },
                         new
                         {
-                            Id = new Guid("d1f46155-f33b-47d0-b7c7-9a248ef3167b"),
-                            AgentId = new Guid("b18534f1-c32b-401f-b740-6035cb456174"),
+                            Id = new Guid("fcd31087-fdfe-456b-804b-e33e9de97ae4"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
                             Brand = "Inmotion",
                             CategoryId = 3,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 988, DateTimeKind.Utc).AddTicks(34),
                             CurrentAddress = "Silistra, West",
                             ImageUrl = "https://cdn.shopify.com/s/files/1/0021/7389/4702/products/LeMotion-Web-1.jpg?v=1636106454",
                             PricePerDay = 9m
@@ -589,6 +683,106 @@ namespace VehiclesRenting.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("VehiclesRenting.Data.Models.Yacht", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AgentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrentAddress")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("PricePerDay")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("RenterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgentId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("RenterId");
+
+                    b.ToTable("Yachts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c489cac7-85dc-42f5-b9f8-c88df1bfc474"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
+                            Brand = "Bavaria",
+                            CategoryId = 5,
+                            Color = "White",
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 988, DateTimeKind.Utc).AddTicks(4324),
+                            CurrentAddress = "Varna",
+                            ImageUrl = "https://images.boatsgroup.com/images/1/95/5/8289505_0_230720220750_1.jpg",
+                            Model = "37 Sport",
+                            PricePerDay = 200m,
+                            RenterId = new Guid("c42ef5d1-0c67-4dc2-9467-ec9947baa83f")
+                        },
+                        new
+                        {
+                            Id = new Guid("416f83e9-76f9-43df-92f7-97d624f7395b"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
+                            Brand = "Bavaria",
+                            CategoryId = 5,
+                            Color = "White",
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 988, DateTimeKind.Utc).AddTicks(4356),
+                            CurrentAddress = "Burgas",
+                            ImageUrl = "https://www.sailionian.com/wp-content/uploads/2020/05/c42-ex-01.jpg",
+                            Model = "C42 Freedom",
+                            PricePerDay = 220m
+                        },
+                        new
+                        {
+                            Id = new Guid("59f23bec-60bd-4b6d-9488-91d7832c8e5b"),
+                            AgentId = new Guid("8ed4eaa3-738c-49a4-9cf8-874903ded0bb"),
+                            Brand = "Hanse",
+                            CategoryId = 5,
+                            Color = "Gray",
+                            CreatedOn = new DateTime(2023, 7, 1, 15, 9, 46, 988, DateTimeKind.Utc).AddTicks(4361),
+                            CurrentAddress = "Varna",
+                            ImageUrl = "https://img.yachtall.com/image-sale-boat/hanse-675-huge-203059a1l5rng9zti.jpg",
+                            Model = "675",
+                            PricePerDay = 180m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -678,6 +872,31 @@ namespace VehiclesRenting.Data.Migrations
                     b.Navigation("Renter");
                 });
 
+            modelBuilder.Entity("VehiclesRenting.Data.Models.Jet", b =>
+                {
+                    b.HasOne("VehiclesRenting.Data.Models.Agent", "Agent")
+                        .WithMany("ManagedJets")
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VehiclesRenting.Data.Models.Category", "Category")
+                        .WithMany("Jets")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VehiclesRenting.Data.Models.User", "Renter")
+                        .WithMany("RentedJets")
+                        .HasForeignKey("RenterId");
+
+                    b.Navigation("Agent");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Renter");
+                });
+
             modelBuilder.Entity("VehiclesRenting.Data.Models.Motorcycle", b =>
                 {
                     b.HasOne("VehiclesRenting.Data.Models.Agent", "Agent")
@@ -728,31 +947,68 @@ namespace VehiclesRenting.Data.Migrations
                     b.Navigation("Renter");
                 });
 
+            modelBuilder.Entity("VehiclesRenting.Data.Models.Yacht", b =>
+                {
+                    b.HasOne("VehiclesRenting.Data.Models.Agent", "Agent")
+                        .WithMany("ManagedYachts")
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VehiclesRenting.Data.Models.Category", "Category")
+                        .WithMany("Yachts")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VehiclesRenting.Data.Models.User", "Renter")
+                        .WithMany("RentedYachts")
+                        .HasForeignKey("RenterId");
+
+                    b.Navigation("Agent");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Renter");
+                });
+
             modelBuilder.Entity("VehiclesRenting.Data.Models.Agent", b =>
                 {
                     b.Navigation("ManagedCars");
 
+                    b.Navigation("ManagedJets");
+
                     b.Navigation("ManagedMotorcycles");
 
                     b.Navigation("ManagedScooters");
+
+                    b.Navigation("ManagedYachts");
                 });
 
             modelBuilder.Entity("VehiclesRenting.Data.Models.Category", b =>
                 {
                     b.Navigation("Cars");
 
+                    b.Navigation("Jets");
+
                     b.Navigation("Motorcycles");
 
                     b.Navigation("Scooters");
+
+                    b.Navigation("Yachts");
                 });
 
             modelBuilder.Entity("VehiclesRenting.Data.Models.User", b =>
                 {
                     b.Navigation("RentedCars");
 
+                    b.Navigation("RentedJets");
+
                     b.Navigation("RentedMotorcycles");
 
                     b.Navigation("RentedScooters");
+
+                    b.Navigation("RentedYachts");
                 });
 #pragma warning restore 612, 618
         }

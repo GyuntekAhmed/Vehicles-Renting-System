@@ -21,7 +21,7 @@
             category = new Category()
             {
                 Id = 1,
-                Name = "Cars"
+                Name = "Car"
             };
             categories.Add(category);
 
@@ -36,6 +36,18 @@
             {
                 Id = 3,
                 Name = "Scooter"
+            };
+
+            category = new Category()
+            {
+                Id = 4,
+                Name = "Jet"
+            };
+
+            category = new Category()
+            {
+                Id = 5,
+                Name = "Yacht"
             };
             categories.Add(category);
 

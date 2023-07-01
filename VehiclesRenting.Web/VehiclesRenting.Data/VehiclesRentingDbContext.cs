@@ -20,6 +20,8 @@
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Motorcycle> Motorcycles { get; set; } = null!;
         public DbSet<Scooter> Scooters { get; set; } = null!;
+        public DbSet<Jet> Jets { get; set; } = null!;
+        public DbSet<Yacht> Yachts { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

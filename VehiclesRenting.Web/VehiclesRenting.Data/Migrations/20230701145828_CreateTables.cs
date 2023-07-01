@@ -198,6 +198,7 @@ namespace VehiclesRenting.Data.Migrations
                     RegistrationNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     CurrentAddress = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     PricePerDay = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
@@ -227,6 +228,44 @@ namespace VehiclesRenting.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Jets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CurrentAddress = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    PricePerDay = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    AgentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RenterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Jets_Agents_AgentId",
+                        column: x => x.AgentId,
+                        principalTable: "Agents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Jets_AspNetUsers_RenterId",
+                        column: x => x.RenterId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Jets_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Motorcycles",
                 columns: table => new
                 {
@@ -236,6 +275,7 @@ namespace VehiclesRenting.Data.Migrations
                     RegistrationNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     CurrentAddress = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     PricePerDay = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
@@ -272,6 +312,7 @@ namespace VehiclesRenting.Data.Migrations
                     Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CurrentAddress = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     PricePerDay = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     AgentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -298,6 +339,69 @@ namespace VehiclesRenting.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Yachts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CurrentAddress = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    PricePerDay = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    AgentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RenterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Yachts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Yachts_Agents_AgentId",
+                        column: x => x.AgentId,
+                        principalTable: "Agents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Yachts_AspNetUsers_RenterId",
+                        column: x => x.RenterId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Yachts_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Car" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Scooter" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Motorcycle" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 4, "Jet" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 5, "Yacht" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Agents_UserId",
@@ -359,6 +463,21 @@ namespace VehiclesRenting.Data.Migrations
                 column: "RenterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Jets_AgentId",
+                table: "Jets",
+                column: "AgentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jets_CategoryId",
+                table: "Jets",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jets_RenterId",
+                table: "Jets",
+                column: "RenterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Motorcycles_AgentId",
                 table: "Motorcycles",
                 column: "AgentId");
@@ -387,6 +506,21 @@ namespace VehiclesRenting.Data.Migrations
                 name: "IX_Scooters_RenterId",
                 table: "Scooters",
                 column: "RenterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Yachts_AgentId",
+                table: "Yachts",
+                column: "AgentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Yachts_CategoryId",
+                table: "Yachts",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Yachts_RenterId",
+                table: "Yachts",
+                column: "RenterId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -410,10 +544,16 @@ namespace VehiclesRenting.Data.Migrations
                 name: "Cars");
 
             migrationBuilder.DropTable(
+                name: "Jets");
+
+            migrationBuilder.DropTable(
                 name: "Motorcycles");
 
             migrationBuilder.DropTable(
                 name: "Scooters");
+
+            migrationBuilder.DropTable(
+                name: "Yachts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

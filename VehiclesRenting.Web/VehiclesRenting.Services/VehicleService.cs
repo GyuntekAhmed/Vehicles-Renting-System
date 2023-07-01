@@ -53,9 +53,33 @@
                 })
                 .ToListAsync();
 
+            var jets = await dbContext.Jets
+                .OrderBy(j => j.CreatedOn)
+                .Select(j => new IndexViewModel()
+                {
+                    Id = j.Id.ToString(),
+                    Brand = j.Brand,
+                    ImageUrl = j.ImageUrl,
+                    CategoryName = j.Category.Name,
+                })
+                .ToListAsync();
+
+            var yachts = await dbContext.Yachts
+                .OrderBy(y => y.CreatedOn)
+                .Select(y => new IndexViewModel()
+                {
+                    Id = y.Id.ToString(),
+                    Brand = y.Brand,
+                    ImageUrl = y.ImageUrl,
+                    CategoryName = y.Category.Name,
+                })
+                .ToListAsync();
+
             allVehicles.AddRange(allCars);
             allVehicles.AddRange(motorcycles);
             allVehicles.AddRange(scooters);
+            allVehicles.AddRange(jets);
+            allVehicles.AddRange(yachts);
 
             return allVehicles;
         }

@@ -18,6 +18,8 @@
                 <a asp-controller="Car" asp-action="Add" class="btn btn-primary btn-lg"role="button">Add Car</a>
                 <a asp-controller="Motorcycle" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Motorcycle</a>
                 <a asp-controller="Scooter" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Scooter</a>
+                <a asp-controller="Jet" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Jet</a>
+                <a asp-controller="Yacht" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Yacht</a>
             }
         </p>
     </div>
@@ -33,7 +35,7 @@
          src="@vehicle.ImageUrl" alt="@vehicle.Brand">
     <div class="carousel-caption d-none d-md-block">
         <h5>
-            @if (vehicle.CategoryName == "Cars")
+            @if (vehicle.CategoryName == "Car")
             {
                 <a class="btn btn-primary" asp-controller="Car" aspaction="Details"
                    asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
@@ -46,6 +48,16 @@
             @if (vehicle.CategoryName == "Scooter")
             {
                 <a class="btn btn-primary" asp-controller="Scooter" aspaction="Details"
+                   asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
+            }
+            @if (vehicle.CategoryName == "Jet")
+            {
+                <a class="btn btn-primary" asp-controller="Jet" aspaction="Details"
+                   asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
+            }
+            @if (vehicle.CategoryName == "Yacht")
+            {
+                <a class="btn btn-primary" asp-controller="Yacht" aspaction="Details"
                    asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
             }
         </h5>

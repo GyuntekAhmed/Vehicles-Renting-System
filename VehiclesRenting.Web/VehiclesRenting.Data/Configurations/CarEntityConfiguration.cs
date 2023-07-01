@@ -10,10 +10,6 @@
         public void Configure(EntityTypeBuilder<Car> builder)
         {
             builder
-                .Property(c => c.CreatedOn)
-                .HasDefaultValue(DateTime.UtcNow);
-
-            builder
                 .HasOne(c => c.Category)
                 .WithMany(c => c.Cars)
                 .HasForeignKey(c => c.CategoryId)
@@ -48,8 +44,8 @@
                 Color = "Black",
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/4/4b/Hyundai_Santa_Fe_%28TM%29_PHEV_FL_IMG_6648.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
-                RenterId = Guid.Parse("3D2D9E6D-038B-4FF5-90B8-4EEBC4C48426"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
+                RenterId = Guid.Parse("C42EF5D1-0C67-4DC2-9467-EC9947BAA83F"),
                 CategoryId = 1,
             };
             cars.Add(car);
@@ -64,7 +60,7 @@
                 Color = "White",
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Mercedes-Benz_W223_IMG_6663.jpg/1200px-Mercedes-Benz_W223_IMG_6663.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 CategoryId = 1,
             };
             cars.Add(car);
@@ -79,7 +75,7 @@
                 Color = "Gray",
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/f/f6/1967_Ford_Mustang_Shelby_GT-500_Eleanor.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 CategoryId = 1,
             };
             cars.Add(car);

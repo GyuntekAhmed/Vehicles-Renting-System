@@ -10,10 +10,6 @@
         public void Configure(EntityTypeBuilder<Scooter> builder)
         {
             builder
-                .Property(s => s.CreatedOn)
-                .HasDefaultValue(DateTime.UtcNow);
-
-            builder
                 .HasOne(s => s.Category)
                 .WithMany(c => c.Scooters)
                 .HasForeignKey(s => s.CategoryId)
@@ -45,8 +41,8 @@
                 PricePerDay = 12,
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Xiaomi_M365.jpg/1200px-Xiaomi_M365.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
-                RenterId = Guid.Parse("3D2D9E6D-038B-4FF5-90B8-4EEBC4C48426"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
+                RenterId = Guid.Parse("C42EF5D1-0C67-4DC2-9467-EC9947BAA83F"),
                 CategoryId = 3,
             };
             scooters.Add(scooter);
@@ -58,7 +54,7 @@
                 PricePerDay = 7,
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Elektrische-tretroller.jpg/800px-Elektrische-tretroller.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 CategoryId = 3,
             };
             scooters.Add(scooter);
@@ -70,7 +66,7 @@
                 PricePerDay = 9,
                 ImageUrl =
                     "https://cdn.shopify.com/s/files/1/0021/7389/4702/products/LeMotion-Web-1.jpg?v=1636106454",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 CategoryId = 3,
             };
             scooters.Add(scooter);

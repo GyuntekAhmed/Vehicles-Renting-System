@@ -1,12 +1,13 @@
 ﻿namespace VehiclesRenting.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
-    using static VehiclesRenting.Common.Constants.EntityValidationConstants.Motorcycle;
+    using static Common.Constants.EntityValidationConstants.Yacht;
 
-    public class Motorcycle
+    public class Yacht
     {
-        public Motorcycle()
+        public Yacht()
         {
             this.Id = Guid.NewGuid();
         }
@@ -21,10 +22,6 @@
         [Required]
         [MaxLength(ModelMaxLength)]
         public string Model { get; set; } = null!;
-
-        [Required]
-        [MaxLength(RegistrationMaxLength)]
-        public string RegistrationNumber { get; set; } = null!;
 
         [Required]
         [MaxLength(CurrentAddressMaxLength)]

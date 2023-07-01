@@ -39,7 +39,9 @@
                                 }
                                 else
                                 {
-                                    <li><a class="dropdown-item text-primary" text-primary>All Cars</a></li>
+                                    <li>
+                                        <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Car" asp-action="All">All Cars</a>
+                                    </li>
                                 }
                             </ul>
                         </li>
@@ -57,7 +59,9 @@
                                 }
                                 else
                                 {
-                                    <li><a class="dropdown-item text-primary">All Motorcycles</a></li>
+                                    <li>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Motorcycle" asp-action="All">All Motorcycles</a>
+                                    </li>
                                 }
                             </ul>
                         </li>
@@ -75,7 +79,43 @@
                                 }
                                 else
                                 {
-                                    <li><a class="dropdown-item text-primary">All Scooters</a></li>
+                                    <li><a class="dropdown-item text-primary  asp-area=" asp-controller="Scooter" asp-action="All">All Scooters </a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-primary" href="#" id="jetsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Jets</a>
+                            <ul class="dropdown-menu" aria-labelledby="jetsDropdown">
+                                @if (this.User.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Jet" asp-action="Add">Add Jet</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Jet" asp-action="Mine"> My Jets</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li><a class="dropdown-item text-primary  asp-area=" asp-controller="Jet" asp-action="All">All Jets </a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-primary" href="#" id="yachtsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Yachts</a>
+                            <ul class="dropdown-menu" aria-labelledby="yachtsDropdown">
+                                @if (this.User.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Yacht" asp-action="Add">Add Yacht</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Yacht" asp-action="Mine"> My Yachts</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li><a class="dropdown-item text-primary  asp-area=" asp-controller="Yacht" asp-action="All">All Yachts </a></li>
                                 }
                             </ul>
                         </li>

@@ -12,6 +12,8 @@
             this.ManagedCars = new List<Car>();
             this.ManagedMotorcycles = new List<Motorcycle>();
             this.ManagedScooters = new List<Scooter>();
+            this.ManagedJets = new List<Jet>();
+            this.ManagedYachts = new List<Yacht>();
         }
 
         [Key]
@@ -34,5 +36,9 @@
         public virtual ICollection<Motorcycle> ManagedMotorcycles { get; set; }
 
         public virtual ICollection<Scooter> ManagedScooters { get; set; }
+
+        public virtual ICollection<Jet> ManagedJets { get; set; }
+
+        public virtual ICollection<Yacht> ManagedYachts { get; set; }
     }
 }

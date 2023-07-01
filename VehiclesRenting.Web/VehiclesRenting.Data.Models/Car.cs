@@ -32,7 +32,7 @@
 
         public decimal PricePerDay { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         [Required]
         [MaxLength(ColorMaxLength)]

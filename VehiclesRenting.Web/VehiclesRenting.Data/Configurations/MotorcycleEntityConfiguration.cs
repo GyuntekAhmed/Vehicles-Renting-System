@@ -10,10 +10,6 @@
         public void Configure(EntityTypeBuilder<Motorcycle> builder)
         {
             builder
-                .Property(m => m.CreatedOn)
-                .HasDefaultValue(DateTime.UtcNow);
-
-            builder
                 .HasOne(m => m.Category)
                 .WithMany(c => c.Motorcycles)
                 .HasForeignKey(m => m.CategoryId)
@@ -48,8 +44,8 @@
                 Color = "Red",
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Honda750NR.jpg/1200px-Honda750NR.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
-                RenterId = Guid.Parse("3D2D9E6D-038B-4FF5-90B8-4EEBC4C48426"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
+                RenterId = Guid.Parse("C42EF5D1-0C67-4DC2-9467-EC9947BAA83F"),
                 CategoryId = 2,
             };
             motorcycles.Add(motorcycle);
@@ -64,7 +60,7 @@
                 Color = "Blue",
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/GSXR1000K5.jpg/640px-GSXR1000K5.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 CategoryId = 2,
             };
             motorcycles.Add(motorcycle);
@@ -79,7 +75,7 @@
                 Color = "Gray",
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/1/13/Harley_5-06.jpg",
-                AgentId = Guid.Parse("B18534F1-C32B-401F-B740-6035CB456174"),
+                AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 CategoryId = 2,
             };
             motorcycles.Add(motorcycle);

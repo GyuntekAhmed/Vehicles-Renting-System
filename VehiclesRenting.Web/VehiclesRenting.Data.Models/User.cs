@@ -13,6 +13,8 @@
             this.RentedCars = new List<Car>();
             this.RentedMotorcycles = new List<Motorcycle>();
             this.RentedScooters = new List<Scooter>();
+            this.RentedJets = new List<Jet>();
+            this.RentedYachts = new List<Yacht>();
         }
         
         public string? CurrentAddress { get; set; }
@@ -22,5 +24,9 @@
         public virtual ICollection<Motorcycle> RentedMotorcycles { get; set; }
 
         public virtual ICollection<Scooter> RentedScooters { get; set; }
+
+        public virtual ICollection<Jet> RentedJets { get; set; }
+
+        public virtual ICollection<Yacht> RentedYachts { get; set; }
     }
 }
