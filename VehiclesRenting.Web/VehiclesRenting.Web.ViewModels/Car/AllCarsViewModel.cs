@@ -13,13 +13,13 @@
         [Display(Name = "Registration Number")]
         public string RegistrationNumber { get; set; } = null!;
         
-        [Display(Name = "Current Address")]
+        [Display(Name = "Address")]
         public string CurrentAddress { get; set; } = null!;
 
         [Display(Name = "Price:")]
         public decimal PricePerDay { get; set; }
 
-        [Display(Name = "Added on :")]
+        [Display(Name = "Added on:")]
         public DateTime CreatedOn { get; set; }
         
         [Display(Name = "Image")]
