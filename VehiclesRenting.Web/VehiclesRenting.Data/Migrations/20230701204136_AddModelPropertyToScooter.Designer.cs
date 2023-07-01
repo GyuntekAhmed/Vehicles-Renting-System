@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesRenting.Data;
 
@@ -11,9 +12,10 @@ using VehiclesRenting.Data;
 namespace VehiclesRenting.Data.Migrations
 {
     [DbContext(typeof(VehiclesRentingDbContext))]
-    partial class VehiclesRentingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230701204136_AddModelPropertyToScooter")]
+    partial class AddModelPropertyToScooter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,7 +183,7 @@ namespace VehiclesRenting.Data.Migrations
                     b.ToTable("Agents");
                 });
 
-            modelBuilder.Entity("VehiclesRenting.Data.Models.VehichleConstants", b =>
+            modelBuilder.Entity("VehiclesRenting.Data.Models.Car", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -310,7 +312,7 @@ namespace VehiclesRenting.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "VehichleConstants"
+                            Name = "Car"
                         },
                         new
                         {
@@ -850,7 +852,7 @@ namespace VehiclesRenting.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("VehiclesRenting.Data.Models.VehichleConstants", b =>
+            modelBuilder.Entity("VehiclesRenting.Data.Models.Car", b =>
                 {
                     b.HasOne("VehiclesRenting.Data.Models.Agent", "Agent")
                         .WithMany("ManagedCars")

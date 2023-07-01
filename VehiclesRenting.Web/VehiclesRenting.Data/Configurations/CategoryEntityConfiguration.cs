@@ -21,7 +21,7 @@
             category = new Category()
             {
                 Id = 1,
-                Name = "Car"
+                Name = "VehichleConstants"
             };
             categories.Add(category);
 

@@ -18,6 +18,8 @@
         [MaxLength(BrandMaxLength)]
         public string Brand { get; set; } = null!;
 
+        public string? Model { get; set; }
+
         [Required]
         [MaxLength(CurrentAddressMaxLength)]
         public string CurrentAddress { get; set; } = null!;

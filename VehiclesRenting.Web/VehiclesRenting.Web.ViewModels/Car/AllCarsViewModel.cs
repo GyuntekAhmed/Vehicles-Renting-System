@@ -2,8 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.Constants.EntityValidationConstants.Car;
-
     public class AllCarsViewModel
     {
         public string Brand { get; set; } = null!;
@@ -16,10 +14,10 @@
         [Display(Name = "Address")]
         public string CurrentAddress { get; set; } = null!;
 
-        [Display(Name = "Price:")]
+        [Display(Name = "Price")]
         public decimal PricePerDay { get; set; }
 
-        [Display(Name = "Added on:")]
+        [Display(Name = "Added on")]
         public DateTime CreatedOn { get; set; }
         
         [Display(Name = "Image")]

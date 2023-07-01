@@ -381,7 +381,7 @@ namespace VehiclesRenting.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Car" });
+                values: new object[] { 1, "VehichleConstants" });
 
             migrationBuilder.InsertData(
                 table: "Categories",

@@ -1,24 +1,46 @@
-﻿using VehiclesRenting.Services.Interfaces;
-
-namespace VehiclesRenting.Web.Controllers
+﻿namespace VehiclesRenting.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using ViewModels.Vehicles;
+    using Services.Interfaces;
+    using static Common.Constants.NotificationMessagesConstants;
+
     [Authorize]
     public class CarController : BaseController
     {
-        private readonly ICarService carService;
+        private readonly ICategoryService categoriaService;
+        private readonly IAgentService agentService;
 
-        public CarController(ICarService carService)
+        public CarController(ICategoryService categoriaService, IAgentService agentService)
         {
-            this.carService = carService;
+            this.categoriaService = categoriaService;
+            this.agentService = agentService;
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            var model = await carService.AllCarsAsync();
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            bool isAgent = await agentService.AgentExistByIdAsync(this.GetUserId());
+
+            if (!isAgent)
+            {
+                TempData[ErrorMessage] = "You need to be an agent to add new cars";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            AddVehiclesViewModel model = new AddVehiclesViewModel()
+            {
+                Categories = await categoriaService.AllCategoriesAsync()
+            };
 
             return View(model);
         }
