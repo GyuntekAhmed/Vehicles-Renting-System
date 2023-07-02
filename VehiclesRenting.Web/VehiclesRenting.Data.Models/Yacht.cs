@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.Constants.EntityValidationConstants.Yacht;
+    using static Common.Constants.EntityValidationConstants.VehichleConstants;
 
     public class Yacht
     {

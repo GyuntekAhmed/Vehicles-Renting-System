@@ -9,6 +9,9 @@
     {
         public void Configure(EntityTypeBuilder<Jet> builder)
         {
+            builder.Property(j => j.CategoryId)
+                .HasDefaultValue(4);
+
             builder
                 .HasOne(j => j.Category)
                 .WithMany(c => c.Jets)
@@ -45,7 +48,6 @@
                     "https://upload.wikimedia.org/wikipedia/commons/7/7d/2020_Yamaha_FX_SVHO_WaveRunner.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 RenterId = Guid.Parse("C42EF5D1-0C67-4DC2-9467-EC9947BAA83F"),
-                CategoryId = 4,
             };
             jets.Add(jet);
 
@@ -59,7 +61,6 @@
                 ImageUrl =
                     "https://getmyboat-user-images1.imgix.net/images/626ebcd126768/-processed.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 4,
             };
             jets.Add(jet);
 
@@ -73,7 +74,6 @@
                 ImageUrl =
                     "https://d1kqllve43agrl.cloudfront.net/imgs/Yamaha-superjet-701-bj-2008-17754.jpeg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 4,
             };
             jets.Add(jet);
 

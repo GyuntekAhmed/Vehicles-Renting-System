@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.Constants.EntityValidationConstants.Jet;
+    using static Common.Constants.EntityValidationConstants.VehichleConstants;
 
     public class Jet
     {

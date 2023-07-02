@@ -9,6 +9,9 @@
     {
         public void Configure(EntityTypeBuilder<Motorcycle> builder)
         {
+            builder.Property(m => m.CategoryId)
+                .HasDefaultValue(2);
+
             builder
                 .HasOne(m => m.Category)
                 .WithMany(c => c.Motorcycles)
@@ -46,7 +49,6 @@
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Honda750NR.jpg/1200px-Honda750NR.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 RenterId = Guid.Parse("C42EF5D1-0C67-4DC2-9467-EC9947BAA83F"),
-                CategoryId = 2,
             };
             motorcycles.Add(motorcycle);
 
@@ -61,7 +63,6 @@
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/GSXR1000K5.jpg/640px-GSXR1000K5.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 2,
             };
             motorcycles.Add(motorcycle);
 
@@ -76,7 +77,6 @@
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/1/13/Harley_5-06.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 2,
             };
             motorcycles.Add(motorcycle);
 

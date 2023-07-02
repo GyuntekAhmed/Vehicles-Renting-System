@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static VehiclesRenting.Common.Constants.EntityValidationConstants.Scooter;
+    using static VehiclesRenting.Common.Constants.EntityValidationConstants.VehichleConstants;
 
     public class Scooter
     {

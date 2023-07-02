@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesRenting.Data;
 
@@ -11,9 +12,10 @@ using VehiclesRenting.Data;
 namespace VehiclesRenting.Data.Migrations
 {
     [DbContext(typeof(VehiclesRentingDbContext))]
-    partial class VehiclesRentingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230702123849_SetCategoryIdToDefaultForEntity")]
+    partial class SetCategoryIdToDefaultForEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

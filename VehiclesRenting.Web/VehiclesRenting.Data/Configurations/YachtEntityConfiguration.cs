@@ -9,6 +9,9 @@
     {
         public void Configure(EntityTypeBuilder<Yacht> builder)
         {
+            builder.Property(y => y.CategoryId)
+                .HasDefaultValue(5);
+
             builder
                 .HasOne(y => y.Category)
                 .WithMany(c => c.Yachts)
@@ -45,7 +48,6 @@
                     "https://images.boatsgroup.com/images/1/95/5/8289505_0_230720220750_1.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 RenterId = Guid.Parse("C42EF5D1-0C67-4DC2-9467-EC9947BAA83F"),
-                CategoryId = 5,
             };
             yachts.Add(yacht);
 
@@ -59,7 +61,6 @@
                 ImageUrl =
                     "https://www.sailionian.com/wp-content/uploads/2020/05/c42-ex-01.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 5,
             };
             yachts.Add(yacht);
 
@@ -73,7 +74,6 @@
                 ImageUrl =
                     "https://img.yachtall.com/image-sale-boat/hanse-675-huge-203059a1l5rng9zti.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 5,
             };
             yachts.Add(yacht);
 

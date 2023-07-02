@@ -9,6 +9,9 @@
     {
         public void Configure(EntityTypeBuilder<Scooter> builder)
         {
+            builder.Property(s => s.CategoryId)
+                .HasDefaultValue(3);
+
             builder
                 .HasOne(s => s.Category)
                 .WithMany(c => c.Scooters)
@@ -43,7 +46,6 @@
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Xiaomi_M365.jpg/1200px-Xiaomi_M365.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
                 RenterId = Guid.Parse("C42EF5D1-0C67-4DC2-9467-EC9947BAA83F"),
-                CategoryId = 3,
             };
             scooters.Add(scooter);
 
@@ -55,7 +57,6 @@
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Elektrische-tretroller.jpg/800px-Elektrische-tretroller.jpg",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 3,
             };
             scooters.Add(scooter);
 
@@ -67,7 +68,6 @@
                 ImageUrl =
                     "https://cdn.shopify.com/s/files/1/0021/7389/4702/products/LeMotion-Web-1.jpg?v=1636106454",
                 AgentId = Guid.Parse("8ED4EAA3-738C-49A4-9CF8-874903DED0BB"),
-                CategoryId = 3,
             };
             scooters.Add(scooter);
 

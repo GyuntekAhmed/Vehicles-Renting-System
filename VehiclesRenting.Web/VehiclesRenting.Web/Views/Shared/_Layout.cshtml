@@ -26,21 +26,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-primary" href="#" id="carsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">VehichleConstantss</a>
+                            <a class="nav-link dropdown-toggle text-primary" href="#" id="carsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cars</a>
                             <ul class="dropdown-menu" aria-labelledby="carsDropdown">
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
                                     <li>
-                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Add">Add VehichleConstants</a>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Mine">My VehichleConstantss</a>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Mine">My Cars</a>
                                     </li>
                                 }
                                 else
                                 {
                                     <li>
-                                        <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Car" asp-action="All">All VehichleConstantss</a>
+                                        <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Car" asp-action="All">All Cars</a>
                                     </li>
                                 }
                             </ul>
