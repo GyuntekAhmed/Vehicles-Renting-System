@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Vehicle2Go.Web.ViewModels/1.0.0": {
+        "dependencies": {
+          "Vehicle2Go.Common": "1.0.0"
+        },
         "runtime": {
           "Vehicle2Go.Web.ViewModels.dll": {}
+        }
+      },
+      "Vehicle2Go.Common/1.0.0": {
+        "runtime": {
+          "Vehicle2Go.Common.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Vehicle2Go.Web.ViewModels/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Vehicle2Go.Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

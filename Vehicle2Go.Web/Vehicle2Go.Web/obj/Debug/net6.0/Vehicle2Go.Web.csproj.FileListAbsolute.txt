@@ -81,3 +81,5 @@ C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web\bin\Debu
 C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web\bin\Debug\net6.0\Vehicle2Go.Data.pdb
 C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web\bin\Debug\net6.0\Vehicle2Go.Web.ViewModels.dll
 C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web\bin\Debug\net6.0\Vehicle2Go.Web.ViewModels.pdb
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web\bin\Debug\net6.0\Vehicle2Go.Data.Models.dll
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web\bin\Debug\net6.0\Vehicle2Go.Data.Models.pdb

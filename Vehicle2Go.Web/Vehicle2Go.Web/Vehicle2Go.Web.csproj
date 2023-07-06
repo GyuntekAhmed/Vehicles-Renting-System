@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Vehicle2Go.Common\Vehicle2Go.Common.csproj" />
+    <ProjectReference Include="..\Vehicle2Go.Data.Models\Vehicle2Go.Data.Models.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Data\Vehicle2Go.Data.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Web.ViewModels\Vehicle2Go.Web.ViewModels.csproj" />
   </ItemGroup>

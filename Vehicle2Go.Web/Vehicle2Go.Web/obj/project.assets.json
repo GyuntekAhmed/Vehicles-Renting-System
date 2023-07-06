@@ -968,13 +968,28 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.15",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.15",
-          "Vehicle2Go.Common": "1.0.0"
+          "Vehicle2Go.Common": "1.0.0",
+          "Vehicle2Go.Data.Models": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Vehicle2Go.Data.dll": {}
         },
         "runtime": {
           "bin/placeholder/Vehicle2Go.Data.dll": {}
+        }
+      },
+      "Vehicle2Go.Data.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.UI": "6.0.15",
+          "Vehicle2Go.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Vehicle2Go.Data.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Vehicle2Go.Data.Models.dll": {}
         }
       },
       "Vehicle2Go.Web.ViewModels/1.0.0": {
@@ -2491,6 +2506,11 @@
       "path": "../Vehicle2Go.Data/Vehicle2Go.Data.csproj",
       "msbuildProject": "../Vehicle2Go.Data/Vehicle2Go.Data.csproj"
     },
+    "Vehicle2Go.Data.Models/1.0.0": {
+      "type": "project",
+      "path": "../Vehicle2Go.Data.Models/Vehicle2Go.Data.Models.csproj",
+      "msbuildProject": "../Vehicle2Go.Data.Models/Vehicle2Go.Data.Models.csproj"
+    },
     "Vehicle2Go.Web.ViewModels/1.0.0": {
       "type": "project",
       "path": "../Vehicle2Go.Web.ViewModels/Vehicle2Go.Web.ViewModels.csproj",
@@ -2506,6 +2526,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.15",
       "Vehicle2Go.Common >= 1.0.0",
       "Vehicle2Go.Data >= 1.0.0",
+      "Vehicle2Go.Data.Models >= 1.0.0",
       "Vehicle2Go.Web.ViewModels >= 1.0.0"
     ]
   },
@@ -2543,6 +2564,9 @@
           "projectReferences": {
             "C:\\Users\\MYASUSPC\\Desktop\\Project-Defence\\Vehicle2Go.Web\\Vehicle2Go.Common\\Vehicle2Go.Common.csproj": {
               "projectPath": "C:\\Users\\MYASUSPC\\Desktop\\Project-Defence\\Vehicle2Go.Web\\Vehicle2Go.Common\\Vehicle2Go.Common.csproj"
+            },
+            "C:\\Users\\MYASUSPC\\Desktop\\Project-Defence\\Vehicle2Go.Web\\Vehicle2Go.Data.Models\\Vehicle2Go.Data.Models.csproj": {
+              "projectPath": "C:\\Users\\MYASUSPC\\Desktop\\Project-Defence\\Vehicle2Go.Web\\Vehicle2Go.Data.Models\\Vehicle2Go.Data.Models.csproj"
             },
             "C:\\Users\\MYASUSPC\\Desktop\\Project-Defence\\Vehicle2Go.Web\\Vehicle2Go.Data\\Vehicle2Go.Data.csproj": {
               "projectPath": "C:\\Users\\MYASUSPC\\Desktop\\Project-Defence\\Vehicle2Go.Web\\Vehicle2Go.Data\\Vehicle2Go.Data.csproj"

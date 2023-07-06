@@ -10,3 +10,6 @@ C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewMode
 C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\refint\Vehicle2Go.Web.ViewModels.dll
 C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.pdb
 C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\ref\Vehicle2Go.Web.ViewModels.dll
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\bin\Debug\net6.0\Vehicle2Go.Common.dll
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\bin\Debug\net6.0\Vehicle2Go.Common.pdb
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.csproj.CopyComplete

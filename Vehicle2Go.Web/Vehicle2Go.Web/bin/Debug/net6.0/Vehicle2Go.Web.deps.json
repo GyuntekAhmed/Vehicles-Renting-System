@@ -15,6 +15,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "6.0.15",
           "Vehicle2Go.Common": "1.0.0",
           "Vehicle2Go.Data": "1.0.0",
+          "Vehicle2Go.Data.Models": "1.0.0",
           "Vehicle2Go.Web.ViewModels": "1.0.0"
         },
         "runtime": {
@@ -554,13 +555,27 @@
       "Vehicle2Go.Data/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.15",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.15"
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.15",
+          "Vehicle2Go.Common": "1.0.0",
+          "Vehicle2Go.Data.Models": "1.0.0"
         },
         "runtime": {
           "Vehicle2Go.Data.dll": {}
         }
       },
+      "Vehicle2Go.Data.Models/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.UI": "6.0.15",
+          "Vehicle2Go.Common": "1.0.0"
+        },
+        "runtime": {
+          "Vehicle2Go.Data.Models.dll": {}
+        }
+      },
       "Vehicle2Go.Web.ViewModels/1.0.0": {
+        "dependencies": {
+          "Vehicle2Go.Common": "1.0.0"
+        },
         "runtime": {
           "Vehicle2Go.Web.ViewModels.dll": {}
         }
@@ -943,6 +958,11 @@
       "sha512": ""
     },
     "Vehicle2Go.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Vehicle2Go.Data.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
