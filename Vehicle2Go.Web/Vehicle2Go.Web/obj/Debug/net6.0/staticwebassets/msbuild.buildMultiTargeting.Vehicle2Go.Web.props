@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Vehicle2Go.Web.props" />
+</Project>

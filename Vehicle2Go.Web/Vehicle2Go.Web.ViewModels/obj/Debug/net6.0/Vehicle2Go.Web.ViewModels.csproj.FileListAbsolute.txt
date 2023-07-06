@@ -1,0 +1,12 @@
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\bin\Debug\net6.0\Vehicle2Go.Web.ViewModels.deps.json
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\bin\Debug\net6.0\Vehicle2Go.Web.ViewModels.dll
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\bin\Debug\net6.0\Vehicle2Go.Web.ViewModels.pdb
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.csproj.AssemblyReference.cache
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.AssemblyInfoInputs.cache
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.AssemblyInfo.cs
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.dll
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\refint\Vehicle2Go.Web.ViewModels.dll
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\Vehicle2Go.Web.ViewModels.pdb
+C:\Users\MYASUSPC\Desktop\Project-Defence\Vehicle2Go.Web\Vehicle2Go.Web.ViewModels\obj\Debug\net6.0\ref\Vehicle2Go.Web.ViewModels.dll
