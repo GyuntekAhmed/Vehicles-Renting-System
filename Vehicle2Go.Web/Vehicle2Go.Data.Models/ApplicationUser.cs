@@ -6,6 +6,7 @@
     {
         public ApplicationUser()
         {
+            this.Id = Guid.NewGuid();
             this.RentedCars = new List<Car>();
             this.RentedMotorcycles = new List<Motorcycle>();
             this.RentedJets = new List<Jet>();

@@ -312,6 +312,79 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasIndex("RenterId");
 
                     b.ToTable("Cars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5046809a-e227-41b2-9381-e6bda3475395"),
+                            Address = "Silistra, Center",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Hyundai",
+                            CategoryId = 1,
+                            Color = "White",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/fb/2010_Hyundai_Santa_Fe_GLS_--_09-24-2010.jpg",
+                            Model = "Santa fe",
+                            PricePerDay = 80m,
+                            RegistrationNumber = "CC1835AK",
+                            RenterId = new Guid("c618f492-937f-4907-f243-08db7ef8f1d7")
+                        },
+                        new
+                        {
+                            Id = new Guid("ccfc813e-ef0f-4c87-b894-389871dd8ddb"),
+                            Address = "Sofia, West",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "BMW",
+                            CategoryId = 6,
+                            Color = "Black",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/BMW_E64_M6_Convertible.JPG/800px-BMW_E64_M6_Convertible.JPG",
+                            Model = "E64",
+                            PricePerDay = 110m,
+                            RegistrationNumber = "CA1122PT"
+                        },
+                        new
+                        {
+                            Id = new Guid("5d0f1932-e56b-48f2-969c-4e52eda35ef0"),
+                            Address = "Varna, East",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Mercedes",
+                            CategoryId = 2,
+                            Color = "Black",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/3/35/Mercedes-Benz_S_320_CDI_4MATIC_L_%28V_221%29_%E2%80%93_Frontansicht_%281%29%2C_30._August_2011%2C_D%C3%BCsseldorf.jpg",
+                            Model = "S-Class",
+                            PricePerDay = 90m,
+                            RegistrationNumber = "B6555AH"
+                        },
+                        new
+                        {
+                            Id = new Guid("6c2a8a0a-624d-4a74-a6dd-166002675d8b"),
+                            Address = "Plovdiv, North",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Ford",
+                            CategoryId = 3,
+                            Color = "Blue",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/2019_Ford_Mustang_GT_5.0_facelift.jpg/1200px-2019_Ford_Mustang_GT_5.0_facelift.jpg",
+                            Model = "Mustang",
+                            PricePerDay = 130m,
+                            RegistrationNumber = "PB7500AT"
+                        },
+                        new
+                        {
+                            Id = new Guid("7a3ff0ca-d925-4275-bb50-9523be2d5b1f"),
+                            Address = "Sofia, Center",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Hummer",
+                            CategoryId = 7,
+                            Color = "White",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/72/Hummer_limousine_2017.jpg",
+                            Model = "H2-Limousine",
+                            PricePerDay = 200m,
+                            RegistrationNumber = "C1300AH"
+                        });
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Category.CarCategory", b =>
@@ -330,6 +403,43 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CarCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Crossover"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sedan"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Sport"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Coupe"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Hatchback"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Cabriolet"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Limousine"
+                        });
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Category.JetCategory", b =>
@@ -348,6 +458,18 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JetCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Luxury"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sport"
+                        });
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Category.MotorcycleCategory", b =>
@@ -366,6 +488,33 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MotorcycleCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sport"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Motocross"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Street"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Chopper"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Scooter"
+                        });
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Category.YachtCategory", b =>
@@ -384,6 +533,33 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("YachtCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cabin Cruiser"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Small Yacht"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Big Yacht"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Speedboat"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Windsurfer"
+                        });
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Jet", b =>
@@ -449,6 +625,51 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasIndex("RenterId");
 
                     b.ToTable("Jets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("677c55bb-a1cb-485c-a757-f9ce0dd12387"),
+                            Address = "Varna, Black Sea",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Yamaha",
+                            CategoryId = 1,
+                            Color = "Black",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/7d/2020_Yamaha_FX_SVHO_WaveRunner.jpg",
+                            Model = "WaveRunner",
+                            PricePerDay = 50m,
+                            RegistrationNumber = "B1551AK",
+                            RenterId = new Guid("c618f492-937f-4907-f243-08db7ef8f1d7")
+                        },
+                        new
+                        {
+                            Id = new Guid("76450004-39e6-40eb-8fa7-a986eb35e21a"),
+                            Address = "Burgas, Black Sea",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Kawasaki",
+                            CategoryId = 2,
+                            Color = "Red",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/5/5f/1985_Kawasaki_550_Jet_Ski%C2%AE.jpg",
+                            Model = "550",
+                            PricePerDay = 55m,
+                            RegistrationNumber = "A1660AA"
+                        },
+                        new
+                        {
+                            Id = new Guid("a4be735b-5cf8-4985-a3ef-76b33c88c2c1"),
+                            Address = "Varna, Black Sea",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Honda",
+                            CategoryId = 2,
+                            Color = "Red",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Honda_Aqua_Trax_F-12x_turbo.jpg/640px-Honda_Aqua_Trax_F-12x_turbo.jpg",
+                            Model = "Aquatrax",
+                            PricePerDay = 55m,
+                            RegistrationNumber = "B3330PT"
+                        });
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Motorcycle", b =>
@@ -514,6 +735,51 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasIndex("RenterId");
 
                     b.ToTable("Motorcycles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0040df7f-6d0c-41a9-bd4b-3dde18420dcb"),
+                            Address = "Silistra, Center",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "BMW",
+                            CategoryId = 3,
+                            Color = "Black",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/c/c9/BMW_K1300R_Rennes.jpg",
+                            Model = "K1300R",
+                            PricePerDay = 45m,
+                            RegistrationNumber = "CC4565KT",
+                            RenterId = new Guid("c618f492-937f-4907-f243-08db7ef8f1d7")
+                        },
+                        new
+                        {
+                            Id = new Guid("1f8790e0-8322-4a55-871c-03d1e97745cb"),
+                            Address = "Ruse, East",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Suzuki",
+                            CategoryId = 1,
+                            Color = "Gray",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/71/1999modelzwart.JPG",
+                            Model = "Hayabusa",
+                            PricePerDay = 40m,
+                            RegistrationNumber = "P2112KH"
+                        },
+                        new
+                        {
+                            Id = new Guid("92be7acc-e735-4722-a759-ff32d67666d1"),
+                            Address = "Burgas, Center",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Honda",
+                            CategoryId = 2,
+                            Color = "Red",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Honda_XLV750R%28D%29_1.jpg/1200px-Honda_XLV750R%28D%29_1.jpg",
+                            Model = "XLV750R",
+                            PricePerDay = 35m,
+                            RegistrationNumber = "A4747AT"
+                        });
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Yacht", b =>
@@ -579,6 +845,37 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasIndex("RenterId");
 
                     b.ToTable("Yachts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5a7eb45f-4128-4795-81ef-854eb632b325"),
+                            Address = "Burgas",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Tiara",
+                            CategoryId = 1,
+                            Color = "White",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://www.tiarayachts.com/media/wysiwyg/new-43le/43le-banner1-1600x1066.jpg",
+                            Model = "43 LE",
+                            PricePerDay = 130m,
+                            RegistrationNumber = "A1221AX",
+                            RenterId = new Guid("c618f492-937f-4907-f243-08db7ef8f1d7")
+                        },
+                        new
+                        {
+                            Id = new Guid("9ac3e8d2-97d4-4c99-b061-8a10021149b9"),
+                            Address = "Varna",
+                            AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
+                            Brand = "Runabout",
+                            CategoryId = 2,
+                            Color = "Red",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/2/29/Hacker_Runabout_2010.jpg",
+                            Model = "Hacker-Craft",
+                            PricePerDay = 180m,
+                            RegistrationNumber = "B3553PT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

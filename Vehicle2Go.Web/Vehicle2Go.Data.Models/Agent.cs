@@ -30,9 +30,9 @@
 
         public Guid UserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
 
-        public virtual ICollection<Car> ManagedCars { get; set; }
+        public ICollection<Car> ManagedCars { get; set; }
 
         public ICollection<Motorcycle> ManagedMotorcycles { get; set; }
         public ICollection<Jet> ManagedJets { get; set; }
