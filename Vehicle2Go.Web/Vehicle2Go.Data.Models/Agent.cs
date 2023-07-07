@@ -1,15 +1,18 @@
-﻿namespace Vehicle2Go.Data.Models.Agent
+﻿namespace Vehicle2Go.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.AgentConstants;
 
-    public class JetAgent
+    public class Agent
     {
-        public JetAgent()
+        public Agent()
         {
             this.Id = Guid.NewGuid();
+            this.ManagedCars = new List<Car>();
+            this.ManagedMotorcycles = new List<Motorcycle>();
             this.ManagedJets = new List<Jet>();
+            this.ManagedYachts = new List<Yacht>();
         }
 
         [Key]
@@ -29,6 +32,10 @@
 
         public virtual ApplicationUser User { get; set; } = null!;
 
-        public virtual ICollection<Jet> ManagedJets { get; set; }
+        public virtual ICollection<Car> ManagedCars { get; set; }
+
+        public ICollection<Motorcycle> ManagedMotorcycles { get; set; }
+        public ICollection<Jet> ManagedJets { get; set; }
+        public ICollection<Yacht> ManagedYachts { get; set; }
     }
 }

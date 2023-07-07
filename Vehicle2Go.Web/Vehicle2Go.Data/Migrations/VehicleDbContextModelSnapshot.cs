@@ -157,7 +157,7 @@ namespace Vehicle2Go.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.CarAgent", b =>
+            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,85 +180,7 @@ namespace Vehicle2Go.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CarAgent");
-                });
-
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.JetAgent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("JetAgent");
-                });
-
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.MotorcycleAgent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MotorcycleAgent");
-                });
-
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.YachtAgent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("YachtAgent");
+                    b.ToTable("Agent");
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.ApplicationUser", b =>
@@ -710,40 +632,7 @@ namespace Vehicle2Go.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.CarAgent", b =>
-                {
-                    b.HasOne("Vehicle2Go.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.JetAgent", b =>
-                {
-                    b.HasOne("Vehicle2Go.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.MotorcycleAgent", b =>
-                {
-                    b.HasOne("Vehicle2Go.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.YachtAgent", b =>
+            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent", b =>
                 {
                     b.HasOne("Vehicle2Go.Data.Models.ApplicationUser", "User")
                         .WithMany()
@@ -756,7 +645,7 @@ namespace Vehicle2Go.Data.Migrations
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Car", b =>
                 {
-                    b.HasOne("Vehicle2Go.Data.Models.Agent.CarAgent", "Agent")
+                    b.HasOne("Vehicle2Go.Data.Models.Agent", "Agent")
                         .WithMany("ManagedCars")
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -782,7 +671,7 @@ namespace Vehicle2Go.Data.Migrations
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Jet", b =>
                 {
-                    b.HasOne("Vehicle2Go.Data.Models.Agent.JetAgent", "Agent")
+                    b.HasOne("Vehicle2Go.Data.Models.Agent", "Agent")
                         .WithMany("ManagedJets")
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -808,7 +697,7 @@ namespace Vehicle2Go.Data.Migrations
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Motorcycle", b =>
                 {
-                    b.HasOne("Vehicle2Go.Data.Models.Agent.MotorcycleAgent", "Agent")
+                    b.HasOne("Vehicle2Go.Data.Models.Agent", "Agent")
                         .WithMany("ManagedMotorcycles")
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -834,7 +723,7 @@ namespace Vehicle2Go.Data.Migrations
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.Yacht", b =>
                 {
-                    b.HasOne("Vehicle2Go.Data.Models.Agent.YachtAgent", "Agent")
+                    b.HasOne("Vehicle2Go.Data.Models.Agent", "Agent")
                         .WithMany("ManagedYachts")
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -858,23 +747,14 @@ namespace Vehicle2Go.Data.Migrations
                     b.Navigation("Renter");
                 });
 
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.CarAgent", b =>
+            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent", b =>
                 {
                     b.Navigation("ManagedCars");
-                });
 
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.JetAgent", b =>
-                {
                     b.Navigation("ManagedJets");
-                });
 
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.MotorcycleAgent", b =>
-                {
                     b.Navigation("ManagedMotorcycles");
-                });
 
-            modelBuilder.Entity("Vehicle2Go.Data.Models.Agent.YachtAgent", b =>
-                {
                     b.Navigation("ManagedYachts");
                 });
 

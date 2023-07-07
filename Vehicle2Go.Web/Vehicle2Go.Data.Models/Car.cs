@@ -2,8 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-
-    using Agent;
+    
     using Category;
 
     using static Common.EntityValidationConstants.VehicleConstants;
@@ -52,7 +51,7 @@
 
         public Guid AgentId { get; set; }
 
-        public virtual CarAgent Agent { get; set; } = null!;
+        public virtual Agent Agent { get; set; } = null!;
 
         public Guid? RenterId { get; set; }
 

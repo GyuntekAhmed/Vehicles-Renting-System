@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using Category;
-    using Agent;
 
     using static Common.EntityValidationConstants.VehicleConstants;
 
@@ -50,7 +49,7 @@
 
         public Guid AgentId { get; set; }
 
-        public virtual JetAgent Agent { get; set; } = null!;
+        public virtual Agent Agent { get; set; } = null!;
 
         public Guid? RenterId { get; set; }
 
