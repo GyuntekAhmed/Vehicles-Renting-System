@@ -180,7 +180,7 @@ namespace Vehicle2Go.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Agent");
+                    b.ToTable("Agents");
                 });
 
             modelBuilder.Entity("Vehicle2Go.Data.Models.ApplicationUser", b =>
@@ -316,7 +316,7 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5046809a-e227-41b2-9381-e6bda3475395"),
+                            Id = new Guid("92e5d126-5264-4705-86c9-a32bf7dc5201"),
                             Address = "Silistra, Center",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Hyundai",
@@ -331,7 +331,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ccfc813e-ef0f-4c87-b894-389871dd8ddb"),
+                            Id = new Guid("46eda3fd-b851-4111-a1db-e8605480b7cf"),
                             Address = "Sofia, West",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "BMW",
@@ -345,7 +345,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5d0f1932-e56b-48f2-969c-4e52eda35ef0"),
+                            Id = new Guid("587e9819-2dcf-437b-83e2-2546903ed8bb"),
                             Address = "Varna, East",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Mercedes",
@@ -359,7 +359,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6c2a8a0a-624d-4a74-a6dd-166002675d8b"),
+                            Id = new Guid("fcb0cb72-c880-4d57-947e-2de62f35bf00"),
                             Address = "Plovdiv, North",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Ford",
@@ -373,7 +373,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7a3ff0ca-d925-4275-bb50-9523be2d5b1f"),
+                            Id = new Guid("a7b59cfc-2f86-4116-89d3-4e59acf2e780"),
                             Address = "Sofia, Center",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Hummer",
@@ -629,7 +629,7 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("677c55bb-a1cb-485c-a757-f9ce0dd12387"),
+                            Id = new Guid("1a610550-4b33-4754-8581-f5f0c7aac525"),
                             Address = "Varna, Black Sea",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Yamaha",
@@ -644,7 +644,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("76450004-39e6-40eb-8fa7-a986eb35e21a"),
+                            Id = new Guid("449d45a8-b514-40a2-ac26-343711566f68"),
                             Address = "Burgas, Black Sea",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Kawasaki",
@@ -658,7 +658,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a4be735b-5cf8-4985-a3ef-76b33c88c2c1"),
+                            Id = new Guid("af52f0e1-f0f9-49c6-882c-450883e5e80b"),
                             Address = "Varna, Black Sea",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Honda",
@@ -739,7 +739,7 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0040df7f-6d0c-41a9-bd4b-3dde18420dcb"),
+                            Id = new Guid("e1b29eda-9fca-42d6-a8e9-1b0d2eb79500"),
                             Address = "Silistra, Center",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "BMW",
@@ -754,7 +754,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1f8790e0-8322-4a55-871c-03d1e97745cb"),
+                            Id = new Guid("5df792e3-850c-4c87-8317-34c383053ec0"),
                             Address = "Ruse, East",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Suzuki",
@@ -768,7 +768,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("92be7acc-e735-4722-a759-ff32d67666d1"),
+                            Id = new Guid("d8804c14-1bc0-41c4-b705-59a7e4b8d210"),
                             Address = "Burgas, Center",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Honda",
@@ -849,7 +849,7 @@ namespace Vehicle2Go.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5a7eb45f-4128-4795-81ef-854eb632b325"),
+                            Id = new Guid("c8c7d510-d509-4718-8827-6541f3b594bd"),
                             Address = "Burgas",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Tiara",
@@ -864,7 +864,7 @@ namespace Vehicle2Go.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9ac3e8d2-97d4-4c99-b061-8a10021149b9"),
+                            Id = new Guid("d8b08a9b-bd1c-4ac8-ba8f-a2526d48deeb"),
                             Address = "Varna",
                             AgentId = new Guid("ede9e369-919d-40a2-a20e-30c1f97fb663"),
                             Brand = "Runabout",

@@ -13,7 +13,7 @@
             public const int BrandMinLength = 2;
             public const int BrandMaxLength = 50;
 
-            public const int ModelMinLength = 2;
+            public const int ModelMinLength = 1;
             public const int ModelMaxLength = 50;
 
             public const int ImageUrlMinLength = 3;

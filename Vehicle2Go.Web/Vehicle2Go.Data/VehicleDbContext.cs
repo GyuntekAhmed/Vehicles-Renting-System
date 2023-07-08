@@ -1,12 +1,11 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Identity;
-using Vehicle2Go.Data.Models.Category;
-
-namespace Vehicle2Go.Data
+﻿namespace Vehicle2Go.Data
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
+    using System.Reflection;
 
+    using Models.Category;
     using Models;
 
     public class VehicleDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
@@ -24,6 +23,7 @@ namespace Vehicle2Go.Data
         public DbSet<Motorcycle> Motorcycles { get; set; } = null!;
         public DbSet<Jet> Jets { get; set; } = null!;
         public DbSet<Yacht> Yachts { get; set; } = null!;
+        public DbSet<Agent> Agents { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
