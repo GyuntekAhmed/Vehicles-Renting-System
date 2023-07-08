@@ -358,3 +358,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Vehicle2Go.Web/.vs/Vehicle2Go.Web/DesignTimeBuild/.dtbcache.v2
