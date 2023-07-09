@@ -5,9 +5,9 @@
     using Category;
     using static Common.EntityValidationConstants.VehicleConstants;
 
-    public class AddCarViewModel
+    public class AddVehicleViewModel
     {
-        public AddCarViewModel()
+        public AddVehicleViewModel()
         {
             this.Categories = new HashSet<VehicleSelectCategoryViewModel>();
         }
