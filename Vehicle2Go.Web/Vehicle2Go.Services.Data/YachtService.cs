@@ -1,4 +1,6 @@
-﻿namespace Vehicle2Go.Services.Data
+﻿using Vehicle2Go.Web.ViewModels.Category;
+
+namespace Vehicle2Go.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +28,21 @@
                     ImageUrl = y.ImageUrl,
                 })
                 .ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<VehicleSelectCategoryViewModel>> AllCategoriesAsync()
+        {
+            IEnumerable<VehicleSelectCategoryViewModel> allCategories = await dbContext
+                .YachtCategories
+                .AsNoTracking()
+                .Select(y => new VehicleSelectCategoryViewModel()
+                {
+                    Id = y.Id,
+                    Name = y.Name,
+                })
+                .ToArrayAsync();
+
+            return allCategories;
         }
     }
 }

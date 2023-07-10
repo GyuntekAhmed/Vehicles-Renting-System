@@ -1,30 +1,22 @@
 ﻿namespace Vehicle2Go.Web.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Data.Interfaces;
+    using Vehicle2Go.Services.Data.Interfaces;
     using ViewModels.Vehicle;
     using static Common.NotificationMessagesConstants;
 
-    public class CarController : BaseController
+    public class YachtController : BaseController
     {
-        private readonly ICarService carService;
+        private readonly IYachtService yachtService;
         private readonly IAgentService agentService;
 
-        public CarController(ICarService carService, IAgentService agentService)
+        public YachtController(IYachtService yachtService, IAgentService agentService)
         {
-            this.carService = carService;
+            this.yachtService = yachtService;
             this.agentService = agentService;
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> All()
-        {
-            return Ok();
-        }
-
-        [HttpGet]
         public async Task<IActionResult> Add()
         {
             bool isAgent = await agentService.AgentExistByUserIdAsync(this.GetUserId());
@@ -38,7 +30,7 @@
 
             AddVehicleViewModel model = new AddVehicleViewModel()
             {
-                Categories = await carService.AllCategoriesAsync()
+                Categories = await yachtService.AllCategoriesAsync()
             };
 
             return View(model);

@@ -34,7 +34,7 @@
                      src="@vehicle.ImageUrl" alt="@vehicle.Brand">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
-                        @*@if (vehicle == "Car")
+                        @if (vehicle.CategoryName == "Car")
                         {
                             <a class="btn btn-primary" asp-controller="Car" aspaction="Details"
                                asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
@@ -42,11 +42,6 @@
                         @if (vehicle.CategoryName == "Motorcycle")
                         {
                             <a class="btn btn-primary" asp-controller="Motorcycle" aspaction="Details"
-                               asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
-                        }
-                        @if (vehicle.CategoryName == "Scooter")
-                        {
-                            <a class="btn btn-primary" asp-controller="Scooter" aspaction="Details"
                                asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
                         }
                         @if (vehicle.CategoryName == "Jet")
@@ -58,7 +53,7 @@
                         {
                             <a class="btn btn-primary" asp-controller="Yacht" aspaction="Details"
                                asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
-                        }*@
+                        }
                     </h5>
                 </div>
             </div>

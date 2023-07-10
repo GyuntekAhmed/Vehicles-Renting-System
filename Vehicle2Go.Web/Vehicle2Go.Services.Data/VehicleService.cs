@@ -26,6 +26,7 @@
                     Id = c.Id.ToString(),
                     Brand = c.Brand,
                     ImageUrl = c.ImageUrl,
+                    CategoryName = "Car"
                 })
                 .ToListAsync();
 
@@ -36,6 +37,7 @@
                     Id = m.Id.ToString(),
                     Brand = m.Brand,
                     ImageUrl = m.ImageUrl,
+                    CategoryName = "motorcycle"
                 })
                 .ToListAsync();
 
@@ -46,6 +48,7 @@
                     Id = j.Id.ToString(),
                     Brand = j.Brand,
                     ImageUrl = j.ImageUrl,
+                    CategoryName = "Jet"
                 })
                 .ToListAsync();
 
@@ -56,6 +59,7 @@
                     Id = y.Id.ToString(),
                     Brand = y.Brand,
                     ImageUrl = y.ImageUrl,
+                    CategoryName = "Yacht"
                 })
                 .ToListAsync();
             

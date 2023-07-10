@@ -2,10 +2,11 @@
 {
     using Microsoft.EntityFrameworkCore;
 
+    using Web.ViewModels.Category;
     using Vehicle2Go.Data;
     using Interfaces;
     using Web.ViewModels.Home;
-    
+
     public class CarService : ICarService
     {
         private readonly VehicleDbContext dbContext;
@@ -14,18 +15,20 @@
         {
             this.dbContext = dbContext;
         }
-
-        public async Task<IEnumerable<IndexViewModel>> AllCarsAsync()
+        
+        public async Task<IEnumerable<VehicleSelectCategoryViewModel>> AllCategoriesAsync()
         {
-            return await dbContext
-                .Cars
-                .Select(c => new IndexViewModel
+            IEnumerable<VehicleSelectCategoryViewModel> allCategories = await dbContext
+                .CarCategories
+                .AsNoTracking()
+                .Select(c => new VehicleSelectCategoryViewModel()
                 {
-                    Id = c.Id.ToString(),
-                    Brand = c.Brand,
-                    ImageUrl = c.ImageUrl,
+                    Id = c.Id,
+                    Name = c.Name,
                 })
                 .ToArrayAsync();
+
+            return allCategories;
         }
     }
 }

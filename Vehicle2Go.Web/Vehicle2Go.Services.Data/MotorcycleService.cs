@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
 
+    using Web.ViewModels.Category;
     using Vehicle2Go.Data;
     using Interfaces;
     using Web.ViewModels.Home;
@@ -26,6 +27,21 @@
                     ImageUrl = m.ImageUrl,
                 })
                 .ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<VehicleSelectCategoryViewModel>> AllCategoriesAsync()
+        {
+            IEnumerable<VehicleSelectCategoryViewModel> allCategories = await dbContext
+                .MotorcycleCategories
+                .AsNoTracking()
+                .Select(m => new VehicleSelectCategoryViewModel()
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                })
+                .ToArrayAsync();
+
+            return allCategories;
         }
     }
 }
