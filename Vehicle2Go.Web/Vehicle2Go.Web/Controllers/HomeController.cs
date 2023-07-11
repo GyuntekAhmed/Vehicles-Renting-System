@@ -4,8 +4,8 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
 
+    using Services.Data.Interfaces;
     using ViewModels.Home;
-    using Vehicle2Go.Services.Data.Interfaces;
 
     public class HomeController : BaseController
     {

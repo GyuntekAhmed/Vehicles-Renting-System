@@ -37,7 +37,7 @@
                     Id = m.Id.ToString(),
                     Brand = m.Brand,
                     ImageUrl = m.ImageUrl,
-                    CategoryName = "motorcycle"
+                    CategoryName = "Motorcycle"
                 })
                 .ToListAsync();
 
