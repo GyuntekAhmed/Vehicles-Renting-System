@@ -1,11 +1,11 @@
-﻿namespace Vehicle2Go.Data.Configurations.CategoryConfigurations
+﻿namespace Vehicle2Go.Data.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using Models.Category;
-    
-    public class CarCategoryConfiguration : IEntityTypeConfiguration<CarCategory>
+
+    public class CarCategoryEntityConfiguration : IEntityTypeConfiguration<CarCategory>
     {
         public void Configure(EntityTypeBuilder<CarCategory> builder)
         {

@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Models;
+    using Models.Vehicle;
 
     public class CarEntityConfiguration : IEntityTypeConfiguration<Car>
     {
@@ -15,16 +15,9 @@
                 .HasForeignKey(c => c.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .HasOne(c => c.Agent)
-                .WithMany(a => a.ManagedCars)
+            builder.HasOne(c => c.Agent)
+                .WithMany(a => a.OwnedCars)
                 .HasForeignKey(c => c.AgentId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .HasOne(c => c.Renter)
-                .WithMany(r => r.RentedCars)
-                .HasForeignKey(c => c.RenterId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
@@ -54,8 +47,8 @@
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/f/fb/2010_Hyundai_Santa_Fe_GLS_--_09-24-2010.jpg",
                 CategoryId = 1,
-                AgentId = Guid.Parse("EDE9E369-919D-40A2-A20E-30C1F97FB663"),
-                RenterId = Guid.Parse("C618F492-937F-4907-F243-08DB7EF8F1D7"),
+                AgentId = Guid.Parse("104305C7-49AC-4DC4-9D12-650F57703082"),
+                RenterId = Guid.Parse("20F4A224-CF5B-4FB7-EBB9-08DB84A80400"),
             };
             cars.Add(car);
 
@@ -70,7 +63,7 @@
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/BMW_E64_M6_Convertible.JPG/800px-BMW_E64_M6_Convertible.JPG",
                 CategoryId = 6,
-                AgentId = Guid.Parse("EDE9E369-919D-40A2-A20E-30C1F97FB663"),
+                AgentId = Guid.Parse("104305C7-49AC-4DC4-9D12-650F57703082"),
             };
             cars.Add(car);
 
@@ -85,7 +78,7 @@
                 ImageUrl =
                     "https://upload.wikimedia.org/wikipedia/commons/3/35/Mercedes-Benz_S_320_CDI_4MATIC_L_%28V_221%29_%E2%80%93_Frontansicht_%281%29%2C_30._August_2011%2C_D%C3%BCsseldorf.jpg",
                 CategoryId = 2,
-                AgentId = Guid.Parse("EDE9E369-919D-40A2-A20E-30C1F97FB663"),
+                AgentId = Guid.Parse("104305C7-49AC-4DC4-9D12-650F57703082"),
             };
             cars.Add(car);
 
@@ -97,9 +90,9 @@
                 Address = "Plovdiv, North",
                 PricePerDay = 130,
                 Color = "Blue",
-                ImageUrl ="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/2019_Ford_Mustang_GT_5.0_facelift.jpg/1200px-2019_Ford_Mustang_GT_5.0_facelift.jpg",
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/2019_Ford_Mustang_GT_5.0_facelift.jpg/1200px-2019_Ford_Mustang_GT_5.0_facelift.jpg",
                 CategoryId = 3,
-                AgentId = Guid.Parse("EDE9E369-919D-40A2-A20E-30C1F97FB663"),
+                AgentId = Guid.Parse("104305C7-49AC-4DC4-9D12-650F57703082"),
             };
             cars.Add(car);
 
@@ -113,7 +106,7 @@
                 Color = "White",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/72/Hummer_limousine_2017.jpg",
                 CategoryId = 7,
-                AgentId = Guid.Parse("EDE9E369-919D-40A2-A20E-30C1F97FB663"),
+                AgentId = Guid.Parse("104305C7-49AC-4DC4-9D12-650F57703082"),
             };
             cars.Add(car);
 

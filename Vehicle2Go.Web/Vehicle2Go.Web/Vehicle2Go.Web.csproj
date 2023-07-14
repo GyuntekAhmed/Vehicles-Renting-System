@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-Vehicle2Go.Web-9c1fcb6d-79c2-4da8-b3e2-8c47c85ecf8c</UserSecretsId>
+    <UserSecretsId>aspnet-Vehicle2Go.Web-ced47ed9-176b-4c76-ac39-8dc94db4061a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,8 +19,6 @@
     <ProjectReference Include="..\Vehicle2Go.Common\Vehicle2Go.Common.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Data.Models\Vehicle2Go.Data.Models.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Data\Vehicle2Go.Data.csproj" />
-    <ProjectReference Include="..\Vehicle2Go.Services.Data\Vehicle2Go.Services.Data.csproj" />
-    <ProjectReference Include="..\Vehicle2Go.Web.Infrastructure\Vehicle2Go.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Web.ViewModels\Vehicle2Go.Web.ViewModels.csproj" />
   </ItemGroup>
 

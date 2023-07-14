@@ -1,12 +1,9 @@
-using Vehicle2Go.Services.Data.Interfaces;
-using Vehicle2Go.Web.Infrastructure;
-
 namespace Vehicle2Go.Web
 {
     using Microsoft.EntityFrameworkCore;
 
+    using Data.Models.User;
     using Data;
-    using Data.Models;
 
     public class Program
     {
@@ -16,23 +13,20 @@ namespace Vehicle2Go.Web
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<VehicleDbContext>(options =>
+
+            builder.Services.AddDbContext<Vehicle2GoDbContext>(options =>
                 options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
-                    options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 3;
                 })
-                .AddEntityFrameworkStores<VehicleDbContext>();
-
-            builder.Services.AddApplicationServices(typeof(IVehicleService));
-
+                .AddEntityFrameworkStores<Vehicle2GoDbContext>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

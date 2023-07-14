@@ -1,19 +1,23 @@
-﻿namespace Vehicle2Go.Data.Models
+﻿using Vehicle2Go.Data.Models.User;
+
+namespace Vehicle2Go.Data.Models.Vehicle
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Agent;
     using Category;
 
     using static Common.EntityValidationConstants.VehicleConstants;
 
-    public class Jet
+    public class Car
     {
-        public Jet()
+        public Car()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
-        [Required] public Guid Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(BrandMaxLength)]
@@ -45,14 +49,14 @@
 
         public int CategoryId { get; set; }
 
-        public virtual JetCategory Category { get; set; } = null!;
+        public CarCategory Category { get; set; } = null!;
 
         public Guid AgentId { get; set; }
 
-        public virtual Agent Agent { get; set; } = null!;
+        public CarAgent Agent { get; set; } = null!;
 
         public Guid? RenterId { get; set; }
 
-        public virtual ApplicationUser? Renter { get; set; }
+        public ApplicationUser? Renter { get; set; }
     }
 }
