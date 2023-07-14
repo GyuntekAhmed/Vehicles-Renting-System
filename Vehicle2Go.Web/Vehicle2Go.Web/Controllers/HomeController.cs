@@ -1,20 +1,28 @@
 ﻿namespace Vehicle2Go.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
 
+    using Services.Data.Interfaces;
     using ViewModels.Home;
 
     public class HomeController : Controller
     {
-        public HomeController()
-        {
+        private readonly IVehicleService vehicleService;
 
+        public HomeController(IVehicleService vehicleService)
+        {
+            this.vehicleService = vehicleService;
         }
 
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<IndexViewModel> viewModels =
+                await vehicleService.AllVehiclesAsync();
+
+            return View(viewModels);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

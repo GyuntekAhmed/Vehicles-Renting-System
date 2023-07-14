@@ -1,3 +1,6 @@
+using Vehicle2Go.Services.Data.Interfaces;
+using Vehicle2Go.Web.Infrastructure.Extensions;
+
 namespace Vehicle2Go.Web
 {
     using Microsoft.EntityFrameworkCore;
@@ -27,6 +30,9 @@ namespace Vehicle2Go.Web
                     options.Password.RequiredLength = 3;
                 })
                 .AddEntityFrameworkStores<Vehicle2GoDbContext>();
+
+            builder.Services.AddApplicationServices(typeof(IVehicleService));
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

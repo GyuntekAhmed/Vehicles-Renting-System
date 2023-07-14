@@ -19,6 +19,8 @@
     <ProjectReference Include="..\Vehicle2Go.Common\Vehicle2Go.Common.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Data.Models\Vehicle2Go.Data.Models.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Data\Vehicle2Go.Data.csproj" />
+    <ProjectReference Include="..\Vehicle2Go.Services.Data\Vehicle2Go.Services.Data.csproj" />
+    <ProjectReference Include="..\Vehicle2Go.Web.Infrastructure\Vehicle2Go.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Vehicle2Go.Web.ViewModels\Vehicle2Go.Web.ViewModels.csproj" />
   </ItemGroup>
 
