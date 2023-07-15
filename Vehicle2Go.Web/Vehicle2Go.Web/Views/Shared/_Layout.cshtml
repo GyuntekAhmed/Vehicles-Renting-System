@@ -27,6 +27,9 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-primary" href="#" id="carsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cars</a>
                             <ul class="dropdown-menu" aria-labelledby="carsDropdown">
+                                <li>
+                                    <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Car" asp-action="All">All Cars</a>
+                                </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
                                     <li>
@@ -36,17 +39,14 @@
                                         <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Mine">My Cars</a>
                                     </li>
                                 }
-                                else
-                                {
-                                    <li>
-                                        <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Car" asp-action="All">All Cars</a>
-                                    </li>
-                                }
                             </ul>
                         </li>
                         @*<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-primary" href="#" id="motorcyclesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Motorcycles</a>
                             <ul class="dropdown-menu" aria-labelledby="motorcyclesDropdown">
+                            <li>
+                                        <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Car" asp-action="All">All Cars</a>
+                                    </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
                                     <li>
