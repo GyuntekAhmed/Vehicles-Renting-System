@@ -9,9 +9,13 @@
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-
-
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+
         }
     }
 }
