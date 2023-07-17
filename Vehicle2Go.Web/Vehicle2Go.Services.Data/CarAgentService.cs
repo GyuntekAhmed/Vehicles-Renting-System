@@ -44,5 +44,19 @@ namespace Vehicle2Go.Services.Data
             await this.dbContext.CarAgents.AddAsync(newAgent);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<string?> GetAgentIdByUserIdAsync(string userId)
+        {
+            CarAgent? agent = await this.dbContext
+                .CarAgents
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+
+            if (agent == null)
+            {
+                return null;
+            }
+
+            return agent.Id.ToString();
+        }
     }
 }

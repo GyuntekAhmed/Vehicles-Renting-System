@@ -31,7 +31,7 @@ namespace Vehicle2Go.Web
                 })
                 .AddEntityFrameworkStores<Vehicle2GoDbContext>();
 
-            builder.Services.AddApplicationServices(typeof(IVehicleService));
+            builder.Services.AddApplicationServices(typeof(ICarService));
 
             builder.Services.AddControllersWithViews();
 
