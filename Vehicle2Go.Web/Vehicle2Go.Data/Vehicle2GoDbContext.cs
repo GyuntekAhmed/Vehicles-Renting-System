@@ -1,7 +1,6 @@
-﻿using System.Reflection;
-
-namespace Vehicle2Go.Data
+﻿namespace Vehicle2Go.Data
 {
+    using System.Reflection;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
@@ -21,6 +20,9 @@ namespace Vehicle2Go.Data
         public DbSet<CarCategory> CarCategories { get; set; } = null!;
         public DbSet<Car> Cars { get; set; } = null!;
         public DbSet<CarAgent> CarAgents { get; set; } = null!;
+        public DbSet<MotorcycleCategory> MotorcycleCategories { get; set; } = null!;
+        public DbSet<Motorcycle> Motorcycles { get; set; } = null!;
+        public DbSet<MotorcycleAgent> MotorcycleAgents { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

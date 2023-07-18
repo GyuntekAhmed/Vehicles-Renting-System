@@ -2,19 +2,18 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using User;
     using Agent;
     using Category;
+    using User;
 
     using static Common.EntityValidationConstants.VehicleConstants;
 
-    public class Car
+    public class Motorcycle
     {
-        public Car()
+        public Motorcycle()
         {
-            Id = Guid.NewGuid();
+            this.Id = Guid.NewGuid();
         }
-
         [Key]
         public Guid Id { get; set; }
 
@@ -48,11 +47,11 @@
 
         public int CategoryId { get; set; }
 
-        public CarCategory Category { get; set; } = null!;
+        public MotorcycleCategory Category { get; set; } = null!;
 
         public Guid AgentId { get; set; }
 
-        public CarAgent Agent { get; set; } = null!;
+        public MotorcycleAgent Agent { get; set; } = null!;
 
         public Guid? RenterId { get; set; }
 
