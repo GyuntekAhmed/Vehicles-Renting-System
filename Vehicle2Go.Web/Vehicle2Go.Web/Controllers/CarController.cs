@@ -3,8 +3,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using ViewModels.Vehicle;
     using Services.Data.Interfaces;
-    using ViewModels.Car;
     using Infrastructure.Extensions;
 
     using static Common.NotificationMessagesConstants;
@@ -13,13 +13,13 @@
     public class CarController : Controller
     {
         private readonly ICarCategoryService carCategoryService;
-        private readonly IAgentService carAgentService;
+        private readonly IAgentService agentService;
         private ICarService carService;
 
-        public CarController(ICarCategoryService carCategoryService, IAgentService carAgentService, ICarService carService)
+        public CarController(ICarCategoryService carCategoryService, IAgentService agentService, ICarService carService)
         {
             this.carCategoryService = carCategoryService;
-            this.carAgentService = carAgentService;
+            this.agentService = agentService;
             this.carService = carService;
         }
 
@@ -32,7 +32,7 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            bool isAgent = await this.carAgentService.AgentExistByUserIdAsync(this.User.GetId()!);
+            bool isAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
             if (!isAgent)
             {
@@ -41,18 +41,18 @@
                 return RedirectToAction("Become", "Agent");
             }
 
-            CarFormModel formModel = new CarFormModel()
+            VehicleFormModel formModel = new VehicleFormModel()
             {
-                CarCategories = await this.carCategoryService.AllCategoriesAsync()
+                VehicleCategories = await this.carCategoryService.AllCategoriesAsync()
             };
 
             return View(formModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CarFormModel formModel)
+        public async Task<IActionResult> Add(VehicleFormModel formModel)
         {
-            bool isAgent = await this.carAgentService.AgentExistByUserIdAsync(this.User.GetId()!);
+            bool isAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
             if (!isAgent)
             {
@@ -71,14 +71,14 @@
 
             if (!ModelState.IsValid)
             {
-                formModel.CarCategories = await this.carCategoryService.AllCategoriesAsync();
+                formModel.VehicleCategories = await this.carCategoryService.AllCategoriesAsync();
 
                 return View(formModel);
             }
 
             try
             {
-                string? agentId = await this.carAgentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
 
 
                 await this.carService.CreateAsync(formModel, agentId!);
@@ -86,7 +86,7 @@
             catch (Exception _)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new car! Please try again later.");
-                formModel.CarCategories = await this.carCategoryService.AllCategoriesAsync();
+                formModel.VehicleCategories = await this.carCategoryService.AllCategoriesAsync();
 
                 return View(formModel);
             }

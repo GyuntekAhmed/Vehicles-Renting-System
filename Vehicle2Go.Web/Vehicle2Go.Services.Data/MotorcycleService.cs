@@ -1,22 +1,22 @@
 ﻿namespace Vehicle2Go.Services.Data
 {
-    using Web.ViewModels.Vehicle;
-    using Interfaces;
-    using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.Vehicle;
+    using Interfaces;
+    using Web.ViewModels.Vehicle;
+    using Vehicle2Go.Data;
 
-    public class CarService : ICarService
+    public class MotorcycleService : IMotorcycleService
     {
         private readonly Vehicle2GoDbContext dbContext;
 
-        public CarService(Vehicle2GoDbContext dbContext)
+        public MotorcycleService(Vehicle2GoDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
         public async Task CreateAsync(VehicleFormModel formModel, string agentId)
         {
-            Car newCar = new Car
+            Motorcycle newMotorcycle = new Motorcycle()
             {
                 Brand = formModel.Brand,
                 Model = formModel.Model,
@@ -29,7 +29,7 @@
                 AgentId = Guid.Parse(agentId),
             };
 
-            await this.dbContext.Cars.AddAsync(newCar);
+            await this.dbContext.Motorcycles.AddAsync(newMotorcycle);
             await this.dbContext.SaveChangesAsync();
         }
     }

@@ -1,9 +1,9 @@
-﻿using Vehicle2Go.Web.ViewModels.Home;
-
-namespace Vehicle2Go.Services.Data.Interfaces
+﻿namespace Vehicle2Go.Services.Data.Interfaces
 {
+    using Web.ViewModels.Vehicle;
+
     public interface IMotorcycleService
     {
-        
+        Task CreateAsync(VehicleFormModel formModel, string agentId);
     }
 }

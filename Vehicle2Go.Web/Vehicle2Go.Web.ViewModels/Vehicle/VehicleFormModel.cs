@@ -1,4 +1,4 @@
-﻿namespace Vehicle2Go.Web.ViewModels.Car
+﻿namespace Vehicle2Go.Web.ViewModels.Vehicle
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -6,11 +6,11 @@
 
     using static Common.EntityValidationConstants.VehicleConstants;
 
-    public class CarFormModel
+    public class VehicleFormModel
     {
-        public CarFormModel()
+        public VehicleFormModel()
         {
-            this.CarCategories = new HashSet<SelectCategoryFormModel>();
+            this.VehicleCategories = new HashSet<SelectCategoryFormModel>();
         }
 
         [Required]
@@ -46,6 +46,6 @@
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public IEnumerable<SelectCategoryFormModel> CarCategories { get; set; }
+        public IEnumerable<SelectCategoryFormModel> VehicleCategories { get; set; }
     }
 }

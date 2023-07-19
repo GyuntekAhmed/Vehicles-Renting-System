@@ -1,4 +1,4 @@
-﻿@model CarFormModel
+﻿@model VehicleFormModel
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label asp-for="CategoryId"></label>
                 <select asp-for="CategoryId" class="form-control">
-                    @foreach (var category in Model.CarCategories)
+                    @foreach (var category in Model.VehicleCategories)
                     {
                         <option value="@category.Id">@category.Name</option>
                     }
