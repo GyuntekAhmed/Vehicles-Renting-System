@@ -13,10 +13,10 @@
     public class CarController : Controller
     {
         private readonly ICarCategoryService carCategoryService;
-        private readonly ICarAgentService carAgentService;
+        private readonly IAgentService carAgentService;
         private ICarService carService;
 
-        public CarController(ICarCategoryService carCategoryService, ICarAgentService carAgentService, ICarService carService)
+        public CarController(ICarCategoryService carCategoryService, IAgentService carAgentService, ICarService carService)
         {
             this.carCategoryService = carCategoryService;
             this.carAgentService = carAgentService;

@@ -52,7 +52,7 @@
 
         public Guid AgentId { get; set; }
 
-        public CarAgent Agent { get; set; } = null!;
+        public Agent Agent { get; set; } = null!;
 
         public Guid? RenterId { get; set; }
 

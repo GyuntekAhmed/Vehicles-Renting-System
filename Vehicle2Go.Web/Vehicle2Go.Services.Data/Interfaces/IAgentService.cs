@@ -2,7 +2,7 @@
 
 namespace Vehicle2Go.Services.Data.Interfaces
 {
-    public interface ICarAgentService
+    public interface IAgentService
     {
         Task<bool> AgentExistByUserIdAsync(string userId);
         Task<bool> AgentExistByPhoneNumberAsync(string phoneNumber);

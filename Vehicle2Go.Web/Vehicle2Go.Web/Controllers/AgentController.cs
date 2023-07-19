@@ -12,11 +12,11 @@
     [Authorize]
     public class AgentController : Controller
     {
-        private readonly ICarAgentService carAgentService;
+        private readonly IAgentService agentService;
 
-        public AgentController(ICarAgentService carAgentService)
+        public AgentController(IAgentService agentService)
         {
-            this.carAgentService = carAgentService;
+            this.agentService = agentService;
         }
 
         [HttpGet]
@@ -24,7 +24,7 @@
         {
             string? userId = this.User.GetId();
 
-            bool isAgent = await this.carAgentService.AgentExistByUserIdAsync(userId);
+            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId);
 
             if (isAgent)
             {
@@ -41,7 +41,7 @@
         {
             string? userId = this.User.GetId();
 
-            bool isAgent = await this.carAgentService.AgentExistByUserIdAsync(userId);
+            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId);
 
             if (isAgent)
             {
@@ -50,7 +50,7 @@
                 return RedirectToAction("Index", "Home");
             }
 
-            bool isPhoneTaken = await this.carAgentService.AgentExistByPhoneNumberAsync(model.PhoneNumber);
+            bool isPhoneTaken = await this.agentService.AgentExistByPhoneNumberAsync(model.PhoneNumber);
 
             if (isPhoneTaken)
             {
@@ -65,7 +65,7 @@
 
             try
             {
-                await this.carAgentService.Create(userId, model);
+                await this.agentService.Create(userId, model);
             }
             catch (Exception _)
             {

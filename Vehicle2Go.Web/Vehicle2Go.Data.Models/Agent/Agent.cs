@@ -7,12 +7,13 @@
 
     using static Common.EntityValidationConstants.AgentConstants;
 
-    public class CarAgent
+    public class Agent
     {
-        public CarAgent()
+        public Agent()
         {
             this.Id = Guid.NewGuid();
             this.OwnedCars = new HashSet<Car>();
+            this.OwnedMotorcycles = new HashSet<Motorcycle>();
         }
         public Guid Id { get; set; }
 
@@ -29,5 +30,7 @@
         public ApplicationUser User { get; set; } = null!;
 
         public ICollection<Car> OwnedCars { get; set; }
+
+        public ICollection<Motorcycle> OwnedMotorcycles { get; set; }
     }
 }

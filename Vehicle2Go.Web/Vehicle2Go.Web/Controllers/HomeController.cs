@@ -9,9 +9,9 @@
 
     public class HomeController : Controller
     {
-        private readonly ICarService vehicleService;
+        private readonly IVehicleService vehicleService;
 
-        public HomeController(ICarService vehicleService)
+        public HomeController(IVehicleService vehicleService)
         {
             this.vehicleService = vehicleService;
         }

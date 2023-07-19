@@ -5,7 +5,6 @@
 
     public interface ICarService
     {
-        Task<IEnumerable<IndexViewModel>> AllVehiclesAsync();
         Task CreateAsync(CarFormModel formModel, string agentId);
     }
 }

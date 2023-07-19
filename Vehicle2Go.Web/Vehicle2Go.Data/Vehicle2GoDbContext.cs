@@ -19,10 +19,9 @@
 
         public DbSet<CarCategory> CarCategories { get; set; } = null!;
         public DbSet<Car> Cars { get; set; } = null!;
-        public DbSet<CarAgent> CarAgents { get; set; } = null!;
+        public DbSet<Agent> Agents { get; set; } = null!;
         public DbSet<MotorcycleCategory> MotorcycleCategories { get; set; } = null!;
         public DbSet<Motorcycle> Motorcycles { get; set; } = null!;
-        public DbSet<MotorcycleAgent> MotorcycleAgents { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
