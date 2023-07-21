@@ -14,6 +14,9 @@
             this.Id = Guid.NewGuid();
             this.OwnedCars = new HashSet<Car>();
             this.OwnedMotorcycles = new HashSet<Motorcycle>();
+            this.OwnedJets = new HashSet<Jet>();
+            this.OwnedYachts = new HashSet<Yacht>();
+            this.OwnedTrucks = new HashSet<Truck>();
         }
         public Guid Id { get; set; }
 
@@ -32,5 +35,11 @@
         public ICollection<Car> OwnedCars { get; set; }
 
         public ICollection<Motorcycle> OwnedMotorcycles { get; set; }
+
+        public ICollection<Jet> OwnedJets { get; set; }
+
+        public ICollection<Yacht> OwnedYachts { get; set; }
+
+        public ICollection<Truck> OwnedTrucks { get; set; }
     }
 }

@@ -44,9 +44,9 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-primary" href="#" id="motorcyclesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Motorcycles</a>
                             <ul class="dropdown-menu" aria-labelledby="motorcyclesDropdown">
-                            <li>
-                                        <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Motorcycle" asp-action="All">All Motorcycles</a>
-                                    </li>
+                                <li>
+                                    <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Motorcycle" asp-action="All">All Motorcycles</a>
+                                </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
                                     <li>
@@ -58,7 +58,7 @@
                                 }
                             </ul>
                         </li>
-                        @*<li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-primary" href="#" id="jetsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Jets</a>
                             <ul class="dropdown-menu" aria-labelledby="jetsDropdown">
                                 <li>
@@ -91,7 +91,24 @@
                                     </li>
                                 }
                             </ul>
-                        </li>*@
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-primary" href="#" id="trucksDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Trucks</a>
+                            <ul class="dropdown-menu" aria-labelledby="trucksDropdown">
+                                <li>
+                                    <a class="dropdown-item text-primary" text-primary asp-area="" asp-controller="Truck" asp-action="All">All Trucks</a>
+                                </li>
+                                @if (this.User.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Truck" asp-action="Add">Add Trucks</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Truck" asp-action="Mine">My Trucks</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
