@@ -41,8 +41,44 @@
                 })
                 .ToListAsync();
 
+            var allJets = await dbContext
+                .Jets
+                .Select(j => new IndexViewModel()
+                {
+                    Id = j.Id.ToString(),
+                    Brand = j.Brand,
+                    ImageUrl = j.ImageUrl,
+                    VehicleType = "Jet"
+                })
+                .ToListAsync();
+
+            var allYachts = await dbContext
+                .Yachts
+                .Select(y => new IndexViewModel()
+                {
+                    Id = y.Id.ToString(),
+                    Brand = y.Brand,
+                    ImageUrl = y.ImageUrl,
+                    VehicleType = "Yacht"
+                })
+                .ToListAsync();
+
+            var allTrucks = await dbContext
+                .Trucks
+                .Select(t => new IndexViewModel()
+                {
+                    Id = t.Id.ToString(),
+                    Brand = t.Brand,
+                    ImageUrl = t.ImageUrl,
+                    VehicleType = "Truck"
+                })
+                .ToListAsync();
+
             allVehicles.AddRange(allCars);
             allVehicles.AddRange(allMotorcycles);
+            allVehicles.AddRange(allJets);
+            allVehicles.AddRange(allYachts);
+            allVehicles.AddRange(allTrucks);
 
             return allVehicles;
         }

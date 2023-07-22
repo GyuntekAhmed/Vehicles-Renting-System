@@ -17,8 +17,9 @@
             {
                 <a asp-controller="Car" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Car</a>
                 <a asp-controller="Motorcycle" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Motorcycle</a>
-                @*<a asp-controller="Jet" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Jet</a>
-                <a asp-controller="Yacht" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Yacht</a>*@
+                <a asp-controller="Jet" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Jet</a>
+                <a asp-controller="Yacht" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Yacht</a>
+                <a asp-controller="Truck" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Truck</a>
             }
         </p>
     </div>
@@ -34,8 +35,6 @@
                      src="@vehicle.ImageUrl" alt="@vehicle.Brand">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
-                        @*<a class="btn btn-primary" asp-controller="Car" asp-action="Details"
-                           asp-route-id="@vehicle.Id"> @vehicle.Brand</a>*@
                         @if (vehicle.VehicleType == "Car")
                         {
                             <a class="btn btn-primary" asp-controller="Car" asp-action="Details"
@@ -46,21 +45,21 @@
                             <a class="btn btn-primary" asp-controller="Motorcycle" asp-action="Details"
                                asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
                         }
-                        @*@if (vehicle.CategoryName == "Scooter")
+                        @if (vehicle.VehicleType == "Truck")
                         {
-                            <a class="btn btn-primary" asp-controller="Scooter" asp-action="Details"
+                            <a class="btn btn-primary" asp-controller="Truck" asp-action="Details"
                                asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
                         }
-                        @if (vehicle.CategoryName == "Jet")
+                        @if (vehicle.VehicleType == "Jet")
                         {
                             <a class="btn btn-primary" asp-controller="Jet" asp-action="Details"
                                asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
                         }
-                        @if (vehicle.CategoryName == "Yacht")
+                        @if (vehicle.VehicleType == "Yacht")
                         {
                             <a class="btn btn-primary" asp-controller="Yacht" asp-action="Details"
                                asp-route-id="@vehicle.Id"> @vehicle.Brand</a>
-                        }*@
+                        }
                     </h5>
                 </div>
             </div>

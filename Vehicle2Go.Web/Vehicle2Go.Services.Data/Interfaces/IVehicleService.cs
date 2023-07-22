@@ -1,6 +1,6 @@
 ﻿namespace Vehicle2Go.Services.Data.Interfaces
 {
-    using Vehicle2Go.Web.ViewModels.Home;
+    using Web.ViewModels.Home;
 
     public interface IVehicleService
     {

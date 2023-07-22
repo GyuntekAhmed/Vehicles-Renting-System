@@ -2,7 +2,7 @@
 {
     using Web.ViewModels.Category;
 
-    public interface ICarCategoryService
+    public interface ITruckCategoryService
     {
         Task<IEnumerable<SelectCategoryFormModel>> AllCategoriesAsync();
         Task<bool> ExistByIdAsync(int id);
