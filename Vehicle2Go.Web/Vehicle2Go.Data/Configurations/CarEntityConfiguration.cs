@@ -27,6 +27,9 @@
             builder.Property(c => c.CreatedOn)
                 .HasDefaultValueSql("GETDATE()");
 
+            builder.Property(c => c.IsActive)
+                .HasDefaultValue(true);
+
             builder.HasData(this.GenerateCars());
         }
 

@@ -21,6 +21,7 @@
 
             var allCars = await dbContext
                 .Cars
+                .Where(c => c.IsActive)
                 .Select(c => new IndexViewModel()
                 {
                     Id = c.Id.ToString(),
@@ -32,6 +33,7 @@
 
             var allMotorcycles = await dbContext
                 .Motorcycles
+                .Where(m => m.IsActive)
                 .Select(m => new IndexViewModel()
                 {
                     Id = m.Id.ToString(),
@@ -43,6 +45,7 @@
 
             var allJets = await dbContext
                 .Jets
+                .Where(j => j.IsActive)
                 .Select(j => new IndexViewModel()
                 {
                     Id = j.Id.ToString(),
@@ -54,6 +57,7 @@
 
             var allYachts = await dbContext
                 .Yachts
+                .Where(y => y.IsActive)
                 .Select(y => new IndexViewModel()
                 {
                     Id = y.Id.ToString(),
@@ -65,6 +69,7 @@
 
             var allTrucks = await dbContext
                 .Trucks
+                .Where(t => t.IsActive)
                 .Select(t => new IndexViewModel()
                 {
                     Id = t.Id.ToString(),

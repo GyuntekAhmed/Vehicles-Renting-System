@@ -27,6 +27,9 @@
             builder.Property(t => t.CreatedOn)
                 .HasDefaultValueSql("GETDATE()");
 
+            builder.Property(c => c.IsActive)
+                .HasDefaultValue(true);
+
             builder.HasData(this.GenerateTrucks());
         }
         private Truck[] GenerateTrucks()

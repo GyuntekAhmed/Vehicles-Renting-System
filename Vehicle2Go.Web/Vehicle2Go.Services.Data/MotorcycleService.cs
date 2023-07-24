@@ -7,7 +7,7 @@ namespace Vehicle2Go.Services.Data
     using Web.ViewModels.Vehicle;
     using Vehicle2Go.Data;
     using Microsoft.EntityFrameworkCore;
-    using Vehicle2Go.Web.ViewModels.Vehicle.Enums;
+    using Web.ViewModels.Vehicle.Enums;
 
     public class MotorcycleService : IMotorcycleService
     {
@@ -78,6 +78,7 @@ namespace Vehicle2Go.Services.Data
             };
 
             IEnumerable<VehicleAllViewModel> allMotorcycles = await motorcycleQuery
+                .Where(m => m.IsActive)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.VehiclesPerPage)
                 .Take(queryModel.VehiclesPerPage)
                 .Select(m => new VehicleAllViewModel

@@ -78,6 +78,7 @@
             };
 
             IEnumerable<VehicleAllViewModel> allJets = await jetQuery
+                .Where(j => j.IsActive)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.VehiclesPerPage)
                 .Take(queryModel.VehiclesPerPage)
                 .Select(j => new VehicleAllViewModel

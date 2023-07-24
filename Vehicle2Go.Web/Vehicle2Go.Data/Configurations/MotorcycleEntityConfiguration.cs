@@ -26,6 +26,10 @@
 
             builder.Property(m => m.CreatedOn)
                 .HasDefaultValueSql("GETDATE()");
+
+            builder.Property(c => c.IsActive)
+                .HasDefaultValue(true);
+
             builder.HasData(this.GenerateMotorcycles());
         }
 

@@ -27,6 +27,9 @@
             builder.Property(y => y.CreatedOn)
                 .HasDefaultValueSql("GETDATE()");
 
+            builder.Property(c => c.IsActive)
+                .HasDefaultValue(true);
+
             builder.HasData(this.GenerateYachts());
         }
 

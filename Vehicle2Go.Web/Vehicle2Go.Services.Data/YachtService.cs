@@ -78,6 +78,7 @@
             };
 
             IEnumerable<VehicleAllViewModel> allYachts = await yachtQuery
+                .Where(y => y.IsActive)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.VehiclesPerPage)
                 .Take(queryModel.VehiclesPerPage)
                 .Select(y => new VehicleAllViewModel

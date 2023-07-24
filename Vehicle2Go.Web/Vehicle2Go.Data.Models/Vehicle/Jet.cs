@@ -38,6 +38,8 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public bool IsActive { get; set; }
+
         [Required]
         [MaxLength(ColorMaxLength)]
         public string Color { get; set; } = null!;

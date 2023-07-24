@@ -78,6 +78,7 @@
             };
 
             IEnumerable<VehicleAllViewModel> allCars = await carQuery
+                .Where(c => c.IsActive)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.VehiclesPerPage)
                 .Take(queryModel.VehiclesPerPage)
                 .Select(c => new VehicleAllViewModel
