@@ -65,9 +65,9 @@
             yachtQuery = queryModel.VehicleSorting switch
             {
                 VehicleSorting.Newest => yachtQuery
-                    .OrderBy(y => y.CreatedOn),
+                    .OrderByDescending(y => y.CreatedOn),
                 VehicleSorting.Oldest => yachtQuery
-                .OrderByDescending(y => y.CreatedOn),
+                .OrderBy(y => y.CreatedOn),
                 VehicleSorting.PriceAscending => yachtQuery
                     .OrderBy(y => y.PricePerDay),
                 VehicleSorting.PriceDescending => yachtQuery

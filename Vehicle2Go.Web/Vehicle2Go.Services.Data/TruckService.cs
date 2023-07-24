@@ -65,9 +65,9 @@
             truckQuery = queryModel.VehicleSorting switch
             {
                 VehicleSorting.Newest => truckQuery
-                    .OrderBy(t => t.CreatedOn),
+                    .OrderByDescending(t => t.CreatedOn),
                 VehicleSorting.Oldest => truckQuery
-                .OrderByDescending(t => t.CreatedOn),
+                .OrderBy(t => t.CreatedOn),
                 VehicleSorting.PriceAscending => truckQuery
                     .OrderBy(t => t.PricePerDay),
                 VehicleSorting.PriceDescending => truckQuery

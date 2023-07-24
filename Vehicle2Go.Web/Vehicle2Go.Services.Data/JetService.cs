@@ -65,9 +65,9 @@
             jetQuery = queryModel.VehicleSorting switch
             {
                 VehicleSorting.Newest => jetQuery
-                    .OrderBy(j => j.CreatedOn),
+                    .OrderByDescending(j => j.CreatedOn),
                 VehicleSorting.Oldest => jetQuery
-                .OrderByDescending(j => j.CreatedOn),
+                .OrderBy(j => j.CreatedOn),
                 VehicleSorting.PriceAscending => jetQuery
                     .OrderBy(j => j.PricePerDay),
                 VehicleSorting.PriceDescending => jetQuery

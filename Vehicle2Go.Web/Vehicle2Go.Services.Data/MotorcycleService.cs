@@ -65,9 +65,9 @@ namespace Vehicle2Go.Services.Data
             motorcycleQuery = queryModel.VehicleSorting switch
             {
                 VehicleSorting.Newest => motorcycleQuery
-                    .OrderBy(m => m.CreatedOn),
+                    .OrderByDescending(m => m.CreatedOn),
                 VehicleSorting.Oldest => motorcycleQuery
-                .OrderByDescending(m => m.CreatedOn),
+                .OrderBy(m => m.CreatedOn),
                 VehicleSorting.PriceAscending => motorcycleQuery
                     .OrderBy(m => m.PricePerDay),
                 VehicleSorting.PriceDescending => motorcycleQuery
