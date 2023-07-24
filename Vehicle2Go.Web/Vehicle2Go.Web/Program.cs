@@ -1,5 +1,6 @@
 using Vehicle2Go.Services.Data.Interfaces;
 using Vehicle2Go.Web.Infrastructure.Extensions;
+using Vehicle2Go.Web.Infrastructure.ModelBinders;
 
 namespace Vehicle2Go.Web
 {
@@ -33,7 +34,17 @@ namespace Vehicle2Go.Web
 
             builder.Services.AddApplicationServices(typeof(ICarService));
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                });
+
+            builder.Services.ConfigureApplicationCookie(opt =>
+            {
+                opt.Cookie.SameSite = SameSiteMode.None;
+            });
 
             var app = builder.Build();
 
