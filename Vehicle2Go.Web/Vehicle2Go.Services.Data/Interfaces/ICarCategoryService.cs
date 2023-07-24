@@ -6,5 +6,6 @@
     {
         Task<IEnumerable<SelectCategoryFormModel>> AllCategoriesAsync();
         Task<bool> ExistByIdAsync(int id);
+        Task<IEnumerable<string>> AllCategoryNamesAsync();
     }
 }

@@ -1,9 +1,13 @@
 ﻿namespace Vehicle2Go.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+
+    using Web.ViewModels.Vehicle.Enums;
     using Web.ViewModels.Vehicle;
     using Interfaces;
     using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.Vehicle;
+    using Models.Vehicle;
 
     public class CarService : ICarService
     {
@@ -31,6 +35,72 @@
 
             await this.dbContext.Cars.AddAsync(newCar);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AllVehiclesFilteredAndPagedServiceModel> AllAsync(AllVehiclesQueryModel queryModel)
+        {
+            IQueryable<Car> carQuery = this.dbContext
+                .Cars
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                carQuery = carQuery
+                    .Where(c => c.Category.Name == queryModel.Category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                carQuery = carQuery
+                    .Where
+                    (c => EF.Functions.Like(c.Brand, wildCard) ||
+                          EF.Functions.Like(c.Model, wildCard) ||
+                          EF.Functions.Like(c.Address, wildCard) ||
+                          EF.Functions.Like(c.RegistrationNumber, wildCard)||
+                          EF.Functions.Like(c.Color, wildCard));
+            }
+
+            carQuery = queryModel.VehicleSorting switch
+            {
+                VehicleSorting.Newest => carQuery
+                    .OrderBy(c => c.CreatedOn),
+                VehicleSorting.Oldest => carQuery
+                .OrderByDescending(c => c.CreatedOn),
+                VehicleSorting.PriceAscending => carQuery
+                    .OrderBy(c => c.PricePerDay),
+                VehicleSorting.PriceDescending => carQuery
+                    .OrderByDescending(c => c.PricePerDay),
+                _ => carQuery
+                    .OrderBy(c => c.RenterId != null)
+                    .ThenByDescending(c => c.CreatedOn),
+            };
+
+            IEnumerable<VehicleAllViewModel> allCars = await carQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.VehiclesPerPage)
+                .Take(queryModel.VehiclesPerPage)
+                .Select(c => new VehicleAllViewModel
+                {
+                    Id = c.Id.ToString(),
+                    Brand = c.Brand,
+                    Model = c.Model,
+                    RegistrationNumber = c.RegistrationNumber,
+                    Address = c.Address,
+                    Color = c.Color,
+                    ImageUrl = c.ImageUrl,
+                    PricePerDay = c.PricePerDay,
+                    IsRented = c.RenterId.HasValue
+                })
+                .ToArrayAsync();
+
+            int totalCars = carQuery.Count();
+
+            return new AllVehiclesFilteredAndPagedServiceModel
+            {
+                TotalVehiclesCount = totalCars,
+                Vehicles = allCars
+            };
         }
     }
 }

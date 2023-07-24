@@ -37,5 +37,15 @@
 
             return result;
         }
+
+        public async Task<IEnumerable<string>> AllCategoryNamesAsync()
+        {
+            IEnumerable<string> allNames = await this.dbContext
+                .JetCategories
+                .Select(c => c.Name)
+                .ToArrayAsync();
+
+            return allNames;
+        }
     }
 }

@@ -8,6 +8,7 @@
     using ViewModels.Vehicle;
 
     using static Common.NotificationMessagesConstants;
+    using Vehicle2Go.Services.Data.Models.Vehicle;
 
     [Authorize]
     public class JetController : Controller
@@ -24,9 +25,17 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery] AllVehiclesQueryModel queryModel)
         {
-            return Ok();
+            AllVehiclesFilteredAndPagedServiceModel serviceModel =
+                await this.jetService.AllAsync(queryModel);
+
+            queryModel.Vehicles = serviceModel.Vehicles;
+            queryModel.TotalVehicles = serviceModel.TotalVehiclesCount;
+            queryModel.Categories = await this.jetCategoryService.AllCategoryNamesAsync();
+
+            return this.View(queryModel);
         }
 
         [HttpGet]

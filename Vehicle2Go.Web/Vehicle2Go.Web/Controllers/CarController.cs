@@ -1,4 +1,6 @@
-﻿namespace Vehicle2Go.Web.Controllers
+﻿using Vehicle2Go.Services.Data.Models.Vehicle;
+
+namespace Vehicle2Go.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -24,9 +26,17 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery]AllVehiclesQueryModel queryModel)
         {
-            return Ok();
+            AllVehiclesFilteredAndPagedServiceModel serviceModel =
+                await this.carService.AllAsync(queryModel);
+
+            queryModel.Vehicles = serviceModel.Vehicles;
+            queryModel.TotalVehicles = serviceModel.TotalVehiclesCount;
+            queryModel.Categories = await this.carCategoryService.AllCategoryNamesAsync();
+
+            return this.View(queryModel);
         }
 
         [HttpGet]
