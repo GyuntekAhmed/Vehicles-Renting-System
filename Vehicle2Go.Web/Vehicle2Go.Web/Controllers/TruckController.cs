@@ -102,5 +102,28 @@
 
             return RedirectToAction("All", "Car");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<VehicleAllViewModel> myTrucks = new List<VehicleAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+
+            if (isUserAgent)
+            {
+                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+
+                myTrucks.AddRange(await this.truckService.AllByAgentIdAsync(agentId!));
+            }
+            else
+            {
+                myTrucks.AddRange(await this.truckService.AllByUserIdAsync(userId));
+            }
+
+            return this.View(myTrucks);
+        }
     }
 }

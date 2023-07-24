@@ -103,5 +103,50 @@ namespace Vehicle2Go.Services.Data
                 Vehicles = allMotorcycles
             };
         }
+
+        public async Task<IEnumerable<VehicleAllViewModel>> AllByAgentIdAsync(string agentId)
+        {
+            IEnumerable<VehicleAllViewModel> allAgentMotorcycles = await this.dbContext
+                .Motorcycles
+                .Where(m => m.AgentId.ToString() == agentId)
+                .Select(m => new VehicleAllViewModel
+                {
+                    Id = m.Id.ToString(),
+                    Brand = m.Brand,
+                    Model = m.Model,
+                    RegistrationNumber = m.RegistrationNumber,
+                    Address = m.Address,
+                    Color = m.Color,
+                    ImageUrl = m.ImageUrl,
+                    PricePerDay = m.PricePerDay,
+                    IsRented = m.RenterId.HasValue
+                })
+                .ToArrayAsync();
+
+            return allAgentMotorcycles;
+        }
+
+        public async Task<IEnumerable<VehicleAllViewModel>> AllByUserIdAsync(string userId)
+        {
+            IEnumerable<VehicleAllViewModel> allUserMotorcycles = await this.dbContext
+                .Motorcycles
+                .Where(m => m.RenterId.HasValue &&
+                            m.RenterId.ToString() == userId)
+                .Select(m => new VehicleAllViewModel
+                {
+                    Id = m.Id.ToString(),
+                    Brand = m.Brand,
+                    Model = m.Model,
+                    RegistrationNumber = m.RegistrationNumber,
+                    Address = m.Address,
+                    Color = m.Color,
+                    ImageUrl = m.ImageUrl,
+                    PricePerDay = m.PricePerDay,
+                    IsRented = m.RenterId.HasValue
+                })
+                .ToArrayAsync();
+
+            return allUserMotorcycles;
+        }
     }
 }

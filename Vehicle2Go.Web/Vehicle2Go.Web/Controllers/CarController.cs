@@ -103,5 +103,28 @@ namespace Vehicle2Go.Web.Controllers
 
             return RedirectToAction("All", "Car");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<VehicleAllViewModel> myCars = new List<VehicleAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+
+            if (isUserAgent)
+            {
+                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+
+                myCars.AddRange(await this.carService.AllByAgentIdAsync(agentId!));
+            }
+            else
+            {
+                myCars.AddRange(await this.carService.AllByUserIdAsync(userId));
+            }
+
+            return this.View(myCars);
+        }
     }
 }

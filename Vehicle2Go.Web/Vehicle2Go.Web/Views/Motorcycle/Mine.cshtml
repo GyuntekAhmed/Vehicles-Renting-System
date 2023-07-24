@@ -1,0 +1,21 @@
+﻿@model List<VehicleAllViewModel>
+@{
+    ViewData["Title"] = "My Motorcycles";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<br />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">You do not have any motorcycles yet!</h2>
+}
+else
+{
+    <div class="row">
+        @foreach (VehicleAllViewModel motorcycle in Model)
+        {
+            <partial name="_MotorcyclePartial" model="motorcycle" />
+        }
+    </div>
+}

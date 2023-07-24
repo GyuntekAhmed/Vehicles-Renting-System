@@ -103,5 +103,50 @@
                 Vehicles = allCars
             };
         }
+
+        public async Task<IEnumerable<VehicleAllViewModel>> AllByAgentIdAsync(string agentId)
+        {
+            IEnumerable<VehicleAllViewModel> allAgentCars = await this.dbContext
+                .Cars
+                .Where(c => c.AgentId.ToString() == agentId)
+                .Select(c => new VehicleAllViewModel
+                {
+                    Id = c.Id.ToString(),
+                    Brand = c.Brand,
+                    Model = c.Model,
+                    RegistrationNumber = c.RegistrationNumber,
+                    Address = c.Address,
+                    Color = c.Color,
+                    ImageUrl = c.ImageUrl,
+                    PricePerDay = c.PricePerDay,
+                    IsRented = c.RenterId.HasValue
+                })
+                .ToArrayAsync();
+
+            return allAgentCars;
+        }
+
+        public async Task<IEnumerable<VehicleAllViewModel>> AllByUserIdAsync(string userId)
+        {
+            IEnumerable<VehicleAllViewModel> allUserCars = await this.dbContext
+                .Cars
+                .Where(c => c.RenterId.HasValue &&
+                                c.RenterId.ToString() == userId)
+                .Select(c => new VehicleAllViewModel
+                {
+                    Id = c.Id.ToString(),
+                    Brand = c.Brand,
+                    Model = c.Model,
+                    RegistrationNumber = c.RegistrationNumber,
+                    Address = c.Address,
+                    Color = c.Color,
+                    ImageUrl = c.ImageUrl,
+                    PricePerDay = c.PricePerDay,
+                    IsRented = c.RenterId.HasValue
+                })
+                .ToArrayAsync();
+
+            return allUserCars;
+        }
     }
 }

@@ -102,5 +102,28 @@
 
             return RedirectToAction("All", "Motorcycle");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<VehicleAllViewModel> myMotorcycles = new List<VehicleAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+
+            if (isUserAgent)
+            {
+                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+
+                myMotorcycles.AddRange(await this.motorcycleService.AllByAgentIdAsync(agentId!));
+            }
+            else
+            {
+                myMotorcycles.AddRange(await this.motorcycleService.AllByUserIdAsync(userId));
+            }
+
+            return this.View(myMotorcycles);
+        }
     }
 }
