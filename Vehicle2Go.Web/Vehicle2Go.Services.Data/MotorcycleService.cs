@@ -108,7 +108,7 @@ namespace Vehicle2Go.Services.Data
         {
             IEnumerable<VehicleAllViewModel> allAgentMotorcycles = await this.dbContext
                 .Motorcycles
-                .Where(m => m.AgentId.ToString() == agentId)
+                .Where(m => m.IsActive && m.AgentId.ToString() == agentId)
                 .Select(m => new VehicleAllViewModel
                 {
                     Id = m.Id.ToString(),
@@ -130,8 +130,9 @@ namespace Vehicle2Go.Services.Data
         {
             IEnumerable<VehicleAllViewModel> allUserMotorcycles = await this.dbContext
                 .Motorcycles
-                .Where(m => m.RenterId.HasValue &&
-                            m.RenterId.ToString() == userId)
+                .Where(m => m.IsActive &&
+                                    m.RenterId.HasValue && 
+                                    m.RenterId.ToString() == userId)
                 .Select(m => new VehicleAllViewModel
                 {
                     Id = m.Id.ToString(),

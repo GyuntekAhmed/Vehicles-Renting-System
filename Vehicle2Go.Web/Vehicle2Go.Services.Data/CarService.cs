@@ -108,7 +108,7 @@
         {
             IEnumerable<VehicleAllViewModel> allAgentCars = await this.dbContext
                 .Cars
-                .Where(c => c.AgentId.ToString() == agentId)
+                .Where(c => c.IsActive && c.AgentId.ToString() == agentId)
                 .Select(c => new VehicleAllViewModel
                 {
                     Id = c.Id.ToString(),
@@ -130,7 +130,8 @@
         {
             IEnumerable<VehicleAllViewModel> allUserCars = await this.dbContext
                 .Cars
-                .Where(c => c.RenterId.HasValue &&
+                .Where(c => c.IsActive &&
+                                c.RenterId.HasValue &&
                                 c.RenterId.ToString() == userId)
                 .Select(c => new VehicleAllViewModel
                 {
