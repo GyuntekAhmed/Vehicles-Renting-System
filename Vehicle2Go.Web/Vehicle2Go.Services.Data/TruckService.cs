@@ -8,6 +8,7 @@
     using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.Vehicle;
     using Web.ViewModels.Vehicle.Enums;
+    using Web.ViewModels.Agent;
 
     public class TruckService : ITruckService
     {
@@ -148,6 +149,42 @@
                 .ToArrayAsync();
 
             return allUserTrucks;
+        }
+
+        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string truckId)
+        {
+            Truck? truck = await this.dbContext
+                .Trucks
+                .Include(t => t.Category)
+                .Include(t => t.Agent)
+                .ThenInclude(a => a.User)
+                .Where(t => t.IsActive)
+                .FirstOrDefaultAsync(t => t.Id.ToString() == truckId);
+
+            if (truck == null)
+            {
+                return null;
+            }
+
+            return new VehicleDetailsViewModel
+            {
+                Id = truck.Id.ToString(),
+                Brand = truck.Brand,
+                Model = truck.Model,
+                RegistrationNumber = truck.RegistrationNumber,
+                Address = truck.Address,
+                Color = truck.Color,
+                ImageUrl = truck.ImageUrl,
+                PricePerDay = truck.PricePerDay,
+                IsRented = truck.RenterId.HasValue,
+                Category = truck.Category.Name,
+                Agent = new AgentInfoOnVehicleViewModel
+                {
+                    Email = truck.Agent.User.Email,
+                    PhoneNumber = truck.Agent.PhoneNumber,
+                    Address = truck.Agent.Address,
+                }
+            };
         }
     }
 }

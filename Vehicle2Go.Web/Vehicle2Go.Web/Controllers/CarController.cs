@@ -1,12 +1,11 @@
-﻿using Vehicle2Go.Services.Data.Models.Vehicle;
-
-namespace Vehicle2Go.Web.Controllers
+﻿namespace Vehicle2Go.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using ViewModels.Vehicle;
     using Services.Data.Interfaces;
+    using Services.Data.Models.Vehicle;
     using Infrastructure.Extensions;
 
     using static Common.NotificationMessagesConstants;
@@ -27,7 +26,7 @@ namespace Vehicle2Go.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery]AllVehiclesQueryModel queryModel)
+        public async Task<IActionResult> All([FromQuery] AllVehiclesQueryModel queryModel)
         {
             AllVehiclesFilteredAndPagedServiceModel serviceModel =
                 await this.carService.AllAsync(queryModel);
@@ -125,6 +124,23 @@ namespace Vehicle2Go.Web.Controllers
             }
 
             return this.View(myCars);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
+        {
+            VehicleDetailsViewModel? viewModel = await this.carService
+                .GetDetailsByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return RedirectToAction("All", "Car");
+            }
+
+            return View(viewModel);
         }
     }
 }

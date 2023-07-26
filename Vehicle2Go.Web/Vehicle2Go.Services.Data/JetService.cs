@@ -8,6 +8,7 @@
     using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.Vehicle;
     using Web.ViewModels.Vehicle.Enums;
+    using Web.ViewModels.Agent;
 
     public class JetService : IJetService
     {
@@ -148,6 +149,42 @@
                 .ToArrayAsync();
 
             return allUserJets;
+        }
+
+        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string jetId)
+        {
+            Jet? jet = await this.dbContext
+                .Jets
+                .Include(j => j.Category)
+                .Include(j => j.Agent)
+                .ThenInclude(a => a.User)
+                .Where(j => j.IsActive)
+                .FirstOrDefaultAsync(j => j.Id.ToString() == jetId);
+
+            if (jet == null)
+            {
+                return null;
+            }
+
+            return new VehicleDetailsViewModel
+            {
+                Id = jet.Id.ToString(),
+                Brand = jet.Brand,
+                Model = jet.Model,
+                RegistrationNumber = jet.RegistrationNumber,
+                Address = jet.Address,
+                Color = jet.Color,
+                ImageUrl = jet.ImageUrl,
+                PricePerDay = jet.PricePerDay,
+                IsRented = jet.RenterId.HasValue,
+                Category = jet.Category.Name,
+                Agent = new AgentInfoOnVehicleViewModel
+                {
+                    Email = jet.Agent.User.Email,
+                    PhoneNumber = jet.Agent.PhoneNumber,
+                    Address = jet.Agent.Address,
+                }
+            };
         }
     }
 }

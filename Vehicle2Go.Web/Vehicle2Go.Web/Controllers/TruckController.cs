@@ -4,11 +4,11 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Services.Data.Interfaces;
+    using Services.Data.Models.Vehicle;
     using Infrastructure.Extensions;
     using ViewModels.Vehicle;
 
     using static Common.NotificationMessagesConstants;
-    using Vehicle2Go.Services.Data.Models.Vehicle;
 
     [Authorize]
     public class TruckController : Controller
@@ -124,6 +124,23 @@
             }
 
             return this.View(myTrucks);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
+        {
+            VehicleDetailsViewModel? viewModel = await this.truckService
+                .GetDetailsByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                this.TempData[ErrorMessage] = "Truck with the provided id does not exist!";
+
+                return RedirectToAction("All", "Truck");
+            }
+
+            return View(viewModel);
         }
     }
 }

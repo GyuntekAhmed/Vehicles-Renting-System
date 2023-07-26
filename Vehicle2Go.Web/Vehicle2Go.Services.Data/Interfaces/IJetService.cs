@@ -9,5 +9,6 @@
         Task<AllVehiclesFilteredAndPagedServiceModel> AllAsync(AllVehiclesQueryModel queryModel);
         Task<IEnumerable<VehicleAllViewModel>> AllByAgentIdAsync(string agentId);
         Task<IEnumerable<VehicleAllViewModel>> AllByUserIdAsync(string userId);
+        Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string jetId);
     }
 }

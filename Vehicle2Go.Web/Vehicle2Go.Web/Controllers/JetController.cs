@@ -6,9 +6,9 @@
     using Services.Data.Interfaces;
     using Infrastructure.Extensions;
     using ViewModels.Vehicle;
+    using Services.Data.Models.Vehicle;
 
     using static Common.NotificationMessagesConstants;
-    using Vehicle2Go.Services.Data.Models.Vehicle;
 
     [Authorize]
     public class JetController : Controller
@@ -124,6 +124,23 @@
             }
 
             return this.View(myJets);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
+        {
+            VehicleDetailsViewModel? viewModel = await this.jetService
+                .GetDetailsByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                this.TempData[ErrorMessage] = "Jet with the provided id does not exist!";
+
+                return RedirectToAction("All", "Jet");
+            }
+
+            return View(viewModel);
         }
     }
 }

@@ -6,6 +6,7 @@
     using Web.ViewModels.Vehicle;
     using Interfaces;
     using Vehicle2Go.Data;
+    using Web.ViewModels.Agent;
     using Vehicle2Go.Data.Models.Vehicle;
     using Models.Vehicle;
 
@@ -58,7 +59,7 @@
                     (c => EF.Functions.Like(c.Brand, wildCard) ||
                           EF.Functions.Like(c.Model, wildCard) ||
                           EF.Functions.Like(c.Address, wildCard) ||
-                          EF.Functions.Like(c.RegistrationNumber, wildCard)||
+                          EF.Functions.Like(c.RegistrationNumber, wildCard) ||
                           EF.Functions.Like(c.Color, wildCard));
             }
 
@@ -148,6 +149,42 @@
                 .ToArrayAsync();
 
             return allUserCars;
+        }
+
+        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string carId)
+        {
+            Car? car = await this.dbContext
+                .Cars
+                .Include(c => c.Category)
+                .Include(c => c.Agent)
+                .ThenInclude(a => a.User)
+                .Where(c => c.IsActive)
+                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
+
+            if (car == null)
+            {
+                return null;
+            }
+
+            return new VehicleDetailsViewModel
+            {
+                Id = car.Id.ToString(),
+                Brand = car.Brand,
+                Model = car.Model,
+                RegistrationNumber = car.RegistrationNumber,
+                Address = car.Address,
+                Color = car.Color,
+                ImageUrl = car.ImageUrl,
+                PricePerDay = car.PricePerDay,
+                IsRented = car.RenterId.HasValue,
+                Category = car.Category.Name,
+                Agent = new AgentInfoOnVehicleViewModel
+                {
+                    Email = car.Agent.User.Email,
+                    PhoneNumber = car.Agent.PhoneNumber,
+                    Address = car.Agent.Address,
+                }
+            };
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Vehicle2Go.Services.Data.Models.Vehicle;
-
-namespace Vehicle2Go.Services.Data
+﻿namespace Vehicle2Go.Services.Data
 {
     using Vehicle2Go.Data.Models.Vehicle;
     using Interfaces;
@@ -8,6 +6,8 @@ namespace Vehicle2Go.Services.Data
     using Vehicle2Go.Data;
     using Microsoft.EntityFrameworkCore;
     using Web.ViewModels.Vehicle.Enums;
+    using Models.Vehicle;
+    using Web.ViewModels.Agent;
 
     public class MotorcycleService : IMotorcycleService
     {
@@ -58,7 +58,7 @@ namespace Vehicle2Go.Services.Data
                     (m => EF.Functions.Like(m.Brand, wildCard) ||
                           EF.Functions.Like(m.Model, wildCard) ||
                           EF.Functions.Like(m.Address, wildCard) ||
-                          EF.Functions.Like(m.RegistrationNumber,wildCard) ||
+                          EF.Functions.Like(m.RegistrationNumber, wildCard) ||
                           EF.Functions.Like(m.Color, wildCard));
             }
 
@@ -131,7 +131,7 @@ namespace Vehicle2Go.Services.Data
             IEnumerable<VehicleAllViewModel> allUserMotorcycles = await this.dbContext
                 .Motorcycles
                 .Where(m => m.IsActive &&
-                                    m.RenterId.HasValue && 
+                                    m.RenterId.HasValue &&
                                     m.RenterId.ToString() == userId)
                 .Select(m => new VehicleAllViewModel
                 {
@@ -148,6 +148,42 @@ namespace Vehicle2Go.Services.Data
                 .ToArrayAsync();
 
             return allUserMotorcycles;
+        }
+
+        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string motorcycleId)
+        {
+            Motorcycle? motorcycle = await this.dbContext
+                .Motorcycles
+                .Include(m => m.Category)
+                .Include(m => m.Agent)
+                .ThenInclude(a => a.User)
+                .Where(m => m.IsActive)
+                .FirstOrDefaultAsync(m => m.Id.ToString() == motorcycleId);
+
+            if (motorcycle == null)
+            {
+                return null;
+            }
+
+            return new VehicleDetailsViewModel
+            {
+                Id = motorcycle.Id.ToString(),
+                Brand = motorcycle.Brand,
+                Model = motorcycle.Model,
+                RegistrationNumber = motorcycle.RegistrationNumber,
+                Address = motorcycle.Address,
+                Color = motorcycle.Color,
+                ImageUrl = motorcycle.ImageUrl,
+                PricePerDay = motorcycle.PricePerDay,
+                IsRented = motorcycle.RenterId.HasValue,
+                Category = motorcycle.Category.Name,
+                Agent = new AgentInfoOnVehicleViewModel
+                {
+                    Email = motorcycle.Agent.User.Email,
+                    PhoneNumber = motorcycle.Agent.PhoneNumber,
+                    Address = motorcycle.Agent.Address,
+                }
+            };
         }
     }
 }

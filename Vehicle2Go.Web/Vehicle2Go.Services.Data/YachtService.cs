@@ -8,6 +8,7 @@
     using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.Vehicle;
     using Web.ViewModels.Vehicle.Enums;
+    using Vehicle2Go.Web.ViewModels.Agent;
 
     public class YachtService : IYachtService
     {
@@ -148,6 +149,42 @@
                 .ToArrayAsync();
 
             return allUserYachts;
+        }
+
+        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string yachtId)
+        {
+            Yacht? yacht = await this.dbContext
+                .Yachts
+                .Include(y => y.Category)
+                .Include(y => y.Agent)
+                .ThenInclude(a => a.User)
+                .Where(y => y.IsActive)
+                .FirstOrDefaultAsync(y => y.Id.ToString() == yachtId);
+
+            if (yacht == null)
+            {
+                return null;
+            }
+
+            return new VehicleDetailsViewModel
+            {
+                Id = yacht.Id.ToString(),
+                Brand = yacht.Brand,
+                Model = yacht.Model,
+                RegistrationNumber = yacht.RegistrationNumber,
+                Address = yacht.Address,
+                Color = yacht.Color,
+                ImageUrl = yacht.ImageUrl,
+                PricePerDay = yacht.PricePerDay,
+                IsRented = yacht.RenterId.HasValue,
+                Category = yacht.Category.Name,
+                Agent = new AgentInfoOnVehicleViewModel
+                {
+                    Email = yacht.Agent.User.Email,
+                    PhoneNumber = yacht.Agent.PhoneNumber,
+                    Address = yacht.Agent.Address,
+                }
+            };
         }
     }
 }
