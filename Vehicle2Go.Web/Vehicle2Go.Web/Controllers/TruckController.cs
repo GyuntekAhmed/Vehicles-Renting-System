@@ -99,6 +99,8 @@
 
                 string truckId = await this.truckService.CreateAndReturnIdAsync(formModel, agentId!);
 
+                this.TempData[SuccessMessage] = "Truck was added successfully!";
+
 
                 return RedirectToAction("Details", "Truck", new { id = truckId});
             }
@@ -265,6 +267,8 @@
 
                 return View(formModel);
             }
+
+            this.TempData[SuccessMessage] = "Truck was edited successfully!";
 
             return RedirectToAction("Details", "Truck", new { id });
         }

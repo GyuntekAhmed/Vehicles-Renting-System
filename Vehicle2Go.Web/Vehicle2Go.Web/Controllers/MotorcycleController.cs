@@ -99,7 +99,8 @@
 
                 string motorcycleId = await this.motorcycleService.CreateAndReturnIdAsync(formModel, agentId!);
 
-
+                this.TempData[SuccessMessage] = "Motorcycle was added successfully!";
+                
                 return RedirectToAction("Details", "Motorcycle", new { id = motorcycleId});
             }
             catch (Exception _)
@@ -266,6 +267,8 @@
 
                 return View(formModel);
             }
+
+            this.TempData[SuccessMessage] = "Motorcycle was edited successfully!";
 
             return RedirectToAction("Details", "Motorcycle", new { id });
         }

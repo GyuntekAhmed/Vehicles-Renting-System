@@ -99,6 +99,7 @@
 
                 string yachtId = await this.yachtService.CreateAndReturnIdAsync(formModel, agentId!);
 
+                this.TempData[SuccessMessage] = "Yacht was added successfully!";
 
                 return RedirectToAction("Details", "Yacht", new { id = yachtId});
             }
@@ -266,6 +267,8 @@
 
                 return View(formModel);
             }
+
+            this.TempData[SuccessMessage] = "Yacht was edited successfully!";
 
             return RedirectToAction("Details", "Yacht", new { id });
         }

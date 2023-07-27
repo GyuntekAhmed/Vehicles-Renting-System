@@ -99,6 +99,8 @@
 
                 string carId = await this.carService.CreateAndReturnIdAsync(formModel, agentId!);
 
+                this.TempData[SuccessMessage] = "Car was added successfully!";
+
                 return RedirectToAction("Details", "Car", new { id = carId });
             }
             catch (Exception _)
@@ -265,6 +267,8 @@
 
                 return View(formModel);
             }
+
+            this.TempData[SuccessMessage] = "Car was edited successfully!";
 
             return RedirectToAction("Details", "Car", new { id });
         }

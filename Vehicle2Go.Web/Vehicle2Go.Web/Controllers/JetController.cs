@@ -99,6 +99,8 @@
 
                 string jetId = await this.jetService.CreateAndReturnIdAsync(formModel, agentId!);
 
+                this.TempData[SuccessMessage] = "Jet was added successfully!";
+
                 return RedirectToAction("Details", "Jet", new { id = jetId});
             }
             catch (Exception _)
@@ -265,6 +267,8 @@
 
                 return View(formModel);
             }
+
+            this.TempData[SuccessMessage] = "Jet was edited successfully!";
 
             return RedirectToAction("Details", "Jet", new { id });
         }
