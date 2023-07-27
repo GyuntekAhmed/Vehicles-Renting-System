@@ -210,5 +210,34 @@
                 CategoryId = truck.CategoryId
             };
         }
+
+        public async Task<bool> IsAgentWithIdOwnerOfTruckWithIdAsync(string truckId, string agentId)
+        {
+            Truck truck = await this.dbContext
+                .Trucks
+                .Where(t => t.IsActive)
+                .FirstAsync(t => t.Id.ToString() == truckId);
+
+            return truck.AgentId.ToString() == agentId;
+        }
+
+        public async Task EditTruckByIdAndFormModelAsync(string truckId, VehicleFormModel truckFormModel)
+        {
+            Truck truck = await this.dbContext
+                .Trucks
+                .Where(t => t.IsActive)
+                .FirstAsync(t => t.Id.ToString() == truckId);
+
+            truck.Brand = truckFormModel.Brand;
+            truck.Model = truckFormModel.Model;
+            truck.RegistrationNumber = truckFormModel.RegistrationNumber;
+            truck.Address = truckFormModel.Address;
+            truck.PricePerDay = truckFormModel.PricePerDay;
+            truck.ImageUrl = truckFormModel.ImageUrl;
+            truck.Color = truckFormModel.Color;
+            truck.CategoryId = truckFormModel.CategoryId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

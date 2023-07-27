@@ -45,17 +45,24 @@
 
             if (!isAgent)
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to add new cars";
+                this.TempData[ErrorMessage] = "You must become an agent in order to add new trucks";
 
                 return RedirectToAction("Become", "Agent");
             }
 
-            VehicleFormModel formModel = new VehicleFormModel()
+            try
             {
-                VehicleCategories = await this.truckCategoryService.AllCategoriesAsync()
-            };
+                VehicleFormModel formModel = new VehicleFormModel()
+                {
+                    VehicleCategories = await this.truckCategoryService.AllCategoriesAsync()
+                };
 
-            return View(formModel);
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         [HttpPost]
@@ -65,7 +72,7 @@
 
             if (!isAgent)
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to add new cars";
+                this.TempData[ErrorMessage] = "You must become an agent in order to add new trucks";
 
                 return RedirectToAction("Become", "Agent");
             }
@@ -94,13 +101,13 @@
             }
             catch (Exception _)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new car! Please try again later.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new truck! Please try again later.");
                 formModel.VehicleCategories = await this.truckCategoryService.AllCategoriesAsync();
 
                 return View(formModel);
             }
 
-            return RedirectToAction("All", "Car");
+            return RedirectToAction("Details", "Truck");
         }
 
         [HttpGet]
@@ -111,19 +118,25 @@
             string userId = this.User.GetId()!;
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
-
-            if (isUserAgent)
+            try
             {
-                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+                if (isUserAgent)
+                {
+                    string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
 
-                myTrucks.AddRange(await this.truckService.AllByAgentIdAsync(agentId!));
+                    myTrucks.AddRange(await this.truckService.AllByAgentIdAsync(agentId!));
+                }
+                else
+                {
+                    myTrucks.AddRange(await this.truckService.AllByUserIdAsync(userId));
+                }
+
+                return this.View(myTrucks);
             }
-            else
+            catch (Exception)
             {
-                myTrucks.AddRange(await this.truckService.AllByUserIdAsync(userId));
+                return this.GeneralError();
             }
-
-            return this.View(myTrucks);
         }
 
         [HttpGet]
@@ -139,10 +152,128 @@
                 return RedirectToAction("All", "Truck");
             }
 
-            VehicleDetailsViewModel? viewModel = await this.truckService
-                .GetDetailsByIdAsync(id);
+            try
+            {
+                VehicleDetailsViewModel? viewModel = await this.truckService
+                    .GetDetailsByIdAsync(id);
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool carExist = await this.truckService.ExistByIdAsync(id);
+
+            if (!carExist)
+            {
+                this.TempData[ErrorMessage] = "Truck with the provided id does not exist!";
+
+                return RedirectToAction("All", "Truck");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit truck info!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.truckService.IsAgentWithIdOwnerOfTruckWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the truck you want to edit!";
+
+                RedirectToAction("Mine", "Truck");
+            }
+
+            try
+            {
+                VehicleFormModel formModel = await this.truckService
+                    .GetTruckForEditByIdAsync(id);
+
+                formModel.VehicleCategories = await this.truckCategoryService.AllCategoriesAsync();
+
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, VehicleFormModel formModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                formModel.VehicleCategories = await this.truckCategoryService.AllCategoriesAsync();
+
+                return View(formModel);
+            }
+
+            bool carExist = await this.truckService.ExistByIdAsync(id);
+
+            if (!carExist)
+            {
+                this.TempData[ErrorMessage] = "Truck with the provided id does not exist!";
+
+                return RedirectToAction("All", "Truck");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit truck info!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.truckService.IsAgentWithIdOwnerOfTruckWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the truck you want to edit!";
+
+                RedirectToAction("Mine", "Truck");
+            }
+
+            try
+            {
+                await this.truckService.EditTruckByIdAndFormModelAsync(id, formModel);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError
+                    (string.Empty, "Unexpected error occurred while trying to update the truck. Please try again later or contact administrator!");
+
+                formModel.VehicleCategories = await this.truckCategoryService.AllCategoriesAsync();
+
+                return View(formModel);
+            }
+
+            return RedirectToAction("Details", "Truck", new { id });
+        }
+
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later or contact administrator!";
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -210,5 +210,34 @@
                 CategoryId = yacht.CategoryId
             };
         }
+
+        public async Task<bool> IsAgentWithIdOwnerOfYachtWithIdAsync(string yachtId, string agentId)
+        {
+            Yacht yacht = await this.dbContext
+                .Yachts
+                .Where(y => y.IsActive)
+                .FirstAsync(y => y.Id.ToString() == yachtId);
+
+            return yacht.AgentId.ToString() == agentId;
+        }
+
+        public async Task EditYachtByIdAndFormModelAsync(string yachtId, VehicleFormModel yachtFormModel)
+        {
+            Yacht yacht = await this.dbContext
+                .Yachts
+                .Where(y => y.IsActive)
+                .FirstAsync(y => y.Id.ToString() == yachtId);
+
+            yacht.Brand = yachtFormModel.Brand;
+            yacht.Model = yachtFormModel.Model;
+            yacht.RegistrationNumber = yachtFormModel.RegistrationNumber;
+            yacht.Address = yachtFormModel.Address;
+            yacht.PricePerDay = yachtFormModel.PricePerDay;
+            yacht.ImageUrl = yachtFormModel.ImageUrl;
+            yacht.Color = yachtFormModel.Color;
+            yacht.CategoryId = yachtFormModel.CategoryId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

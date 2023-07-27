@@ -1,10 +1,11 @@
 ﻿namespace Vehicle2Go.Services.Data
 {
-    using Vehicle2Go.Data.Models.Vehicle;
+    using Microsoft.EntityFrameworkCore;
+
     using Interfaces;
     using Web.ViewModels.Vehicle;
+    using Vehicle2Go.Data.Models.Vehicle;
     using Vehicle2Go.Data;
-    using Microsoft.EntityFrameworkCore;
     using Web.ViewModels.Vehicle.Enums;
     using Models.Vehicle;
     using Web.ViewModels.Agent;
@@ -208,6 +209,35 @@
                 Color = motorcycle.Color,
                 CategoryId = motorcycle.CategoryId
             };
+        }
+
+        public async Task<bool> IsAgentWithIdOwnerOfMotorcycleWithIdAsync(string motorcycleId, string agentId)
+        {
+            Motorcycle motorcycle = await this.dbContext
+                .Motorcycles
+                .Where(m => m.IsActive)
+                .FirstAsync(m => m.Id.ToString() == motorcycleId);
+
+            return motorcycle.AgentId.ToString() == agentId;
+        }
+
+        public async Task EditMotorcycleByIdAndFormModelAsync(string motorcycleId, VehicleFormModel motorcycleFormModel)
+        {
+            Motorcycle motorcycle = await this.dbContext
+                .Motorcycles
+                .Where(m => m.IsActive)
+                .FirstAsync(m => m.Id.ToString() == motorcycleId);
+
+            motorcycle.Brand = motorcycleFormModel.Brand;
+            motorcycle.Model = motorcycleFormModel.Model;
+            motorcycle.RegistrationNumber = motorcycleFormModel.RegistrationNumber;
+            motorcycle.Address = motorcycleFormModel.Address;
+            motorcycle.PricePerDay = motorcycleFormModel.PricePerDay;
+            motorcycle.ImageUrl = motorcycleFormModel.ImageUrl;
+            motorcycle.Color = motorcycleFormModel.Color;
+            motorcycle.CategoryId = motorcycleFormModel.CategoryId;
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

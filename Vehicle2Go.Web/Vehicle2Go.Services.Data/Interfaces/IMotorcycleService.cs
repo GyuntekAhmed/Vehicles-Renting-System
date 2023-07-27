@@ -12,5 +12,7 @@
         Task<VehicleDetailsViewModel> GetDetailsByIdAsync(string motorcycleId);
         Task<bool> ExistByIdAsync(string motorcycleId);
         Task<VehicleFormModel> GetMotorcycleForEditByIdAsync(string motorcycleId);
+        Task<bool> IsAgentWithIdOwnerOfMotorcycleWithIdAsync(string motorcycleId, string agentId);
+        Task EditMotorcycleByIdAndFormModelAsync(string motorcycleId, VehicleFormModel motorcycleFormModel);
     }
 }

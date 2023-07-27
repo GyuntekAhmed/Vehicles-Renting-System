@@ -210,5 +210,34 @@
                 CategoryId = jet.CategoryId
             };
         }
+
+        public async Task<bool> IsAgentWithIdOwnerOfJetWithIdAsync(string jetId, string agentId)
+        {
+            Jet jet = await this.dbContext
+                .Jets
+                .Where(j => j.IsActive)
+                .FirstAsync(j => j.Id.ToString() == jetId);
+
+            return jet.AgentId.ToString() == agentId;
+        }
+
+        public async Task EditJetByIdAndFormModelAsync(string jetId, VehicleFormModel jetFormModel)
+        {
+            Jet jet = await this.dbContext
+                .Jets
+                .Where(j => j.IsActive)
+                .FirstAsync(j => j.Id.ToString() == jetId);
+
+            jet.Brand = jetFormModel.Brand;
+            jet.Model = jetFormModel.Model;
+            jet.RegistrationNumber = jetFormModel.RegistrationNumber;
+            jet.Address = jetFormModel.Address;
+            jet.PricePerDay = jetFormModel.PricePerDay;
+            jet.ImageUrl = jetFormModel.ImageUrl;
+            jet.Color = jetFormModel.Color;
+            jet.CategoryId = jetFormModel.CategoryId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

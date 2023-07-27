@@ -1,0 +1,14 @@
+﻿@model VehicleFormModel
+
+@{
+    ViewData["Title"] = "Edit Motorcycle";
+}
+<h2 class="text-center text-primary">@ViewData["Title"]</h2>
+<hr/>
+
+<partial name="_VehicleFormPartial" model="@Model"/>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

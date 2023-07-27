@@ -45,17 +45,24 @@
 
             if (!isAgent)
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to add new cars";
+                this.TempData[ErrorMessage] = "You must become an agent in order to add new yachts";
 
                 return RedirectToAction("Become", "Agent");
             }
 
-            VehicleFormModel formModel = new VehicleFormModel()
+            try
             {
-                VehicleCategories = await this.yachtCategoryService.AllCategoriesAsync()
-            };
+                VehicleFormModel formModel = new VehicleFormModel()
+                {
+                    VehicleCategories = await this.yachtCategoryService.AllCategoriesAsync()
+                };
 
-            return View(formModel);
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         [HttpPost]
@@ -65,7 +72,7 @@
 
             if (!isAgent)
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to add new cars";
+                this.TempData[ErrorMessage] = "You must become an agent in order to add new yachts";
 
                 return RedirectToAction("Become", "Agent");
             }
@@ -94,13 +101,14 @@
             }
             catch (Exception _)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new car! Please try again later.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new yacht! Please try again later.");
+
                 formModel.VehicleCategories = await this.yachtCategoryService.AllCategoriesAsync();
 
                 return View(formModel);
             }
 
-            return RedirectToAction("All", "Car");
+            return RedirectToAction("Details", "Yacht");
         }
 
         [HttpGet]
@@ -109,21 +117,27 @@
             List<VehicleAllViewModel> myYachts = new List<VehicleAllViewModel>();
 
             string userId = this.User.GetId()!;
-                
+
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
-
-            if (isUserAgent)
+            try
             {
-                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+                if (isUserAgent)
+                {
+                    string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
 
-                myYachts.AddRange(await this.yachtService.AllByAgentIdAsync(agentId!));
+                    myYachts.AddRange(await this.yachtService.AllByAgentIdAsync(agentId!));
+                }
+                else
+                {
+                    myYachts.AddRange(await this.yachtService.AllByUserIdAsync(userId));
+                }
+
+                return this.View(myYachts);
             }
-            else
+            catch (Exception)
             {
-                myYachts.AddRange(await this.yachtService.AllByUserIdAsync(userId));
+                return this.GeneralError();
             }
-
-            return this.View(myYachts);
         }
 
         [HttpGet]
@@ -139,10 +153,128 @@
                 return RedirectToAction("All", "Yacht");
             }
 
-            VehicleDetailsViewModel viewModel = await this.yachtService
-                .GetDetailsByIdAsync(id);
+            try
+            {
+                VehicleDetailsViewModel viewModel = await this.yachtService
+                    .GetDetailsByIdAsync(id);
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool carExist = await this.yachtService.ExistByIdAsync(id);
+
+            if (!carExist)
+            {
+                this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit yacht info!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.yachtService.IsAgentWithIdOwnerOfYachtWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to edit!";
+
+                RedirectToAction("Mine", "Yacht");
+            }
+
+            try
+            {
+                VehicleFormModel formModel = await this.yachtService
+                    .GetYachtForEditByIdAsync(id);
+
+                formModel.VehicleCategories = await this.yachtCategoryService.AllCategoriesAsync();
+
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, VehicleFormModel formModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                formModel.VehicleCategories = await this.yachtCategoryService.AllCategoriesAsync();
+
+                return View(formModel);
+            }
+
+            bool carExist = await this.yachtService.ExistByIdAsync(id);
+
+            if (!carExist)
+            {
+                this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit yacht info!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.yachtService.IsAgentWithIdOwnerOfYachtWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to edit!";
+
+                RedirectToAction("Mine", "Yacht");
+            }
+
+            try
+            {
+                await this.yachtService.EditYachtByIdAndFormModelAsync(id, formModel);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError
+                    (string.Empty, "Unexpected error occurred while trying to update the yacht. Please try again later or contact administrator!");
+
+                formModel.VehicleCategories = await this.yachtCategoryService.AllCategoriesAsync();
+
+                return View(formModel);
+            }
+
+            return RedirectToAction("Details", "Yacht", new { id });
+        }
+
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later or contact administrator!";
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

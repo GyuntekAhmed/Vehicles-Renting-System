@@ -210,5 +210,34 @@
                 CategoryId = car.CategoryId
             };
         }
+
+        public async Task<bool> IsAgentWithIdOwnerOfCarWithIdAsync(string carId, string agentId)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            return car.AgentId.ToString() == agentId;
+        }
+
+        public async Task EditCarByIdAndFormModelAsync(string carId, VehicleFormModel carFormModel)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            car.Brand = carFormModel.Brand;
+            car.Model = carFormModel.Model;
+            car.RegistrationNumber = carFormModel.RegistrationNumber;
+            car.Address = carFormModel.Address;
+            car.PricePerDay = carFormModel.PricePerDay;
+            car.ImageUrl = carFormModel.ImageUrl;
+            car.Color = carFormModel.Color;
+            car.CategoryId = carFormModel.CategoryId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }
