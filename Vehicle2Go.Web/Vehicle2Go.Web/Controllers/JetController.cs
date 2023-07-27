@@ -97,7 +97,9 @@
                 string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
 
 
-                await this.jetService.CreateAsync(formModel, agentId!);
+                string jetId = await this.jetService.CreateAndReturnIdAsync(formModel, agentId!);
+
+                return RedirectToAction("Details", "Jet", new { id = jetId});
             }
             catch (Exception _)
             {
@@ -107,7 +109,6 @@
                 return View(formModel);
             }
 
-            return RedirectToAction("Details", "Jet");
         }
 
         [HttpGet]

@@ -97,7 +97,9 @@
                 string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
 
 
-                await this.carService.CreateAsync(formModel, agentId!);
+                string carId = await this.carService.CreateAndReturnIdAsync(formModel, agentId!);
+
+                return RedirectToAction("Details", "Car", new { id = carId });
             }
             catch (Exception _)
             {
@@ -107,7 +109,6 @@
                 return View(formModel);
             }
 
-            return RedirectToAction("Details", "Car");
         }
 
         [HttpGet]

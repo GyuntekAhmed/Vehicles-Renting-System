@@ -5,7 +5,7 @@
 
     public interface ITruckService
     {
-        Task CreateAsync(VehicleFormModel formModel, string agentId);
+        Task<string> CreateAndReturnIdAsync(VehicleFormModel formModel, string agentId);
         Task<AllVehiclesFilteredAndPagedServiceModel> AllAsync(AllVehiclesQueryModel queryModel);
         Task<IEnumerable<VehicleAllViewModel>> AllByAgentIdAsync(string agentId);
         Task<IEnumerable<VehicleAllViewModel>> AllByUserIdAsync(string userId);

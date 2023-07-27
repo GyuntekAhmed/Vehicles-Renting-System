@@ -19,7 +19,7 @@
             this.dbContext = dbContext;
         }
 
-        public async Task CreateAsync(VehicleFormModel formModel, string agentId)
+        public async Task<string> CreateAndReturnIdAsync(VehicleFormModel formModel, string agentId)
         {
             Car newCar = new Car
             {
@@ -36,6 +36,8 @@
 
             await this.dbContext.Cars.AddAsync(newCar);
             await this.dbContext.SaveChangesAsync();
+
+            return newCar.Id.ToString();
         }
 
         public async Task<AllVehiclesFilteredAndPagedServiceModel> AllAsync(AllVehiclesQueryModel queryModel)
