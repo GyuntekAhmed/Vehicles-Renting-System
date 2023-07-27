@@ -152,18 +152,13 @@
 
         public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string motorcycleId)
         {
-            Motorcycle? motorcycle = await this.dbContext
+            Motorcycle motorcycle = await this.dbContext
                 .Motorcycles
                 .Include(m => m.Category)
                 .Include(m => m.Agent)
                 .ThenInclude(a => a.User)
                 .Where(m => m.IsActive)
-                .FirstOrDefaultAsync(m => m.Id.ToString() == motorcycleId);
-
-            if (motorcycle == null)
-            {
-                return null;
-            }
+                .FirstAsync(m => m.Id.ToString() == motorcycleId);
 
             return new VehicleDetailsViewModel
             {
@@ -183,6 +178,35 @@
                     PhoneNumber = motorcycle.Agent.PhoneNumber,
                     Address = motorcycle.Agent.Address,
                 }
+            };
+        }
+
+        public async Task<bool> ExistByIdAsync(string motorcycleId)
+        {
+            return await this.dbContext
+                .Motorcycles
+                .Where(m => m.IsActive)
+                .AnyAsync(m => m.Id.ToString() == motorcycleId);
+        }
+
+        public async Task<VehicleFormModel> GetMotorcycleForEditByIdAsync(string motorcycleId)
+        {
+            Motorcycle motorcycle = await this.dbContext
+                .Motorcycles
+                .Include(m => m.Category)
+                .Where(m => m.IsActive)
+                .FirstAsync(m => m.Id.ToString() == motorcycleId);
+
+            return new VehicleFormModel
+            {
+                Brand = motorcycle.Brand,
+                Model = motorcycle.Model,
+                RegistrationNumber = motorcycle.RegistrationNumber,
+                Address = motorcycle.Address,
+                PricePerDay = motorcycle.PricePerDay,
+                ImageUrl = motorcycle.ImageUrl,
+                Color = motorcycle.Color,
+                CategoryId = motorcycle.CategoryId
             };
         }
     }

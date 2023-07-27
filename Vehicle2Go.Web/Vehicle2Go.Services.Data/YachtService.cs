@@ -8,7 +8,7 @@
     using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.Vehicle;
     using Web.ViewModels.Vehicle.Enums;
-    using Vehicle2Go.Web.ViewModels.Agent;
+    using Web.ViewModels.Agent;
 
     public class YachtService : IYachtService
     {
@@ -151,21 +151,16 @@
             return allUserYachts;
         }
 
-        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string yachtId)
+        public async Task<VehicleDetailsViewModel> GetDetailsByIdAsync(string yachtId)
         {
-            Yacht? yacht = await this.dbContext
+            Yacht yacht = await this.dbContext
                 .Yachts
                 .Include(y => y.Category)
                 .Include(y => y.Agent)
                 .ThenInclude(a => a.User)
                 .Where(y => y.IsActive)
-                .FirstOrDefaultAsync(y => y.Id.ToString() == yachtId);
-
-            if (yacht == null)
-            {
-                return null;
-            }
-
+                .FirstAsync(y => y.Id.ToString() == yachtId);
+            
             return new VehicleDetailsViewModel
             {
                 Id = yacht.Id.ToString(),
@@ -184,6 +179,35 @@
                     PhoneNumber = yacht.Agent.PhoneNumber,
                     Address = yacht.Agent.Address,
                 }
+            };
+        }
+
+        public async Task<bool> ExistByIdAsync(string yachtId)
+        {
+            return await this.dbContext
+                .Yachts
+                .Where(y => y.IsActive)
+                .AnyAsync(y => y.Id.ToString() == yachtId);
+        }
+
+        public async Task<VehicleFormModel> GetYachtForEditByIdAsync(string yachtId)
+        {
+            Yacht yacht = await this.dbContext
+                .Yachts
+                .Include(y => y.Category)
+                .Where(y => y.IsActive)
+                .FirstAsync(y => y.Id.ToString() == yachtId);
+
+            return new VehicleFormModel
+            {
+                Brand = yacht.Brand,
+                Model = yacht.Model,
+                RegistrationNumber = yacht.RegistrationNumber,
+                Address = yacht.Address,
+                PricePerDay = yacht.PricePerDay,
+                ImageUrl = yacht.ImageUrl,
+                Color = yacht.Color,
+                CategoryId = yacht.CategoryId
             };
         }
     }

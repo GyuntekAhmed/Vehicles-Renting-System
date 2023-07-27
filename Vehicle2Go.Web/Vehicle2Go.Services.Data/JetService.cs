@@ -151,21 +151,16 @@
             return allUserJets;
         }
 
-        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string jetId)
+        public async Task<VehicleDetailsViewModel> GetDetailsByIdAsync(string jetId)
         {
-            Jet? jet = await this.dbContext
+            Jet jet = await this.dbContext
                 .Jets
                 .Include(j => j.Category)
                 .Include(j => j.Agent)
                 .ThenInclude(a => a.User)
                 .Where(j => j.IsActive)
-                .FirstOrDefaultAsync(j => j.Id.ToString() == jetId);
-
-            if (jet == null)
-            {
-                return null;
-            }
-
+                .FirstAsync(j => j.Id.ToString() == jetId);
+            
             return new VehicleDetailsViewModel
             {
                 Id = jet.Id.ToString(),
@@ -184,6 +179,35 @@
                     PhoneNumber = jet.Agent.PhoneNumber,
                     Address = jet.Agent.Address,
                 }
+            };
+        }
+
+        public async Task<bool> ExistByIdAsync(string jetId)
+        {
+            return await this.dbContext
+                .Jets
+                .Where(j => j.IsActive)
+                .AnyAsync(j => j.Id.ToString() == jetId);
+        }
+
+        public async Task<VehicleFormModel> GetJetForEditByIdAsync(string jetId)
+        {
+            Jet jet = await this.dbContext
+                .Jets
+                .Include(j => j.Category)
+                .Where(j => j.IsActive)
+                .FirstAsync(j => j.Id.ToString() == jetId);
+
+            return new VehicleFormModel
+            {
+                Brand = jet.Brand,
+                Model = jet.Model,
+                RegistrationNumber = jet.RegistrationNumber,
+                Address = jet.Address,
+                PricePerDay = jet.PricePerDay,
+                ImageUrl = jet.ImageUrl,
+                Color = jet.Color,
+                CategoryId = jet.CategoryId
             };
         }
     }

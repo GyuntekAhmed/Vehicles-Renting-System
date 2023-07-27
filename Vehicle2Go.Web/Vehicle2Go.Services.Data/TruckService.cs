@@ -151,21 +151,16 @@
             return allUserTrucks;
         }
 
-        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string truckId)
+        public async Task<VehicleDetailsViewModel> GetDetailsByIdAsync(string truckId)
         {
-            Truck? truck = await this.dbContext
+            Truck truck = await this.dbContext
                 .Trucks
                 .Include(t => t.Category)
                 .Include(t => t.Agent)
                 .ThenInclude(a => a.User)
                 .Where(t => t.IsActive)
-                .FirstOrDefaultAsync(t => t.Id.ToString() == truckId);
-
-            if (truck == null)
-            {
-                return null;
-            }
-
+                .FirstAsync(t => t.Id.ToString() == truckId);
+            
             return new VehicleDetailsViewModel
             {
                 Id = truck.Id.ToString(),
@@ -184,6 +179,35 @@
                     PhoneNumber = truck.Agent.PhoneNumber,
                     Address = truck.Agent.Address,
                 }
+            };
+        }
+
+        public async Task<bool> ExistByIdAsync(string truckId)
+        {
+            return await this.dbContext
+                .Trucks
+                .Where(t => t.IsActive)
+                .AnyAsync(t => t.Id.ToString() == truckId);
+        }
+
+        public async Task<VehicleFormModel> GetTruckForEditByIdAsync(string truckId)
+        {
+            Truck truck = await this.dbContext
+                .Trucks
+                .Include(t => t.Category)
+                .Where(t => t.IsActive)
+                .FirstAsync(t => t.Id.ToString() == truckId);
+
+            return new VehicleFormModel
+            {
+                Brand = truck.Brand,
+                Model = truck.Model,
+                RegistrationNumber = truck.RegistrationNumber,
+                Address = truck.Address,
+                PricePerDay = truck.PricePerDay,
+                ImageUrl = truck.ImageUrl,
+                Color = truck.Color,
+                CategoryId = truck.CategoryId
             };
         }
     }

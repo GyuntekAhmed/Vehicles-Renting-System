@@ -151,20 +151,15 @@
             return allUserCars;
         }
 
-        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string carId)
+        public async Task<VehicleDetailsViewModel> GetDetailsByIdAsync(string carId)
         {
-            Car? car = await this.dbContext
+            Car car = await this.dbContext
                 .Cars
                 .Include(c => c.Category)
                 .Include(c => c.Agent)
                 .ThenInclude(a => a.User)
                 .Where(c => c.IsActive)
-                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
-
-            if (car == null)
-            {
-                return null;
-            }
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             return new VehicleDetailsViewModel
             {
@@ -184,6 +179,35 @@
                     PhoneNumber = car.Agent.PhoneNumber,
                     Address = car.Agent.Address,
                 }
+            };
+        }
+
+        public async Task<bool> ExistByIdAsync(string carId)
+        {
+            return await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .AnyAsync(c => c.Id.ToString() == carId);
+        }
+
+        public async Task<VehicleFormModel> GetCarForEditByIdAsync(string carId)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Include(c => c.Category)
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            return new VehicleFormModel
+            {
+                Brand = car.Brand,
+                Model = car.Model,
+                RegistrationNumber = car.RegistrationNumber,
+                Address = car.Address,
+                PricePerDay = car.PricePerDay,
+                ImageUrl = car.ImageUrl,
+                Color = car.Color,
+                CategoryId = car.CategoryId
             };
         }
     }

@@ -130,16 +130,18 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
-            VehicleDetailsViewModel? viewModel = await this.jetService
-                .GetDetailsByIdAsync(id);
+            bool jetExist = await this.jetService.ExistByIdAsync(id);
 
-            if (viewModel == null)
+            if (!jetExist)
             {
                 this.TempData[ErrorMessage] = "Jet with the provided id does not exist!";
 
                 return RedirectToAction("All", "Jet");
             }
 
+            VehicleDetailsViewModel? viewModel = await this.jetService
+                .GetDetailsByIdAsync(id);
+            
             return View(viewModel);
         }
     }
