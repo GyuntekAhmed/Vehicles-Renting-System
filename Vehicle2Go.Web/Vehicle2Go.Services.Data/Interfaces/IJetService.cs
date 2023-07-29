@@ -14,5 +14,7 @@
         Task<VehicleFormModel> GetJetForEditByIdAsync(string jetId);
         Task<bool> IsAgentWithIdOwnerOfJetWithIdAsync(string jetId, string agentId);
         Task EditJetByIdAndFormModelAsync(string jetId, VehicleFormModel jetFormModel);
+        Task<VehiclePreDeleteDetailsViewModel> GetJetForDeleteByIdAsync(string jetId);
+        Task DeleteByIdAsync(string jetId);
     }
 }

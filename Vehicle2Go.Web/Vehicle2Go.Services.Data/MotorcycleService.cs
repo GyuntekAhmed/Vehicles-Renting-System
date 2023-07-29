@@ -153,7 +153,7 @@
             return allUserMotorcycles;
         }
 
-        public async Task<VehicleDetailsViewModel?> GetDetailsByIdAsync(string motorcycleId)
+        public async Task<VehicleDetailsViewModel> GetDetailsByIdAsync(string motorcycleId)
         {
             Motorcycle motorcycle = await this.dbContext
                 .Motorcycles
@@ -238,6 +238,35 @@
             motorcycle.ImageUrl = motorcycleFormModel.ImageUrl;
             motorcycle.Color = motorcycleFormModel.Color;
             motorcycle.CategoryId = motorcycleFormModel.CategoryId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<VehiclePreDeleteDetailsViewModel> GetMotorcycleForDeleteByIdAsync(string motorcycleId)
+        {
+            Motorcycle motorcycle = await this.dbContext
+                .Motorcycles
+                .Where(m => m.IsActive)
+                .FirstAsync(m => m.Id.ToString() == motorcycleId);
+
+            return new VehiclePreDeleteDetailsViewModel
+            {
+                Brand = motorcycle.Brand,
+                Model = motorcycle.Model,
+                RegistrationNumber = motorcycle.RegistrationNumber,
+                Address = motorcycle.Address,
+                ImageUrl = motorcycle.ImageUrl,
+            };
+        }
+
+        public async Task DeleteByIdAsync(string motorcycleId)
+        {
+            Motorcycle motorcycleToDelete = await this.dbContext
+                .Motorcycles
+                .Where(m => m.IsActive)
+                .FirstAsync(m => m.Id.ToString() == motorcycleId);
+
+            motorcycleToDelete.IsActive = false;
 
             await this.dbContext.SaveChangesAsync();
         }

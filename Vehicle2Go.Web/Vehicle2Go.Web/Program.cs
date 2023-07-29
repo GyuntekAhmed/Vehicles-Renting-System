@@ -45,6 +45,7 @@ namespace Vehicle2Go.Web
             {
                 opt.Cookie.SameSite = SameSiteMode.None;
             });
+            
 
             var app = builder.Build();
 

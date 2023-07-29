@@ -23,9 +23,9 @@
             <div class="form-inline">
                 @if (this.User.Identity?.IsAuthenticated ?? false)
                 {
-                    <a class="btn btn-warning" asp-controller="Jet" aspaction="Edit"
+                    <a class="btn btn-warning" asp-controller="Jet" asp-action="Edit"
                        asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Jet" aspaction="Delete"
+                    <a class="ml-2 btn btn-danger" asp-controller="Jet" asp-action="Delete"
                        asp-route-id="@Model.Id">Delete</a>
 
                     @if (!Model.IsRented)

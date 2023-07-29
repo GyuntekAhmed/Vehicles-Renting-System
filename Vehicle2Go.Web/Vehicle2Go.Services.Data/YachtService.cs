@@ -241,5 +241,34 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<VehiclePreDeleteDetailsViewModel> GetYachtForDeleteByIdAsync(string yachtId)
+        {
+            Yacht yacht = await this.dbContext
+                .Yachts
+                .Where(y => y.IsActive)
+                .FirstAsync(y => y.Id.ToString() == yachtId);
+
+            return new VehiclePreDeleteDetailsViewModel
+            {
+                Brand = yacht.Brand,
+                Model = yacht.Model,
+                RegistrationNumber = yacht.RegistrationNumber,
+                Address = yacht.Address,
+                ImageUrl = yacht.ImageUrl,
+            };
+        }
+
+        public async Task DeleteByIdAsync(string yachtId)
+        {
+            Yacht yachtToDelete = await this.dbContext
+                .Yachts
+                .Where(y => y.IsActive)
+                .FirstAsync(y => y.Id.ToString() == yachtId);
+
+            yachtToDelete.IsActive = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

@@ -103,7 +103,7 @@
 
                 return RedirectToAction("Details", "Car", new { id = carId });
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new car! Please try again later.");
                 formModel.VehicleCategories = await this.carCategoryService.AllCategoriesAsync();
@@ -271,6 +271,97 @@
             this.TempData[SuccessMessage] = "Car was edited successfully!";
 
             return RedirectToAction("Details", "Car", new { id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool carExist = await carService.ExistByIdAsync(id);
+
+            if (!carExist)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return RedirectToAction("All", "Car");
+            }
+
+            bool isUserAgent = await agentService.AgentExistByUserIdAsync(User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit car info!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await agentService.GetAgentIdByUserIdAsync(User.GetId()!);
+
+            bool isAgentOwner = await carService.IsAgentWithIdOwnerOfCarWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                TempData[ErrorMessage] = "You must be the agent owner of the car you want to edit!";
+
+                RedirectToAction("Mine", "Car");
+            }
+
+            try
+            {
+                VehiclePreDeleteDetailsViewModel viewModel =
+                    await carService.GetCarForDeleteByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, VehiclePreDeleteDetailsViewModel formModel)
+        {
+            bool carExist = await this.carService.ExistByIdAsync(id);
+
+            if (!carExist)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return RedirectToAction("All", "Car");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to delete car!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.carService.IsAgentWithIdOwnerOfCarWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the car you want to delete!";
+
+                RedirectToAction("Mine", "Car");
+            }
+
+            try
+            {
+                await this.carService.DeleteByIdAsync(id);
+
+                this.TempData[WarningMessage] = "The car was successfully deleted!";
+
+                return RedirectToAction("Mine", "Car");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         private IActionResult GeneralError()

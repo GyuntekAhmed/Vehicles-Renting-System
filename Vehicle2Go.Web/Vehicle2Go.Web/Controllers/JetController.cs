@@ -273,6 +273,97 @@
             return RedirectToAction("Details", "Jet", new { id });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool jetExist = await this.jetService.ExistByIdAsync(id);
+
+            if (!jetExist)
+            {
+                this.TempData[ErrorMessage] = "Jet with the provided id does not exist!";
+
+                return RedirectToAction("All", "Jet");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit car info!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.jetService.IsAgentWithIdOwnerOfJetWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the jet you want to edit!";
+
+                RedirectToAction("Mine", "Jet");
+            }
+
+            try
+            {
+                VehiclePreDeleteDetailsViewModel viewModel =
+                    await this.jetService.GetJetForDeleteByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string jetId, VehiclePreDeleteDetailsViewModel viewModel)
+        {
+            bool jetExist = await this.jetService.ExistByIdAsync(jetId);
+
+            if (!jetExist)
+            {
+                this.TempData[ErrorMessage] = "Jet with the provided id does not exist!";
+
+                return RedirectToAction("All", "Jet");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to delete car!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.jetService.IsAgentWithIdOwnerOfJetWithIdAsync(jetId, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the jet you want to delete!";
+
+                RedirectToAction("Mine", "Jet");
+            }
+
+            try
+            {
+                await this.jetService.DeleteByIdAsync(jetId);
+
+                this.TempData[WarningMessage] = "The jet was successfully deleted!";
+
+                return RedirectToAction("Mine", "Jet");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

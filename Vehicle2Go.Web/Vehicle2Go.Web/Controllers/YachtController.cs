@@ -171,9 +171,9 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            bool carExist = await this.yachtService.ExistByIdAsync(id);
+            bool yachtExist = await this.yachtService.ExistByIdAsync(id);
 
-            if (!carExist)
+            if (!yachtExist)
             {
                 this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
 
@@ -225,9 +225,9 @@
                 return View(formModel);
             }
 
-            bool carExist = await this.yachtService.ExistByIdAsync(id);
+            bool yachtExist = await this.yachtService.ExistByIdAsync(id);
 
-            if (!carExist)
+            if (!yachtExist)
             {
                 this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
 
@@ -271,6 +271,98 @@
             this.TempData[SuccessMessage] = "Yacht was edited successfully!";
 
             return RedirectToAction("Details", "Yacht", new { id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool yachtExist = await this.yachtService.ExistByIdAsync(id);
+
+            if (!yachtExist)
+            {
+                this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit yacht info!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.yachtService.IsAgentWithIdOwnerOfYachtWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to edit!";
+
+                RedirectToAction("Mine", "Yacht");
+            }
+
+            try
+            {
+                VehiclePreDeleteDetailsViewModel viewModel =
+                    await this.yachtService.GetYachtForDeleteByIdAsync(id);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string yachtId, VehiclePreDeleteDetailsViewModel viewModel)
+        {
+            bool yachtExist = await this.yachtService.ExistByIdAsync(yachtId);
+
+            if (!yachtExist)
+            {
+                this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to delete yacht!";
+
+                return RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.yachtService
+                .IsAgentWithIdOwnerOfYachtWithIdAsync(yachtId, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to delete!";
+
+                RedirectToAction("Mine", "Yacht");
+            }
+
+            try
+            {
+                await this.yachtService.DeleteByIdAsync(yachtId);
+
+                this.TempData[WarningMessage] = "The yacht was successfully deleted!";
+
+                return RedirectToAction("Mine", "Yacht");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         private IActionResult GeneralError()

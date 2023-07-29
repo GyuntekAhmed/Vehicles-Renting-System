@@ -25,7 +25,7 @@
             public const int AddressMinLength = 2;
             public const int AddressMaxLength = 150;
 
-            public const string PricePerDayMinValue = "1";
+            public const string PricePerDayMinValue = "0";
             public const string PricePerDayMaxValue = "9999999";
 
             public const int ColorMinLength = 2;

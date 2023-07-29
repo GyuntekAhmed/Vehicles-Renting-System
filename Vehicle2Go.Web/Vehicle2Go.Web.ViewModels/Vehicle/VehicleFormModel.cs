@@ -32,6 +32,7 @@
 
         [Range(typeof(decimal), PricePerDayMinValue, PricePerDayMaxValue)]
         [Display(Name = "Daily price")]
+        [Required]
         public decimal PricePerDay { get; set; }
 
         [Required]

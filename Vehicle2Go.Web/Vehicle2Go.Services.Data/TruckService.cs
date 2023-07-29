@@ -241,5 +241,34 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<VehiclePreDeleteDetailsViewModel> GetTruckForDeleteByIdAsync(string truckId)
+        {
+            Truck truck = await this.dbContext
+                .Trucks
+                .Where(t => t.IsActive)
+                .FirstAsync(t => t.Id.ToString() == truckId);
+
+            return new VehiclePreDeleteDetailsViewModel
+            {
+                Brand = truck.Brand,
+                Model = truck.Model,
+                RegistrationNumber = truck.RegistrationNumber,
+                Address = truck.Address,
+                ImageUrl = truck.ImageUrl,
+            };
+        }
+
+        public async Task DeleteByIdAsync(string truckId)
+        {
+            Truck truckToDelete = await this.dbContext
+                .Trucks
+                .Where(t => t.IsActive)
+                .FirstAsync(t => t.Id.ToString() == truckId);
+
+            truckToDelete.IsActive = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

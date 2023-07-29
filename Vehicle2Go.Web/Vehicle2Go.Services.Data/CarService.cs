@@ -186,10 +186,12 @@
 
         public async Task<bool> ExistByIdAsync(string carId)
         {
-            return await this.dbContext
+            bool result = await dbContext
                 .Cars
                 .Where(c => c.IsActive)
                 .AnyAsync(c => c.Id.ToString() == carId);
+
+            return result;
         }
 
         public async Task<VehicleFormModel> GetCarForEditByIdAsync(string carId)
@@ -200,7 +202,7 @@
                 .Where(c => c.IsActive)
                 .FirstAsync(c => c.Id.ToString() == carId);
 
-            return new VehicleFormModel
+            VehicleFormModel formModel = new VehicleFormModel
             {
                 Brand = car.Brand,
                 Model = car.Model,
@@ -209,8 +211,10 @@
                 PricePerDay = car.PricePerDay,
                 ImageUrl = car.ImageUrl,
                 Color = car.Color,
-                CategoryId = car.CategoryId
+                CategoryId = car.CategoryId,
             };
+
+            return formModel;
         }
 
         public async Task<bool> IsAgentWithIdOwnerOfCarWithIdAsync(string carId, string agentId)
@@ -229,7 +233,7 @@
                 .Cars
                 .Where(c => c.IsActive)
                 .FirstAsync(c => c.Id.ToString() == carId);
-
+            
             car.Brand = carFormModel.Brand;
             car.Model = carFormModel.Model;
             car.RegistrationNumber = carFormModel.RegistrationNumber;
@@ -238,6 +242,35 @@
             car.ImageUrl = carFormModel.ImageUrl;
             car.Color = carFormModel.Color;
             car.CategoryId = carFormModel.CategoryId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<VehiclePreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(string carId)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            return new VehiclePreDeleteDetailsViewModel
+            {
+                Brand = car.Brand,
+                Model = car.Model,
+                RegistrationNumber = car.RegistrationNumber,
+                Address = car.Address,
+                ImageUrl = car.ImageUrl,
+            };
+        }
+
+        public async Task DeleteByIdAsync(string carId)
+        {
+            Car carToDelete = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            carToDelete.IsActive = false;
 
             await this.dbContext.SaveChangesAsync();
         }

@@ -14,5 +14,7 @@
         Task<VehicleFormModel> GetCarForEditByIdAsync(string carId);
         Task<bool> IsAgentWithIdOwnerOfCarWithIdAsync(string carId, string agentId);
         Task EditCarByIdAndFormModelAsync( string carId, VehicleFormModel carFormModel);
+        Task<VehiclePreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(string carId);
+        Task DeleteByIdAsync(string carId);
     }
 }
