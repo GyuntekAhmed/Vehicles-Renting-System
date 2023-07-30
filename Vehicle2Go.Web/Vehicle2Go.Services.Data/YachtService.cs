@@ -1,4 +1,6 @@
-﻿namespace Vehicle2Go.Services.Data
+﻿using Vehicle2Go.Services.Data.Models.Statistics;
+
+namespace Vehicle2Go.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -310,6 +312,18 @@
             yacht.RenterId = null;
 
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<StatisticsServiceModel> GetStatisticsAsync()
+        {
+            return new StatisticsServiceModel
+            {
+                TotalVehicles = await this.dbContext.Yachts.CountAsync(),
+                TotalRents = await this.dbContext
+                    .Yachts
+                    .Where(y => y.RenterId.HasValue)
+                    .CountAsync()
+            };
         }
     }
 }

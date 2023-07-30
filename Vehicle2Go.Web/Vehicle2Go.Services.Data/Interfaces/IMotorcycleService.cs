@@ -1,6 +1,7 @@
 ﻿namespace Vehicle2Go.Services.Data.Interfaces
 {
     using Models.Vehicle;
+    using Models.Statistics;
     using Web.ViewModels.Vehicle;
 
     public interface IMotorcycleService
@@ -20,5 +21,6 @@
         Task RentMotorcycleAsync(string motorcycleId, string userId);
         Task<bool> IsRentedByUserWithIdAsync(string motorcycleId, string userId);
         Task LeaveAsync(string motorcycleId);
+        Task<StatisticsServiceModel> GetStatisticsAsync();
     }
 }
