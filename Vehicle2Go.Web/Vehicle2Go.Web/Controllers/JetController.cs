@@ -400,6 +400,50 @@
             return RedirectToAction("Mine", "Jet");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Leave(string id)
+        {
+            bool jetExist = await this.jetService.ExistByIdAsync(id);
+
+            if (!jetExist)
+            {
+                this.TempData[ErrorMessage] = "Jet with the provided id does not exist!";
+
+                return RedirectToAction("All", "Jet");
+            }
+
+            bool isJetRented = await this.jetService.IsRentedByIdAsync(id);
+
+            if (!isJetRented)
+            {
+                this.TempData[ErrorMessage] = "Selected jet is not rented!";
+
+                return RedirectToAction("Mine", "Jet");
+            }
+
+            bool isUserRenter = await this.jetService.IsRentedByUserWithIdAsync(id, this.User.GetId()!);
+
+            if (!isUserRenter)
+            {
+                this.TempData[ErrorMessage] = "You must be the renter of the jet to leave it!";
+
+                return RedirectToAction("Mine", "Jet");
+            }
+
+            try
+            {
+                await this.jetService.LeaveAsync(id);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[InformationMessage] = "The jet was successfully leave";
+
+            return RedirectToAction("Mine", "Jet");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

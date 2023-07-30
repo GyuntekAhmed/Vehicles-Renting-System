@@ -401,6 +401,50 @@
             return RedirectToAction("Mine", "Yacht");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Leave(string id)
+        {
+            bool yachtExist = await this.yachtService.ExistByIdAsync(id);
+
+            if (!yachtExist)
+            {
+                this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            bool isYachtRented = await this.yachtService.IsRentedByIdAsync(id);
+
+            if (!isYachtRented)
+            {
+                this.TempData[ErrorMessage] = "Selected yacht is not rented!"; ;
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            bool isUserRenter = await this.yachtService.IsRentedByUserWithIdAsync(id, this.User.GetId()!);
+
+            if (!isUserRenter)
+            {
+                this.TempData[ErrorMessage] = "You must be the renter of the yacht to leave it!";
+
+                return RedirectToAction("Mine", "Yacht");
+            }
+
+            try
+            {
+                await this.yachtService.LeaveAsync(id);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[InformationMessage] = "The yacht was successfully leave";
+
+            return RedirectToAction("Mine", "Yacht");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

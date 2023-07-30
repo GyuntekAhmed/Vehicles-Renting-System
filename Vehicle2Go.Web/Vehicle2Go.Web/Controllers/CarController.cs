@@ -400,6 +400,50 @@
             return RedirectToAction("Mine", "Car");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Leave(string id)
+        {
+            bool carExist = await this.carService.ExistByIdAsync(id);
+
+            if (!carExist)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return RedirectToAction("All", "Car");
+            }
+
+            bool isCarRented = await this.carService.IsRentedByIdAsync(id);
+
+            if (!isCarRented)
+            {
+                this.TempData[ErrorMessage] = "Selected car is not rented!";
+
+                return RedirectToAction("Mine", "Car");
+            }
+
+            bool isUserRenter = await this.carService.IsRentedByUserWithIdAsync(id, this.User.GetId()!);
+
+            if (!isUserRenter)
+            {
+                this.TempData[ErrorMessage] = "You must be the renter of the car to leave it!";
+
+                return RedirectToAction("Mine", "Car");
+            }
+
+            try
+            {
+                await this.carService.LeaveAsync(id);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[InformationMessage] = "The car was successfully leave";
+
+            return RedirectToAction("Mine", "Car");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

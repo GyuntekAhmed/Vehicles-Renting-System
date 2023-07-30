@@ -401,6 +401,50 @@
             return RedirectToAction("Mine", "Truck");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Leave(string id)
+        {
+            bool truckExist = await this.truckService.ExistByIdAsync(id);
+
+            if (!truckExist)
+            {
+                this.TempData[ErrorMessage] = "Truck with the provided id does not exist!";
+
+                return RedirectToAction("All", "Truck");
+            }
+
+            bool isTruckRented = await this.truckService.IsRentedByIdAsync(id);
+
+            if (!isTruckRented)
+            {
+                this.TempData[ErrorMessage] = "Selected truck is not rented!"; ;
+
+                return RedirectToAction("All", "Truck");
+            }
+
+            bool isUserRenter = await this.truckService.IsRentedByUserWithIdAsync(id, this.User.GetId()!);
+
+            if (!isUserRenter)
+            {
+                this.TempData[ErrorMessage] = "You must be the renter of the truck to leave it!";
+
+                return RedirectToAction("Mine", "Truck");
+            }
+
+            try
+            {
+                await this.truckService.LeaveAsync(id);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[InformationMessage] = "The truck was successfully leave";
+
+            return RedirectToAction("Mine", "Truck");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

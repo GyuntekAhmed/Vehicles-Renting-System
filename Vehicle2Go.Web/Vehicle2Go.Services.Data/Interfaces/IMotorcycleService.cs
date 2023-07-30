@@ -18,5 +18,7 @@
         Task DeleteByIdAsync(string motorcycleId);
         Task<bool> IsRentedByIdAsync(string motorcycleId);
         Task RentMotorcycleAsync(string motorcycleId, string userId);
+        Task<bool> IsRentedByUserWithIdAsync(string motorcycleId, string userId);
+        Task LeaveAsync(string motorcycleId);
     }
 }

@@ -290,5 +290,26 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> IsRentedByUserWithIdAsync(string yachtId, string userId)
+        {
+            Yacht yacht = await this.dbContext
+                .Yachts
+                .FirstAsync(c => c.Id.ToString() == yachtId);
+
+            return yacht.RenterId.HasValue &&
+                   yacht.RenterId.ToString() == userId;
+        }
+
+        public async Task LeaveAsync(string yachtId)
+        {
+            Yacht yacht = await this.dbContext
+                .Yachts
+                .FirstAsync(c => c.Id.ToString() == yachtId);
+
+            yacht.RenterId = null;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

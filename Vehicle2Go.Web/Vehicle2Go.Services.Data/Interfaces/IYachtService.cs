@@ -18,5 +18,7 @@
         Task DeleteByIdAsync(string yachtId);
         Task<bool> IsRentedByIdAsync(string yachtId);
         Task RentYachtAsync(string yachtId, string userId);
+        Task<bool> IsRentedByUserWithIdAsync(string yachtId, string userId);
+        Task LeaveAsync(string yachtId);
     }
 }
