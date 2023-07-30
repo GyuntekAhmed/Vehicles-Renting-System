@@ -16,5 +16,7 @@
         Task EditJetByIdAndFormModelAsync(string jetId, VehicleFormModel jetFormModel);
         Task<VehiclePreDeleteDetailsViewModel> GetJetForDeleteByIdAsync(string jetId);
         Task DeleteByIdAsync(string jetId);
+        Task<bool> IsRentedByIdAsync(string jetId);
+        Task RentJetAsync(string jetId, string userId);
     }
 }

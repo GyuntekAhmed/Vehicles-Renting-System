@@ -367,6 +367,42 @@
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Rent(string id)
+        {
+            bool motorcycleExist = await this.motorcycleService.ExistByIdAsync(id);
+
+            if (!motorcycleExist)
+            {
+                this.TempData[ErrorMessage] = "Motorcycle with the provided id does not exist!";
+
+                return RedirectToAction("All", "Motorcycle");
+            }
+
+            bool isMotorcycleRented = await this.motorcycleService.IsRentedByIdAsync(id);
+
+            if (isMotorcycleRented)
+            {
+                this.TempData[ErrorMessage] =
+                    "Selected motorcycle is already rented by another user! Please select another motorcycle.";
+
+                return RedirectToAction("All", "Motorcycle");
+            }
+
+            try
+            {
+                await this.motorcycleService.RentMotorcycleAsync(id, this.User.GetId()!);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[SuccessMessage] = "The motorcycle was successfully rented";
+
+            return RedirectToAction("Mine", "Motorcycle");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

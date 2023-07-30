@@ -365,6 +365,42 @@
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Rent(string id)
+        {
+            bool yachtExist = await this.yachtService.ExistByIdAsync(id);
+
+            if (!yachtExist)
+            {
+                this.TempData[ErrorMessage] = "Yacht with the provided id does not exist!";
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            bool isYachtRented = await this.yachtService.IsRentedByIdAsync(id);
+
+            if (isYachtRented)
+            {
+                this.TempData[ErrorMessage] =
+                    "Selected yacht is already rented by another user! Please select another yacht.";
+
+                return RedirectToAction("All", "Yacht");
+            }
+
+            try
+            {
+                await this.yachtService.RentYachtAsync(id, this.User.GetId()!);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[SuccessMessage] = "The yacht was successfully rented";
+
+            return RedirectToAction("Mine", "Yacht");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

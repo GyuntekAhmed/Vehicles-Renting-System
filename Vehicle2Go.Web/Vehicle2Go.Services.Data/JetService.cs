@@ -270,5 +270,25 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> IsRentedByIdAsync(string jetId)
+        {
+            Jet jet = await this.dbContext
+                .Jets
+                .FirstAsync(c => c.Id.ToString() == jetId);
+
+            return jet.RenterId.HasValue;
+        }
+
+        public async Task RentJetAsync(string jetId, string userId)
+        {
+            Jet jet = await this.dbContext
+                .Jets
+                .FirstAsync(c => c.Id.ToString() == jetId);
+
+            jet.RenterId = Guid.Parse(userId);
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

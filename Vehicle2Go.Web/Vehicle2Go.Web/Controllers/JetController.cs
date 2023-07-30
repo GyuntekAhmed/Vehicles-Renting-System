@@ -364,6 +364,42 @@
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Rent(string id)
+        {
+            bool jetExist = await this.jetService.ExistByIdAsync(id);
+
+            if (!jetExist)
+            {
+                this.TempData[ErrorMessage] = "Jet with the provided id does not exist!";
+
+                return RedirectToAction("All", "Jet");
+            }
+
+            bool isJetRented = await this.jetService.IsRentedByIdAsync(id);
+
+            if (isJetRented)
+            {
+                this.TempData[ErrorMessage] =
+                    "Selected jet is already rented by another user! Please select another jet.";
+
+                return RedirectToAction("All", "Jet");
+            }
+
+            try
+            {
+                await this.jetService.RentJetAsync(id, this.User.GetId()!);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[SuccessMessage] = "The jet was successfully rented";
+
+            return RedirectToAction("Mine", "Jet");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =

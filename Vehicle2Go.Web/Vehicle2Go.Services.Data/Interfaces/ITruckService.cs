@@ -16,5 +16,7 @@
         Task EditTruckByIdAndFormModelAsync(string truckId, VehicleFormModel truckFormModel);
         Task<VehiclePreDeleteDetailsViewModel> GetTruckForDeleteByIdAsync(string truckId);
         Task DeleteByIdAsync(string truckId);
+        Task<bool> IsRentedByIdAsync(string truckId);
+        Task RentTruckAsync(string truckId, string userId);
     }
 }

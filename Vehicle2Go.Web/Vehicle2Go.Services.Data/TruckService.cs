@@ -270,5 +270,25 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> IsRentedByIdAsync(string truckId)
+        {
+            Truck truck = await this.dbContext
+                .Trucks
+                .FirstAsync(c => c.Id.ToString() == truckId);
+
+            return truck.RenterId.HasValue;
+        }
+
+        public async Task RentTruckAsync(string truckId, string userId)
+        {
+            Truck truck = await this.dbContext
+                .Trucks
+                .FirstAsync(c => c.Id.ToString() == truckId);
+
+            truck.RenterId = Guid.Parse(userId);
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

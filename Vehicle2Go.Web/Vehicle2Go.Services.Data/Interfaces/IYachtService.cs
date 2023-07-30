@@ -16,5 +16,7 @@
         Task EditYachtByIdAndFormModelAsync(string yachtId, VehicleFormModel yachtFormModel);
         Task<VehiclePreDeleteDetailsViewModel> GetYachtForDeleteByIdAsync(string yachtId);
         Task DeleteByIdAsync(string yachtId);
+        Task<bool> IsRentedByIdAsync(string yachtId);
+        Task RentYachtAsync(string yachtId, string userId);
     }
 }

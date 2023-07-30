@@ -365,6 +365,42 @@
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Rent(string id)
+        {
+            bool truckExist = await this.truckService.ExistByIdAsync(id);
+
+            if (!truckExist)
+            {
+                this.TempData[ErrorMessage] = "Truck with the provided id does not exist!";
+
+                return RedirectToAction("All", "Truck");
+            }
+
+            bool isTruckRented = await this.truckService.IsRentedByIdAsync(id);
+
+            if (isTruckRented)
+            {
+                this.TempData[ErrorMessage] =
+                    "Selected truck is already rented by another user! Please select another truck.";
+
+                return RedirectToAction("All", "Truck");
+            }
+
+            try
+            {
+                await this.truckService.RentTruckAsync(id, this.User.GetId()!);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
+            this.TempData[SuccessMessage] = "The truck was successfully rented";
+
+            return RedirectToAction("Mine", "Truck");
+        }
+
         private IActionResult GeneralError()
         {
             this.TempData[ErrorMessage] =
