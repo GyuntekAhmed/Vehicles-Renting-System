@@ -44,10 +44,17 @@ namespace Vehicle2Go.WebApi.Controllers
                 var yachtServiceModel = await this.yachtService.GetStatisticsAsync();
                 var truckServiceModel = await this.truckService.GetStatisticsAsync();
 
-                carServiceModel.TotalVehicles += motorcycleServiceModel.TotalVehicles;
-                carServiceModel.TotalVehicles += jetServiceModel.TotalVehicles;
-                carServiceModel.TotalVehicles += yachtServiceModel.TotalVehicles;
-                carServiceModel.TotalVehicles += truckServiceModel.TotalVehicles;
+                carServiceModel.TotalVehicles +=
+                    motorcycleServiceModel.TotalVehicles +=
+                        jetServiceModel.TotalVehicles +=
+                            yachtServiceModel.TotalVehicles +=
+                                truckServiceModel.TotalVehicles;
+
+                carServiceModel.TotalRents +=
+                    motorcycleServiceModel.TotalRents +=
+                        jetServiceModel.TotalRents +=
+                            truckServiceModel.TotalRents +=
+                                yachtServiceModel.TotalRents;
 
                 return this.Ok(carServiceModel);
             }
