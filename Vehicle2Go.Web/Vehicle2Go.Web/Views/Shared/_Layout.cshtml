@@ -1,4 +1,11 @@
 ﻿@using static Vehicle2Go.Common.GeneralApplicationConstants;
+@using Vehicle2Go.Services.Data.Interfaces
+@using Vehicle2Go.Web.Infrastructure.Extensions
+
+@inject IAgentService AgentService
+@{
+    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,9 +39,12 @@
                                 </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li>
-                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
-                                    </li>
+                                    if (isUserAgent)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Add">Add Car</a>
+                                        </li>
+                                    }
                                     <li>
                                         <a class="dropdown-item text-primary" asp-area="" asp-controller="Car" asp-action="Mine">My Cars</a>
                                     </li>
@@ -49,9 +59,12 @@
                                 </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li>
-                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Motorcycle" asp-action="Add">Add Motorcycle</a>
-                                    </li>
+                                    if (isUserAgent)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-primary" asp-area="" asp-controller="Motorcycle" asp-action="Add">Add Motorcycle</a>
+                                        </li>
+                                    }
                                     <li>
                                         <a class="dropdown-item text-primary" asp-area="" asp-controller="Motorcycle" asp-action="Mine">My Motorcycles</a>
                                     </li>
@@ -66,9 +79,12 @@
                                 </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li>
-                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Jet" asp-action="Add">Add Jet</a>
-                                    </li>
+                                    if (isUserAgent)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-primary" asp-area="" asp-controller="Jet" asp-action="Add">Add Jet</a>
+                                        </li>
+                                    }
                                     <li>
                                         <a class="dropdown-item text-primary" asp-area="" asp-controller="Jet" asp-action="Mine">My Jets</a>
                                     </li>
@@ -83,9 +99,12 @@
                                 </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li>
-                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Yacht" asp-action="Add">Add Yachts</a>
-                                    </li>
+                                    if (isUserAgent)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-primary" asp-area="" asp-controller="Yacht" asp-action="Add">Add Yachts</a>
+                                        </li>
+                                    }
                                     <li>
                                         <a class="dropdown-item text-primary" asp-area="" asp-controller="Yacht" asp-action="Mine">My Yachts</a>
                                     </li>
@@ -100,9 +119,12 @@
                                 </li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li>
-                                        <a class="dropdown-item text-primary" asp-area="" asp-controller="Truck" asp-action="Add">Add Trucks</a>
-                                    </li>
+                                    if (isUserAgent)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item text-primary" asp-area="" asp-controller="Truck" asp-action="Add">Add Trucks</a>
+                                        </li>
+                                    }
                                     <li>
                                         <a class="dropdown-item text-primary" asp-area="" asp-controller="Truck" asp-action="Mine">My Trucks</a>
                                     </li>

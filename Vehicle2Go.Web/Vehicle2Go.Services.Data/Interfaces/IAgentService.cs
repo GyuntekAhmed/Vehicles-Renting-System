@@ -8,5 +8,6 @@ namespace Vehicle2Go.Services.Data.Interfaces
         Task<bool> AgentExistByPhoneNumberAsync(string phoneNumber);
         Task Create(string userId, BecomeAgentFormModel model);
         Task<string?> GetAgentIdByUserIdAsync(string userId);
+        Task<bool> HasVehicleWithIdAsync(string? userId, string vehicleId);
     }
 }

@@ -1,30 +1,40 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Vehicle2Go.Data.Models.User
+@using Vehicle2Go.Services.Data.Interfaces
+@using Vehicle2Go.Web.Infrastructure.Extensions
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@inject IAgentService AgentService
+@{
+    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
+}
+
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-primary" asp-area="" asp-controller="Agent" asp-action="Become">Become Agent</a>
-    </li>
-    <li class="nav-item">
-        <a  class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-primary">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (!isUserAgent)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-primary" asp-area="" asp-controller="Agent" asp-action="Become">Become Agent</a>
+            </li>
+        }
+        <li class="nav-item">
+            <a class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-primary">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>

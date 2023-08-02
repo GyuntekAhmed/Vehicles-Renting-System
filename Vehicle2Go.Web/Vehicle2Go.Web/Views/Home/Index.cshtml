@@ -1,7 +1,12 @@
-﻿@model IEnumerable<IndexViewModel>
+﻿@using Vehicle2Go.Services.Data.Interfaces
+@using Vehicle2Go.Web.Infrastructure.Extensions
+@model IEnumerable<IndexViewModel>
+@inject IAgentService AgentService
 @{
     ViewData["Title"] = "Home Page";
+
     var vehicles = Model.ToList();
+    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId()!);
 }
 @if (!vehicles.Any())
 {
@@ -15,11 +20,14 @@
         <p class="lead">
             @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Car" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Car</a>
-                <a asp-controller="Motorcycle" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Motorcycle</a>
-                <a asp-controller="Jet" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Jet</a>
-                <a asp-controller="Yacht" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Yacht</a>
-                <a asp-controller="Truck" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Truck</a>
+                @if (isUserAgent)
+                {
+                    <a asp-controller="Car" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Car</a>
+                    <a asp-controller="Motorcycle" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Motorcycle</a>
+                    <a asp-controller="Jet" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Jet</a>
+                    <a asp-controller="Yacht" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Yacht</a>
+                    <a asp-controller="Truck" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Truck</a>
+                }
             }
         </p>
     </div>

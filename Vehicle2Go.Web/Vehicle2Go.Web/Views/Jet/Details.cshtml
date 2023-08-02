@@ -1,7 +1,16 @@
-﻿@model VehicleDetailsViewModel
+﻿@using Vehicle2Go.Services.Data.Interfaces
+@using Vehicle2Go.Web.Infrastructure.Extensions
+@model VehicleDetailsViewModel
+
+@inject IAgentService AgentService
+@inject IJetService JetService
 @{
+    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId()!);
+    bool isAgentOwner = await AgentService.HasVehicleWithIdAsync(this.User.GetId(), Model.Id);
+    bool isJetRentedByUser = await JetService.IsRentedByUserWithIdAsync(Model.Id, this.User.GetId()!);
     ViewBag.Title = "Jet Details";
 }
+
 <h2 class="text-center text-primary">@ViewBag.Title</h2>
 <hr />
 <div class="container" style="display:inline">
@@ -15,7 +24,7 @@
             <p>Model: <b>@Model.Model</b></p>
             <p>Located in: <b>@Model.Address</b></p>
             <p>
-                Price Per Month:
+                Price Per Day:
                 <b>@($"{Model.PricePerDay:f2}") BGN</b>
             </p>
             <p>Category: <b>@Model.Category</b></p>
@@ -23,10 +32,13 @@
             <div class="form-inline">
                 @if (this.User.Identity?.IsAuthenticated ?? false)
                 {
-                    <a class="btn btn-warning" asp-controller="Jet" asp-action="Edit"
-                       asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Jet" asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
+                    @if (isAgentOwner && isUserAgent)
+                    {
+                        <a asp-controller="Jet" asp-action="Edit" asp-route-id="@Model.Id"
+                           class="btn btn-warning">Edit</a>
+                        <a asp-controller="Jet" asp-action="Delete" asp-route-id="@Model.Id"
+                           class="btn btn-danger">Delete</a>
+                    }
 
                     @if (!Model.IsRented)
                     {
@@ -37,10 +49,13 @@
                     }
                     else
                     {
-                        <form class="ml-2" asp-controller="Jet" asp-action="Leave"
-                              asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Leave" />
-                        </form>
+                        @if (isJetRentedByUser)
+                        {
+                            <form asp-controller="Jet" asp-action="Leave"
+                                  asp-route-id="@Model.Id" method="post">
+                                <input class="btn btn-primary" type="submit" value="Leave" />
+                            </form>
+                        }
                     }
                 }
             </div>

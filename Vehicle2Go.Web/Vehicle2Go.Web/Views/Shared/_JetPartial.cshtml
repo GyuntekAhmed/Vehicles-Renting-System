@@ -1,4 +1,14 @@
-﻿@model VehicleAllViewModel
+﻿@using Vehicle2Go.Services.Data.Interfaces
+@using Vehicle2Go.Web.Infrastructure.Extensions
+@model VehicleAllViewModel
+
+@inject IAgentService AgentService
+@inject IJetService JetService
+@{
+    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId()!);
+    bool isAgentOwner = await AgentService.HasVehicleWithIdAsync(this.User.GetId(), Model.Id);
+    bool isJetRentedByUser = await JetService.IsRentedByUserWithIdAsync(Model.Id, this.User.GetId()!);
+}
 
 <div class="col-md-4">
     <div class="card mb-3">
@@ -16,10 +26,13 @@
                class="btn btn-success">Details</a>
             @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Jet" asp-action="Edit" asp-route-id="@Model.Id"
-                   class="btn btn-warning">Edit</a>
-                <a asp-controller="Jet" asp-action="Delete" asp-route-id="@Model.Id"
-                   class="btn btn-danger">Delete</a>
+                @if (isAgentOwner && isUserAgent)
+                {
+                    <a asp-controller="Jet" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
+                    <a asp-controller="Jet" asp-action="Delete" asp-route-id="@Model.Id"
+                       class="btn btn-danger">Delete</a>
+                }
                 <p></p>
                 @if (!Model.IsRented)
                 {
@@ -30,10 +43,13 @@
                 }
                 else
                 {
-                    <form asp-controller="Jet" asp-action="Leave"
-                          asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Leave" />
-                    </form>
+                    @if (isJetRentedByUser)
+                    {
+                        <form asp-controller="Jet" asp-action="Leave"
+                              asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit" value="Leave" />
+                        </form>
+                    }
                 }
             }
         </div>

@@ -1,6 +1,4 @@
-﻿using Vehicle2Go.Services.Data.Models.Statistics;
-
-namespace Vehicle2Go.Services.Data
+﻿namespace Vehicle2Go.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +9,8 @@ namespace Vehicle2Go.Services.Data
     using Web.ViewModels.Vehicle.Enums;
     using Models.Vehicle;
     using Web.ViewModels.Agent;
+    using Models.Statistics;
+    using Vehicle2Go.Data.Models.Agent;
 
     public class MotorcycleService : IMotorcycleService
     {
@@ -326,6 +326,20 @@ namespace Vehicle2Go.Services.Data
                     .Where(m => m.RenterId.HasValue)
                     .CountAsync()
             };
+        }
+
+        public async Task<bool> HasMotorcycleWithIdAsync(string userId, string motorcycleId)
+        {
+            Agent? agent = await dbContext
+                .Agents
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+
+            if (agent == null)
+            {
+                return false;
+            }
+
+            return agent.OwnedMotorcycles.Any(m => m.Id.ToString() == motorcycleId);
         }
     }
 }

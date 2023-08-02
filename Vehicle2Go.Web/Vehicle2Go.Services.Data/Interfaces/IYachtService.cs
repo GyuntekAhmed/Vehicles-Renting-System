@@ -22,5 +22,6 @@
         Task<bool> IsRentedByUserWithIdAsync(string yachtId, string userId);
         Task LeaveAsync(string yachtId);
         Task<StatisticsServiceModel> GetStatisticsAsync();
+        Task<bool> HasYachtWithIdAsync(string userId, string yachtId);
     }
 }

@@ -22,5 +22,6 @@
         Task<bool> IsRentedByUserWithIdAsync(string motorcycleId, string userId);
         Task LeaveAsync(string motorcycleId);
         Task<StatisticsServiceModel> GetStatisticsAsync();
+        Task<bool> HasMotorcycleWithIdAsync(string userId, string motorcycleId);
     }
 }

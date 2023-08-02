@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Vehicle2Go.Services.Data.Interfaces;
 using Vehicle2Go.Web.Infrastructure.Extensions;
 using Vehicle2Go.Web.Infrastructure.ModelBinders;
@@ -39,6 +40,7 @@ namespace Vehicle2Go.Web
                 .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
             builder.Services.ConfigureApplicationCookie(opt =>

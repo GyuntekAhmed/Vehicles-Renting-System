@@ -1,6 +1,4 @@
-﻿using Vehicle2Go.Services.Data.Models.Statistics;
-
-namespace Vehicle2Go.Services.Data
+﻿namespace Vehicle2Go.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +9,8 @@ namespace Vehicle2Go.Services.Data
     using Vehicle2Go.Data.Models.Vehicle;
     using Web.ViewModels.Vehicle.Enums;
     using Web.ViewModels.Agent;
+    using Vehicle2Go.Data.Models.Agent;
+    using Models.Statistics;
 
     public class YachtService : IYachtService
     {
@@ -164,7 +164,7 @@ namespace Vehicle2Go.Services.Data
                 .ThenInclude(a => a.User)
                 .Where(y => y.IsActive)
                 .FirstAsync(y => y.Id.ToString() == yachtId);
-            
+
             return new VehicleDetailsViewModel
             {
                 Id = yacht.Id.ToString(),
@@ -324,6 +324,20 @@ namespace Vehicle2Go.Services.Data
                     .Where(y => y.RenterId.HasValue)
                     .CountAsync()
             };
+        }
+
+        public async Task<bool> HasYachtWithIdAsync(string userId, string yachtId)
+        {
+            Agent? agent = await dbContext
+                .Agents
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+
+            if (agent == null)
+            {
+                return false;
+            }
+
+            return agent.OwnedYachts.Any(y => y.Id.ToString() == yachtId);
         }
     }
 }

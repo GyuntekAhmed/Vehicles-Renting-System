@@ -22,5 +22,6 @@
         Task<bool> IsRentedByUserWithIdAsync(string carId, string userId);
         Task LeaveAsync(string carId);
         Task<StatisticsServiceModel> GetStatisticsAsync();
+        Task<bool> HasCarWithIdAsync(string userId, string carId);
     }
 }

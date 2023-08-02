@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using Vehicle2Go.Services.Data.Models.Statistics;
-
-namespace Vehicle2Go.WebApi.Controllers
+﻿namespace Vehicle2Go.WebApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 
+    using Services.Data.Models.Statistics;
     using Services.Data.Interfaces;
 
     [Route("api/statistics")]
