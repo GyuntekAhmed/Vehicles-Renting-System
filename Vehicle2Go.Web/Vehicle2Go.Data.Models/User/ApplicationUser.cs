@@ -1,9 +1,13 @@
-﻿namespace Vehicle2Go.Data.Models.User
+﻿// ReSharper disable VirtualMemberCallInConstructor
+namespace Vehicle2Go.Data.Models.User
 {
+    using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Identity;
     using System;
 
     using Vehicle;
+
+    using static Common.EntityValidationConstants.User;
 
     public class ApplicationUser : IdentityUser<Guid>
     {
@@ -16,6 +20,14 @@
             this.RentedYachts = new HashSet<Yacht>();
             this.RentedTrucks = new HashSet<Truck>();
         }
+
+        [Required]
+        [MaxLength(FirstNameMaxLength)]
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+        public string LastName { get; set; } = null!;
 
         public ICollection<Car> RentedCars { get; set; }
 

@@ -1,10 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
-using Vehicle2Go.Services.Data.Interfaces;
-using Vehicle2Go.Web.Infrastructure.Extensions;
-using Vehicle2Go.Web.Infrastructure.ModelBinders;
-
 namespace Vehicle2Go.Web
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using Services.Data.Interfaces;
+    using Infrastructure.Extensions;
+    using Infrastructure.ModelBinders;
+    using Microsoft.AspNetCore.Identity;
+    using Vehicle2Go.Data;
+
     using Microsoft.EntityFrameworkCore;
 
     using Data.Models.User;
