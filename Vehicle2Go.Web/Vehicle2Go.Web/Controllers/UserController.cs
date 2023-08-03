@@ -2,23 +2,22 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Authentication;
 
     using ViewModels.User;
     using Data.Models.User;
+
+    using static Common.NotificationMessagesConstants;
 
     public class UserController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUserStore<ApplicationUser> userStore;
 
-        public UserController(SignInManager<ApplicationUser> signInManager,
-                UserManager<ApplicationUser> userManager,
-                IUserStore<ApplicationUser> userStore)
+        public UserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
-            this.userStore = userStore;
         }
 
         [HttpGet]
@@ -59,6 +58,40 @@
             await this.signInManager.SignInAsync(user, false);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login(string? returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            LoginFormModel model = new LoginFormModel()
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await this.signInManager
+                .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
+            if (!result.Succeeded)
+            {
+                this.TempData[ErrorMessage] = "There was an error while logging you in! Please try again later.";
+
+                return View(model);
+            }
+
+            return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
     }
 }

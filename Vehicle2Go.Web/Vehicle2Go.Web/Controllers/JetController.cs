@@ -103,7 +103,7 @@
 
                 return RedirectToAction("Details", "Jet", new { id = jetId});
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new jet! Please try again later.");
                 formModel.VehicleCategories = await this.jetCategoryService.AllCategoriesAsync();

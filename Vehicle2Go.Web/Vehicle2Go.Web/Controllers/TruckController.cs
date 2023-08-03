@@ -104,7 +104,7 @@
 
                 return RedirectToAction("Details", "Truck", new { id = truckId});
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new truck! Please try again later.");
                 formModel.VehicleCategories = await this.truckCategoryService.AllCategoriesAsync();

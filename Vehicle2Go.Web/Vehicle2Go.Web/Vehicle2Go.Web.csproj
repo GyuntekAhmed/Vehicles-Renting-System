@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Vehicle2Go.Web.ViewModels\Vehicle2Go.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Pages\Account\" />
+  </ItemGroup>
+
 </Project>

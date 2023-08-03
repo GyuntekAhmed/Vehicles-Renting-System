@@ -103,7 +103,7 @@
 
                 return RedirectToAction("Details", "Yacht", new { id = yachtId});
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new yacht! Please try again later.");
 

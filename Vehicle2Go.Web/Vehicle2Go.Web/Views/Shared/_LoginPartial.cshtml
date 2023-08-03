@@ -7,7 +7,7 @@
 
 @inject IAgentService AgentService
 @{
-    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
+    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId()!);
 }
 
 <ul class="navbar-nav">
@@ -34,7 +34,7 @@
             <a class="nav-link text-primary" asp-area="" asp-controller="User" asp-action="Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-primary" asp-area="" asp-page="/User/Login">Login</a>
+            <a class="nav-link text-primary" asp-area="" asp-controller="User" asp-action="Login">Login</a>
         </li>
     }
 </ul>

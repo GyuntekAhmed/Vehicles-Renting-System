@@ -24,7 +24,7 @@
         {
             string? userId = this.User.GetId();
 
-            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId!);
 
             if (isAgent)
             {
@@ -41,7 +41,7 @@
         {
             string? userId = this.User.GetId();
 
-            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId!);
 
             if (isAgent)
             {
@@ -65,9 +65,9 @@
 
             try
             {
-                await this.agentService.Create(userId, model);
+                await this.agentService.Create(userId!, model);
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 this.TempData[ErrorMessage] =
                     "Error occurred while registering you as an agent! Please try again later or contact administrator.";

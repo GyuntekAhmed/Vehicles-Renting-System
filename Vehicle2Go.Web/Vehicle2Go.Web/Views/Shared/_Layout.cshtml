@@ -4,7 +4,7 @@
 
 @inject IAgentService AgentService
 @{
-    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
+    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId()!);
 }
 
 <!DOCTYPE html>

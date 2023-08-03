@@ -1,18 +1,12 @@
 namespace Vehicle2Go.Web
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-
-    using Services.Data.Interfaces;
+    using Data.Models.User;
     using Infrastructure.Extensions;
     using Infrastructure.ModelBinders;
-    using Microsoft.AspNetCore.Identity;
-    using Vehicle2Go.Data;
-
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-
-    using Data.Models.User;
-    using Data;
+    using Services.Data.Interfaces;
+    using Vehicle2Go.Data;
 
     public class Program
     {
@@ -49,6 +43,7 @@ namespace Vehicle2Go.Web
 
             builder.Services.ConfigureApplicationCookie(opt =>
             {
+                opt.LoginPath = "/User/Login";
                 opt.Cookie.SameSite = SameSiteMode.None;
             });
             
