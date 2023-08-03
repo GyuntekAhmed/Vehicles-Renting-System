@@ -16,12 +16,14 @@
         private readonly IYachtCategoryService yachtCategoryService;
         private readonly IAgentService agentService;
         private readonly IYachtService yachtService;
+        private readonly IUserService userService;
 
-        public YachtController(IYachtCategoryService yachtCategoryService, IAgentService agentService, IYachtService yachtService)
+        public YachtController(IYachtCategoryService yachtCategoryService, IAgentService agentService, IYachtService yachtService, IUserService userService)
         {
             this.yachtCategoryService = yachtCategoryService;
             this.agentService = agentService;
             this.yachtService = yachtService;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -159,6 +161,8 @@
             {
                 VehicleDetailsViewModel viewModel = await this.yachtService
                     .GetDetailsByIdAsync(id);
+
+                viewModel.Agent.FullName = await this.userService.GetFullNameAsync(this.User.Identity?.Name!);
 
                 return View(viewModel);
             }

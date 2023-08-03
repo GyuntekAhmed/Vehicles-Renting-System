@@ -4,10 +4,12 @@
 @using Vehicle2Go.Web.Infrastructure.Extensions
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IUserService UserService
 
 @inject IAgentService AgentService
 @{
     bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId()!);
+    string userFullName = await UserService.GetFullNameAsync(User.Identity?.Name!);
 }
 
 <ul class="navbar-nav">
@@ -20,7 +22,7 @@
             </li>
         }
         <li class="nav-item">
-            <a class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
+            <a class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @userFullName</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

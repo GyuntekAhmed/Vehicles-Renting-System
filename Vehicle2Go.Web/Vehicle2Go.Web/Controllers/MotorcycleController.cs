@@ -16,12 +16,14 @@
         private readonly IMotorcycleCategoryService motorcycleCategoryService;
         private readonly IAgentService agentService;
         private readonly IMotorcycleService motorcycleService;
+        private readonly IUserService userService;
 
-        public MotorcycleController(IMotorcycleCategoryService motorcycleCategoryService, IAgentService agentService, IMotorcycleService motorcycleService)
+        public MotorcycleController(IMotorcycleCategoryService motorcycleCategoryService, IAgentService agentService, IMotorcycleService motorcycleService, IUserService userService)
         {
             this.motorcycleCategoryService = motorcycleCategoryService;
             this.agentService = agentService;
             this.motorcycleService = motorcycleService;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -158,6 +160,8 @@
             {
                 VehicleDetailsViewModel? viewModel = await this.motorcycleService
                     .GetDetailsByIdAsync(id);
+
+                viewModel.Agent.FullName = await this.userService.GetFullNameAsync(this.User.Identity?.Name!);
 
                 return View(viewModel);
             }

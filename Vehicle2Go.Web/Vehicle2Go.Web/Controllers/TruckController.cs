@@ -16,12 +16,14 @@
         private readonly ITruckCategoryService truckCategoryService;
         private readonly IAgentService agentService;
         private readonly ITruckService truckService;
+        private readonly IUserService userService;
 
-        public TruckController(ITruckCategoryService truckCategoryService, IAgentService agentService, ITruckService truckService)
+        public TruckController(ITruckCategoryService truckCategoryService, IAgentService agentService, ITruckService truckService, IUserService userService)
         {
             this.truckCategoryService = truckCategoryService;
             this.agentService = agentService;
             this.truckService = truckService;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -159,6 +161,8 @@
             {
                 VehicleDetailsViewModel? viewModel = await this.truckService
                     .GetDetailsByIdAsync(id);
+
+                viewModel.Agent.FullName = await this.userService.GetFullNameAsync(this.User.Identity?.Name!);
 
                 return View(viewModel);
             }

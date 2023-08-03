@@ -16,12 +16,14 @@
         private readonly IJetCategoryService jetCategoryService;
         private readonly IAgentService agentService;
         private readonly IJetService jetService;
+        private readonly IUserService userService;
 
-        public JetController(IJetCategoryService jetCategoryService, IAgentService agentService, IJetService jetService)
+        public JetController(IJetCategoryService jetCategoryService, IAgentService agentService, IJetService jetService, IUserService userService)
         {
             this.jetCategoryService = jetCategoryService;
             this.agentService = agentService;
             this.jetService = jetService;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -159,6 +161,8 @@
             {
                 VehicleDetailsViewModel viewModel = await this.jetService
                     .GetDetailsByIdAsync(id);
+
+                viewModel.Agent.FullName = await this.userService.GetFullNameAsync(this.User.Identity?.Name!);
 
                 return View(viewModel);
             }

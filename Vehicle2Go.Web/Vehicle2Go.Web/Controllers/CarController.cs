@@ -16,12 +16,14 @@
         private readonly ICarCategoryService carCategoryService;
         private readonly IAgentService agentService;
         private readonly ICarService carService;
+        private readonly IUserService userService;
 
-        public CarController(ICarCategoryService carCategoryService, IAgentService agentService, ICarService carService)
+        public CarController(ICarCategoryService carCategoryService, IAgentService agentService, ICarService carService, IUserService userService)
         {
             this.carCategoryService = carCategoryService;
             this.agentService = agentService;
             this.carService = carService;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -159,6 +161,8 @@
             {
                 VehicleDetailsViewModel viewModel = await this.carService
                     .GetDetailsByIdAsync(id);
+
+                viewModel.Agent.FullName = await this.userService.GetFullNameAsync(this.User.Identity?.Name!);
 
                 return View(viewModel);
             }
