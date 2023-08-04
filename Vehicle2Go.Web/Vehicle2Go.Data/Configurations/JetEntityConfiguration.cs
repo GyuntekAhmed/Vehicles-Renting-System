@@ -49,8 +49,7 @@
                     Color = "Black",
                     ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/7d/2020_Yamaha_FX_SVHO_WaveRunner.jpg",
                     CategoryId = 1,
-                    AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
-                    RenterId = Guid.Parse("405004AA-8BD0-4407-A506-89E514C30FAF"),
+                    AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
                 };
                 jets.Add(jet);
 
@@ -64,7 +63,7 @@
                     Color = "Red",
                     ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/5/5f/1985_Kawasaki_550_Jet_Ski%C2%AE.jpg",
                     CategoryId = 2,
-                    AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
+                    AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
                 };
                 jets.Add(jet);
 
@@ -78,7 +77,7 @@
                     Color = "Red",
                     ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Honda_Aqua_Trax_F-12x_turbo.jpg/640px-Honda_Aqua_Trax_F-12x_turbo.jpg",
                     CategoryId = 2,
-                    AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
+                    AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
                 };
                 jets.Add(jet);
 

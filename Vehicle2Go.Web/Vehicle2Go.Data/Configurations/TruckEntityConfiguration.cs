@@ -48,8 +48,7 @@
                 Color = "Green",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Volvo_FH_540_at_IAA_2014._Free_images_Spielvogel.jpg/1200px-Volvo_FH_540_at_IAA_2014._Free_images_Spielvogel.jpg",
                 CategoryId = 1,
-                AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
-                RenterId = Guid.Parse("405004AA-8BD0-4407-A506-89E514C30FAF"),
+                AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
             };
             trucks.Add(truck);
 
@@ -63,7 +62,7 @@
                 Color = "Red",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/2/2b/Scania_R730.jpg",
                 CategoryId = 3,
-                AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
+                AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
             };
             trucks.Add(truck);
 

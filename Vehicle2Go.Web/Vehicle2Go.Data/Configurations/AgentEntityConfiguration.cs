@@ -1,5 +1,6 @@
 ﻿namespace Vehicle2Go.Data.Configurations
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,18 +10,17 @@
     {
         public void Configure(EntityTypeBuilder<Agent> builder)
         {
-            // Uncomment before Seeding DB
-            //builder.HasData(this.GenerateAgent());
+            builder.HasData(this.GenerateAgent());
         }
 
         private Agent GenerateAgent()
         {
             Agent agent = new Agent
             {
-                Id = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
+                Id = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
                 PhoneNumber = "+359893794549",
                 Address = "Silistra",
-                UserId = Guid.Parse("389A42BB-6250-4E01-A7C6-29632BF524FA"),
+                UserId = Guid.Parse("e18cd243-7762-4aab-baee-8c8977e6ac83"),
             };
 
             return agent;

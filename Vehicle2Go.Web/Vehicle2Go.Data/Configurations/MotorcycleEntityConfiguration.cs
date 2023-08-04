@@ -49,8 +49,7 @@
                 Color = "Black",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/c/c9/BMW_K1300R_Rennes.jpg",
                 CategoryId = 3,
-                AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
-                RenterId = Guid.Parse("405004AA-8BD0-4407-A506-89E514C30FAF"),
+                AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
             };
             motorcycles.Add(motorcycle);
 
@@ -64,7 +63,7 @@
                 Color = "Gray",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/71/1999modelzwart.JPG",
                 CategoryId = 1,
-                AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
+                AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
             };
             motorcycles.Add(motorcycle);
 
@@ -78,7 +77,7 @@
                 Color = "Red",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Honda_XLV750R%28D%29_1.jpg/1200px-Honda_XLV750R%28D%29_1.jpg",
                 CategoryId = 2,
-                AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
+                AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
             };
             motorcycles.Add(motorcycle);
 

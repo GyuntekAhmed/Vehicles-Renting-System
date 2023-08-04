@@ -49,8 +49,7 @@
                     Color = "White",
                     ImageUrl = "https://www.tiarayachts.com/media/wysiwyg/new-43le/43le-banner1-1600x1066.jpg",
                     CategoryId = 1,
-                    AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
-                    RenterId = Guid.Parse("405004AA-8BD0-4407-A506-89E514C30FAF"),
+                    AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
                 };
                 yachts.Add(yacht);
 
@@ -64,7 +63,7 @@
                     Color = "Red",
                     ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/2/29/Hacker_Runabout_2010.jpg",
                     CategoryId = 2,
-                    AgentId = Guid.Parse("6FC60999-8FC8-46B6-A131-897EDD45A5F0"),
+                    AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
                 };
                 yachts.Add(yacht);
 
