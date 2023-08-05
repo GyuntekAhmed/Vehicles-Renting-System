@@ -26,7 +26,7 @@
                class="btn btn-success">Details</a>
             @if (User.Identity?.IsAuthenticated ?? false)
             {
-                @if (isAgentOwner && isUserAgent)
+                if ((isAgentOwner && isUserAgent) || this.User.IsAdmin())
                 {
                     <a asp-controller="Motorcycle" asp-action="Edit" asp-route-id="@Model.Id"
                        class="btn btn-warning">Edit</a>

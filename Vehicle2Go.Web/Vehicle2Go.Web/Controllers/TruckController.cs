@@ -125,7 +125,17 @@
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
             try
             {
-                if (isUserAgent)
+                if (this.User.IsAdmin())
+                {
+
+                    string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+
+                    myTrucks.AddRange(await this.truckService.AllByAgentIdAsync(agentId!));
+                    myTrucks.AddRange(await this.truckService.AllByUserIdAsync(userId));
+
+                    myTrucks = myTrucks.DistinctBy(t => t.Id).ToList();
+                }
+                else if (isUserAgent)
                 {
                     string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
 
@@ -186,7 +196,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit truck info!";
 
@@ -197,7 +207,7 @@
 
             bool isAgentOwner = await this.truckService.IsAgentWithIdOwnerOfTruckWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the truck you want to edit!";
 
@@ -240,7 +250,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit truck info!";
 
@@ -251,7 +261,7 @@
 
             bool isAgentOwner = await this.truckService.IsAgentWithIdOwnerOfTruckWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the truck you want to edit!";
 
@@ -291,7 +301,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit truck info!";
 
@@ -302,7 +312,7 @@
 
             bool isAgentOwner = await this.truckService.IsAgentWithIdOwnerOfTruckWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the truck you want to edit!";
 
@@ -336,7 +346,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to delete truck!";
 
@@ -348,7 +358,7 @@
             bool isAgentOwner = await this.truckService
                 .IsAgentWithIdOwnerOfTruckWithIdAsync(truckId, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the truck you want to delete!";
 

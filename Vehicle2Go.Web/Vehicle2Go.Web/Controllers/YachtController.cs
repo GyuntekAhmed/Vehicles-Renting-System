@@ -125,7 +125,17 @@
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
             try
             {
-                if (isUserAgent)
+                if (this.User.IsAdmin())
+                {
+
+                    string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+
+                    myYachts.AddRange(await this.yachtService.AllByAgentIdAsync(agentId!));
+                    myYachts.AddRange(await this.yachtService.AllByUserIdAsync(userId));
+
+                    myYachts = myYachts.DistinctBy(y => y.Id).ToList();
+                }
+                else if (isUserAgent)
                 {
                     string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
 
@@ -186,7 +196,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit yacht info!";
 
@@ -197,7 +207,7 @@
 
             bool isAgentOwner = await this.yachtService.IsAgentWithIdOwnerOfYachtWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to edit!";
 
@@ -240,7 +250,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit yacht info!";
 
@@ -251,7 +261,7 @@
 
             bool isAgentOwner = await this.yachtService.IsAgentWithIdOwnerOfYachtWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to edit!";
 
@@ -291,7 +301,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit yacht info!";
 
@@ -302,7 +312,7 @@
 
             bool isAgentOwner = await this.yachtService.IsAgentWithIdOwnerOfYachtWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to edit!";
 
@@ -336,7 +346,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to delete yacht!";
 
@@ -348,7 +358,7 @@
             bool isAgentOwner = await this.yachtService
                 .IsAgentWithIdOwnerOfYachtWithIdAsync(yachtId, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the yacht you want to delete!";
 

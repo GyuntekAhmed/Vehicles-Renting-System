@@ -9,6 +9,7 @@
     using ViewModels.Vehicle;
 
     using static Common.NotificationMessagesConstants;
+    using Vehicle2Go.Data.Models.Vehicle;
 
     [Authorize]
     public class MotorcycleController : Controller
@@ -124,7 +125,17 @@
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
             try
             {
-                if (isUserAgent)
+                if (this.User.IsAdmin())
+                {
+
+                    string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+
+                    myMotorcycles.AddRange(await this.motorcycleService.AllByAgentIdAsync(agentId!));
+                    myMotorcycles.AddRange(await this.motorcycleService.AllByUserIdAsync(userId));
+
+                    myMotorcycles = myMotorcycles.DistinctBy(m => m.Id).ToList();
+                }
+                else if (isUserAgent)
                 {
                     string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
 
@@ -185,7 +196,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit motorcycle info!";
 
@@ -197,7 +208,7 @@
             bool isAgentOwner = await this.motorcycleService
                 .IsAgentWithIdOwnerOfMotorcycleWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the motorcycle you want to edit!";
 
@@ -240,7 +251,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit motorcycle info!";
 
@@ -251,7 +262,7 @@
 
             bool isAgentOwner = await this.motorcycleService.IsAgentWithIdOwnerOfMotorcycleWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the motorcycle you want to edit!";
 
@@ -291,7 +302,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit motorcycle info!";
 
@@ -303,7 +314,7 @@
             bool isAgentOwner = await this.motorcycleService
                 .IsAgentWithIdOwnerOfMotorcycleWithIdAsync(id, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the agent owner of the motorcycle you want to edit!";
 
@@ -337,7 +348,7 @@
 
             bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
 
-            if (!isUserAgent)
+            if (!isUserAgent && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to delete motorcycle!";
 
@@ -349,7 +360,7 @@
             bool isAgentOwner = await this.motorcycleService
                 .IsAgentWithIdOwnerOfMotorcycleWithIdAsync(motorcycleId, agentId!);
 
-            if (!isAgentOwner)
+            if (!isAgentOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] =
                     "You must be the agent owner of the motorcycle you want to delete!";
