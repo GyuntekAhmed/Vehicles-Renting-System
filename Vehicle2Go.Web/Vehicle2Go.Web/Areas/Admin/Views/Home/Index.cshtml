@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="mt-4 p-5 bg-light text-center">
+    <h2 class="display-4">Hello, Admin!</h2>
+    <p class="lead mb-1 mt-3">
+        This is your administrator area - you can <b>read</b>, <b>create</b>,
+        <b>delete</b> and <b>edit</b> vehicles.
+        <br />You can <b>rent</b> and <b>leave</b> the free ones, too!
+    </p>
+    <p class="lead mt-1">
+        You can also see <b>all users and agents</b> and <b>all rents</b> in the
+        system.
+    </p>
+    <div class="mt-4 p-5 bg-light">
+        <p class="lead">
+            <a asp-area="" asp-controller="Car" asp-action="All"
+               class="btn btn-primary btn-lg">All Cars</a>
+            <span> | </span>
+            <a asp-area="" asp-controller="Car" asp-action="Add"
+               class="btn btn-primary btn-lg">Add Car</a>
+            <span> | </span>
+            <a asp-area="Admin" asp-controller="Car" asp-action="Mine"
+               class="btn btn-primary btn-lg">My Cars</a>
+        </p>
+        <p class="lead">
+            <hr class="my-4">
+            <a asp-area="" asp-controller="Motorcycle" asp-action="All"
+               class="btn btn-primary btn-lg">All Motorcycles</a>
+            <span> | </span>
+            <a asp-area="" asp-controller="Motorcycle" asp-action="Add"
+               class="btn btn-primary btn-lg">Add Motorcycle</a>
+            <span> | </span>
+            <a asp-area="Admin" asp-controller="Car" asp-action="Mine"
+               class="btn btn-primary btn-lg">My Motorcycles</a>
+        </p>
+        <p class="lead">
+            <hr class="my-4">
+            <a asp-area="" asp-controller="Jet" asp-action="All"
+               class="btn btn-primary btn-lg">All Jets</a>
+            <span> | </span>
+            <a asp-area="" asp-controller="Jet" asp-action="Add"
+               class="btn btn-primary btn-lg">Add Jet</a>
+            <span> | </span>
+            <a asp-area="Admin" asp-controller="Jet" asp-action="Mine"
+               class="btn btn-primary btn-lg">My Jets</a>
+        </p>
+        <p class="lead">
+            <hr class="my-4">
+            <a asp-area="" asp-controller="Yacht" asp-action="All"
+               class="btn btn-primary btn-lg">All Yachts</a>
+            <span> | </span>
+            <a asp-area="" asp-controller="Yacht" asp-action="Add"
+               class="btn btn-primary btn-lg">Add Yacht</a>
+            <span> | </span>
+            <a asp-area="Admin" asp-controller="Yacht" asp-action="Mine"
+               class="btn btn-primary btn-lg">My Yachts</a>
+        </p>
+        <p class="lead">
+            <hr class="my-4">
+            <a asp-area="" asp-controller="Truck" asp-action="All"
+               class="btn btn-primary btn-lg">All Trucks</a>
+            <span> | </span>
+            <a asp-area="" asp-controller="Truck" asp-action="Add"
+               class="btn btn-primary btn-lg">Add Truck</a>
+            <span> | </span>
+            <a asp-area="Admin" asp-controller="Truck" asp-action="Mine"
+               class="btn btn-primary btn-lg">My Trucks</a>
+        </p>
+    </div>
+
+    <div class="user-section">
+        <h3 class="section-title">Users</h3>
+        <div class="user-buttons">
+            <a asp-area="Admin" asp-controller="User" asp-action="All" class="btn btn-primary">View All Users</a>
+        </div>
+    </div>
+
+    <div class="rent-section">
+        <h3 class="section-title">Rents</h3>
+        <div class="rent-buttons">
+            <a asp-area="Admin" asp-controller="Rent" asp-action="All" class="btn btn-primary">View All Rents</a>
+        </div>
+    </div>
+</div>

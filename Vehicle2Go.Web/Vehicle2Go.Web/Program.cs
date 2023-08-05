@@ -49,6 +49,7 @@ namespace Vehicle2Go.Web
             builder.Services.ConfigureApplicationCookie(opt =>
             {
                 opt.LoginPath = "/User/Login";
+                opt.AccessDeniedPath = "/Home/Error/401";
                 opt.Cookie.SameSite = SameSiteMode.None;
             });
 
@@ -78,8 +79,15 @@ namespace Vehicle2Go.Web
 
             app.SeedAdministrator(AdminEmail);
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.UseEndpoints(config =>
+            {
+                config.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                config.MapDefaultControllerRoute();
+                config.MapRazorPages();
+            });
 
             app.Run();
         }

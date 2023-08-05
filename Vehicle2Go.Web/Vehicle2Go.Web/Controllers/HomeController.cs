@@ -7,6 +7,8 @@
     using Services.Data.Interfaces;
     using ViewModels.Home;
 
+    using static Common.GeneralApplicationConstants;
+
     public class HomeController : Controller
     {
         private readonly IVehicleService vehicleService;
@@ -19,6 +21,11 @@
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             IEnumerable<IndexViewModel> viewModels =
                 await vehicleService.AllVehiclesAsync();
 
