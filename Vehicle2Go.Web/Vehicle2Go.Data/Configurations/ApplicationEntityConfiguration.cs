@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Vehicle2Go.Data.Configurations
+﻿namespace Vehicle2Go.Data.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Microsoft.AspNetCore.Identity;
 
     using Models.User;
 

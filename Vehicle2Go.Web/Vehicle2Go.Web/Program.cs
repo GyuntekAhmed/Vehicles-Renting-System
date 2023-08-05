@@ -1,12 +1,16 @@
 namespace Vehicle2Go.Web
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
     using Data.Models.User;
     using Infrastructure.Extensions;
     using Infrastructure.ModelBinders;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using Services.Data.Interfaces;
     using Vehicle2Go.Data;
+
+    using static Common.GeneralApplicationConstants;
 
     public class Program
     {
@@ -29,6 +33,7 @@ namespace Vehicle2Go.Web
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 3;
                 })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<Vehicle2GoDbContext>();
 
             builder.Services.AddApplicationServices(typeof(ICarService));
@@ -46,7 +51,7 @@ namespace Vehicle2Go.Web
                 opt.LoginPath = "/User/Login";
                 opt.Cookie.SameSite = SameSiteMode.None;
             });
-            
+
 
             var app = builder.Build();
 
@@ -70,6 +75,8 @@ namespace Vehicle2Go.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(AdminEmail);
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
