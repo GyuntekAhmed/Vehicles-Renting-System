@@ -29,7 +29,7 @@
         }
 
         [HttpPost]
-        [ValidateRecaptcha(Action = nameof(Register),
+        [ValidateRecaptcha(Action = "submit",
             ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
