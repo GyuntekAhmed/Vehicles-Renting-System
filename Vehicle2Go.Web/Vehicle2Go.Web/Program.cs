@@ -38,6 +38,8 @@ namespace Vehicle2Go.Web
 
             builder.Services.AddApplicationServices(typeof(ICarService));
 
+            builder.Services.AddRecaptchaService();
+
             builder.Services
                 .AddControllersWithViews()
                 .AddMvcOptions(options =>
