@@ -22,21 +22,21 @@
             </h6>
             <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
             <br />
-            <a asp-controller="Yacht" asp-action="Details" asp-route-id="@Model.Id"
+            <a asp-area="" asp-controller="Yacht" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
             @if (User.Identity?.IsAuthenticated ?? false)
             {
                 if ((isAgentOwner && isUserAgent) || this.User.IsAdmin())
                 {
-                    <a asp-controller="Yacht" asp-action="Edit" asp-route-id="@Model.Id"
+                    <a asp-area="" asp-controller="Yacht" asp-action="Edit" asp-route-id="@Model.Id"
                        class="btn btn-warning">Edit</a>
-                    <a asp-controller="Yacht" asp-action="Delete" asp-route-id="@Model.Id"
+                    <a asp-area="" asp-controller="Yacht" asp-action="Delete" asp-route-id="@Model.Id"
                        class="btn btn-danger">Delete</a>
                 }
                 <p></p>
                 @if (!Model.IsRented)
                 {
-                    <form class="input-group-sm" asp-controller="Yacht"
+                    <form class="input-group-sm" asp-area="" asp-controller="Yacht"
                           asp-action="Rent" asp-route-id="@Model.Id" method="post">
                         <input class="btn btn-primary" type="submit" value="Rent" />
                     </form>
@@ -45,7 +45,7 @@
                 {
                     @if (isYachtRentedByUser)
                     {
-                        <form asp-controller="Yacht" asp-action="Leave"
+                        <form asp-area="" asp-controller="Yacht" asp-action="Leave"
                               asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Leave" />
                         </form>
