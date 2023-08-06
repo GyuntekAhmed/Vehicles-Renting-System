@@ -9,7 +9,7 @@
     using Infrastructure.Extensions;
 
     using static Common.NotificationMessagesConstants;
-    using Vehicle2Go.Data.Models.Vehicle;
+    using static Common.GeneralApplicationConstants;
 
     [Authorize]
     public class CarController : Controller
@@ -119,6 +119,11 @@
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Mine", "Car", new { Area = AdminAreaName });
+            }
+
             List<VehicleAllViewModel> myCars = new List<VehicleAllViewModel>();
 
             string userId = this.User.GetId()!;

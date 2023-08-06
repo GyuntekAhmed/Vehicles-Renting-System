@@ -9,6 +9,7 @@
     using ViewModels.Vehicle;
 
     using static Common.NotificationMessagesConstants;
+    using static Common.GeneralApplicationConstants;
 
     [Authorize]
     public class YachtController : Controller
@@ -118,6 +119,11 @@
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Mine", "Yacht", new { Area = AdminAreaName });
+            }
+
             List<VehicleAllViewModel> myYachts = new List<VehicleAllViewModel>();
 
             string userId = this.User.GetId()!;
