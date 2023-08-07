@@ -79,6 +79,7 @@ namespace Vehicle2Go.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.EnableOnlineUsersCheck();
             app.SeedAdministrator(AdminEmail);
 
             app.UseEndpoints(config =>

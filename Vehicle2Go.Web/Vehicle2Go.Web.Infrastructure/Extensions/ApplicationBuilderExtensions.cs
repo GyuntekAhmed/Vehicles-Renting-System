@@ -8,6 +8,7 @@
     using Data.Models.User;
 
     using static Common.GeneralApplicationConstants;
+    using Vehicle2Go.Web.Infrastructure.Middlewares;
 
     public static class ApplicationBuilderExtensions
     {
@@ -73,6 +74,11 @@
                 .GetResult();
 
             return app;
+        }
+
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<OnlineUsersMiddleware>();
         }
     }
 }
