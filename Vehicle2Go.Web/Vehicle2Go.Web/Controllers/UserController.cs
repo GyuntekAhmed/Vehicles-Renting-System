@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.Extensions.Caching.Memory;
 
     using Griesoft.AspNetCore.ReCaptcha;
 
@@ -10,16 +11,21 @@
     using Data.Models.User;
 
     using static Common.NotificationMessagesConstants;
+    using static Common.GeneralApplicationConstants;
 
     public class UserController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMemoryCache memoryCache;
 
-        public UserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public UserController(SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            IMemoryCache memoryCache)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -60,6 +66,8 @@
             }
 
             await this.signInManager.SignInAsync(user, false);
+
+            this.memoryCache.Remove(UsersCacheKey);
 
             return RedirectToAction("Index", "Home");
         }

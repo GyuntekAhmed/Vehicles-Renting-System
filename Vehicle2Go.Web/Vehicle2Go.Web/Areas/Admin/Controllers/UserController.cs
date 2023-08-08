@@ -1,27 +1,42 @@
-﻿using Vehicle2Go.Web.ViewModels.User;
-
-namespace Vehicle2Go.Web.Areas.Admin.Controllers
+﻿namespace Vehicle2Go.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
-    using Vehicle2Go.Services.Data.Interfaces;
+    using Web.ViewModels.User;
+    using Services.Data.Interfaces;
+
+    using static Common.GeneralApplicationConstants;
 
     public class UserController : BaseAdminController
     {
         private readonly IUserService userService;
+        private readonly IMemoryCache memoryCache;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMemoryCache memoryCache)
         {
             this.userService = userService;
+            this.memoryCache = memoryCache;
         }
 
         [Route("User/All")]
+        [ResponseCache(Duration = 30)]
         public async Task<IActionResult> All()
         {
-            IEnumerable<UserViewModel> viewModels =
-                await userService.AllUsersAsync();
+            IEnumerable<UserViewModel> users = this.memoryCache.Get<IEnumerable<UserViewModel>>(UsersCacheKey);
 
-            return View(viewModels);
+            if (users == null)
+            {
+                users = await this.userService.AllUsersAsync();
+
+                MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration
+                        (TimeSpan.FromMinutes(UsersCacheDurationMinutes));
+
+                this.memoryCache.Set(UsersCacheKey ,users, cacheOptions);
+            }
+
+            return View(users);
         }
     }
 }

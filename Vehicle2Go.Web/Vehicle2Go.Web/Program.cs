@@ -40,6 +40,8 @@ namespace Vehicle2Go.Web
 
             builder.Services.AddRecaptchaService();
 
+            builder.Services.AddMemoryCache();
+
             builder.Services
                 .AddControllersWithViews()
                 .AddMvcOptions(options =>
