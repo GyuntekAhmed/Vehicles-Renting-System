@@ -15,8 +15,6 @@
         public const int LastActivityBeforeOfflineMinutes = 10;
 
         public const string UsersCacheKey = "UsersCache";
-        public const int UsersCacheDurationMinutes = 5;
         public const string RentsCacheKey = "RentsCache";
-        public const int RentsCacheDurationMinutes = 10;
     }
 }
