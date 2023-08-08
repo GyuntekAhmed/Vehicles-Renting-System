@@ -1,13 +1,13 @@
-﻿using Vehicle2Go.Data.Models.Agent;
-
-namespace Vehicle2Go.Services.Data
+﻿namespace Vehicle2Go.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
 
     using Interfaces;
     using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.User;
+    using Vehicle2Go.Data.Models.Agent;
     using Web.ViewModels.User;
+
     using static Vehicle2Go.Common.EntityValidationConstants;
 
     public class UserService : IUserService
