@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     using Services.Data.Interfaces;
     using Infrastructure.Extensions;
@@ -18,13 +19,19 @@
         private readonly IAgentService agentService;
         private readonly IJetService jetService;
         private readonly IUserService userService;
+        private readonly IMemoryCache memoryCache;
 
-        public JetController(IJetCategoryService jetCategoryService, IAgentService agentService, IJetService jetService, IUserService userService)
+        public JetController(IJetCategoryService jetCategoryService,
+            IAgentService agentService,
+            IJetService jetService,
+            IUserService userService,
+            IMemoryCache memoryCache)
         {
             this.jetCategoryService = jetCategoryService;
             this.agentService = agentService;
             this.jetService = jetService;
             this.userService = userService;
+            this.memoryCache = memoryCache;
         }
 
         [AllowAnonymous]
@@ -417,6 +424,8 @@
 
             this.TempData[SuccessMessage] = "The jet was successfully rented";
 
+            this.memoryCache.Remove(RentsCacheKey);
+
             return RedirectToAction("Mine", "Jet");
         }
 
@@ -460,6 +469,8 @@
             }
 
             this.TempData[InformationMessage] = "The jet was successfully leave";
+
+            this.memoryCache.Remove(RentsCacheKey);
 
             return RedirectToAction("Mine", "Jet");
         }

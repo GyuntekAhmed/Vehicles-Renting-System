@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     using Services.Data.Interfaces;
     using Services.Data.Models.Vehicle;
@@ -18,13 +19,19 @@
         private readonly IAgentService agentService;
         private readonly ITruckService truckService;
         private readonly IUserService userService;
+        private readonly IMemoryCache memoryCache;
 
-        public TruckController(ITruckCategoryService truckCategoryService, IAgentService agentService, ITruckService truckService, IUserService userService)
+        public TruckController(ITruckCategoryService truckCategoryService,
+            IAgentService agentService,
+            ITruckService truckService,
+            IUserService userService,
+            IMemoryCache memoryCache)
         {
             this.truckCategoryService = truckCategoryService;
             this.agentService = agentService;
             this.truckService = truckService;
             this.userService = userService;
+            this.memoryCache = memoryCache;
         }
 
         [AllowAnonymous]
@@ -418,6 +425,8 @@
 
             this.TempData[SuccessMessage] = "The truck was successfully rented";
 
+            this.memoryCache.Remove(RentsCacheKey);
+
             return RedirectToAction("Mine", "Truck");
         }
 
@@ -437,7 +446,7 @@
 
             if (!isTruckRented)
             {
-                this.TempData[ErrorMessage] = "Selected truck is not rented!"; ;
+                this.TempData[ErrorMessage] = "Selected truck is not rented!";
 
                 return RedirectToAction("All", "Truck");
             }
@@ -461,6 +470,8 @@
             }
 
             this.TempData[InformationMessage] = "The truck was successfully leave";
+
+            this.memoryCache.Remove(RentsCacheKey);
 
             return RedirectToAction("Mine", "Truck");
         }

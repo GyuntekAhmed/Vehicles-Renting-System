@@ -20,21 +20,9 @@
         }
 
         [Route("User/All")]
-        [ResponseCache(Duration = 30)]
         public async Task<IActionResult> All()
         {
-            IEnumerable<UserViewModel> users = this.memoryCache.Get<IEnumerable<UserViewModel>>(UsersCacheKey);
-
-            if (users == null)
-            {
-                users = await this.userService.AllUsersAsync();
-
-                MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration
-                        (TimeSpan.FromMinutes(UsersCacheDurationMinutes));
-
-                this.memoryCache.Set(UsersCacheKey ,users, cacheOptions);
-            }
+            IEnumerable<UserViewModel> users = await this.userService.AllUsersAsync();
 
             return View(users);
         }

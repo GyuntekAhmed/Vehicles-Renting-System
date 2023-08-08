@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     using Services.Data.Interfaces;
     using Services.Data.Models.Vehicle;
@@ -18,13 +19,19 @@
         private readonly IAgentService agentService;
         private readonly IYachtService yachtService;
         private readonly IUserService userService;
+        private readonly IMemoryCache memoryCache;
 
-        public YachtController(IYachtCategoryService yachtCategoryService, IAgentService agentService, IYachtService yachtService, IUserService userService)
+        public YachtController(IYachtCategoryService yachtCategoryService,
+            IAgentService agentService,
+            IYachtService yachtService,
+            IUserService userService,
+            IMemoryCache memoryCache)
         {
             this.yachtCategoryService = yachtCategoryService;
             this.agentService = agentService;
             this.yachtService = yachtService;
             this.userService = userService;
+            this.memoryCache = memoryCache;
         }
 
         [AllowAnonymous]
@@ -418,6 +425,8 @@
 
             this.TempData[SuccessMessage] = "The yacht was successfully rented";
 
+            this.memoryCache.Remove(RentsCacheKey);
+
             return RedirectToAction("Mine", "Yacht");
         }
 
@@ -437,7 +446,7 @@
 
             if (!isYachtRented)
             {
-                this.TempData[ErrorMessage] = "Selected yacht is not rented!"; ;
+                this.TempData[ErrorMessage] = "Selected yacht is not rented!";
 
                 return RedirectToAction("All", "Yacht");
             }
@@ -461,6 +470,8 @@
             }
 
             this.TempData[InformationMessage] = "The yacht was successfully leave";
+
+            this.memoryCache.Remove(RentsCacheKey);
 
             return RedirectToAction("Mine", "Yacht");
         }

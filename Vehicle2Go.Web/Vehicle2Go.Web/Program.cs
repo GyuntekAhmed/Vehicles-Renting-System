@@ -41,6 +41,7 @@ namespace Vehicle2Go.Web
             builder.Services.AddRecaptchaService();
 
             builder.Services.AddMemoryCache();
+            builder.Services.AddResponseCaching();
 
             builder.Services
                 .AddControllersWithViews()
@@ -77,6 +78,7 @@ namespace Vehicle2Go.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseResponseCaching();
 
             app.UseAuthentication();
             app.UseAuthorization();

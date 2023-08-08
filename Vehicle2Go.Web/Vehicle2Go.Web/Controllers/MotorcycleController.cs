@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.Extensions.Caching.Memory;
 
     using Infrastructure.Extensions;
     using Services.Data.Interfaces;
@@ -18,13 +19,19 @@
         private readonly IAgentService agentService;
         private readonly IMotorcycleService motorcycleService;
         private readonly IUserService userService;
+        private readonly IMemoryCache memoryCache;
 
-        public MotorcycleController(IMotorcycleCategoryService motorcycleCategoryService, IAgentService agentService, IMotorcycleService motorcycleService, IUserService userService)
+        public MotorcycleController(IMotorcycleCategoryService motorcycleCategoryService,
+            IAgentService agentService,
+            IMotorcycleService motorcycleService,
+            IUserService userService,
+            IMemoryCache memoryCache)
         {
             this.motorcycleCategoryService = motorcycleCategoryService;
             this.agentService = agentService;
             this.motorcycleService = motorcycleService;
             this.userService = userService;
+            this.memoryCache = memoryCache;
         }
 
         [AllowAnonymous]
@@ -420,6 +427,8 @@
 
             this.TempData[SuccessMessage] = "The motorcycle was successfully rented";
 
+            this.memoryCache.Remove(RentsCacheKey);
+
             return RedirectToAction("Mine", "Motorcycle");
         }
 
@@ -464,6 +473,8 @@
             }
 
             this.TempData[InformationMessage] = "The motorcycle was successfully leave";
+
+            this.memoryCache.Remove(RentsCacheKey);
 
             return RedirectToAction("Mine", "Motorcycle");
         }

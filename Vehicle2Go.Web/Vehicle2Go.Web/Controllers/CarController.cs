@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     using ViewModels.Vehicle;
     using Services.Data.Interfaces;
@@ -18,13 +19,19 @@
         private readonly IAgentService agentService;
         private readonly ICarService carService;
         private readonly IUserService userService;
+        private readonly IMemoryCache memoryCache;
 
-        public CarController(ICarCategoryService carCategoryService, IAgentService agentService, ICarService carService, IUserService userService)
+        public CarController(ICarCategoryService carCategoryService,
+            IAgentService agentService,
+            ICarService carService,
+            IUserService userService,
+            IMemoryCache memoryCache)
         {
             this.carCategoryService = carCategoryService;
             this.agentService = agentService;
             this.carService = carService;
             this.userService = userService;
+            this.memoryCache = memoryCache;
         }
 
         [AllowAnonymous]
@@ -418,6 +425,8 @@
 
             this.TempData[SuccessMessage] = "The car was successfully rented";
 
+            this.memoryCache.Remove(RentsCacheKey);
+
             return RedirectToAction("Mine", "Car");
         }
 
@@ -461,6 +470,8 @@
             }
 
             this.TempData[InformationMessage] = "The car was successfully leave";
+
+            this.memoryCache.Remove(RentsCacheKey);
 
             return RedirectToAction("Mine", "Car");
         }
