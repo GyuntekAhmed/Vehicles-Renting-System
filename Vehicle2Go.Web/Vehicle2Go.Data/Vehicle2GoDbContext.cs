@@ -1,4 +1,5 @@
-﻿namespace Vehicle2Go.Data
+﻿// ReSharper disable VirtualMemberCallInConstructor
+namespace Vehicle2Go.Data
 {
     using System.Reflection;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -15,6 +16,10 @@
         public Vehicle2GoDbContext(DbContextOptions<Vehicle2GoDbContext> options)
             : base(options)
         {
+            if (!Database.IsRelational())
+            {
+                Database.EnsureCreated();
+            }
         }
 
         public DbSet<CarCategory> CarCategories { get; set; } = null!;
