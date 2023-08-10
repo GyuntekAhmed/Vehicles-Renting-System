@@ -1,10 +1,10 @@
-using Vehicle2Go.Services.Data;
-
 namespace Vehicle2Go.Services.Tests
 {
     using Microsoft.EntityFrameworkCore;
 
+    using Web.ViewModels.Agent;
     using Vehicle2Go.Data;
+    using Data;
     using Data.Interfaces;
 
     using static SeederDb;
@@ -46,6 +46,90 @@ namespace Vehicle2Go.Services.Tests
             string existingAgentUserId = RenterUser.Id.ToString();
 
             bool result = await agentService.AgentExistByUserIdAsync(existingAgentUserId);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task AgentExistByPhoneShouldReturnTrueWhenExist()
+        {
+            string existingAgentPhone = AgentUser.PhoneNumber;
+
+            bool result = await agentService.AgentExistByPhoneNumberAsync(existingAgentPhone);
+
+            Assert.True(result);
+        }
+
+        [Test]
+        public async Task AgentExistByPhoneShouldReturnFalseWhenNotExist()
+        {
+            string existingAgentPhone = "+1111111111";
+
+            bool result = await agentService.AgentExistByUserIdAsync(existingAgentPhone);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task CreateAgentShouldWorkCorrectly()
+        {
+            int agentsCountBefore = dbContext.Agents.Count();
+
+            await agentService.Create(Agent.UserId.ToString(), new BecomeAgentFormModel()
+            {
+                PhoneNumber = Agent.PhoneNumber,
+                Address = Agent.Address,
+            });
+
+            int agentsCountAfter = dbContext.Agents.Count();
+
+            Assert.That(agentsCountAfter, Is.EqualTo(agentsCountBefore + 1));
+        }
+
+        [Test]
+        public async Task GetAgentIdByUserIdShouldReturnTrueWhenExist()
+        {
+            var currentUserId = Agent.UserId.ToString();
+            var currentAgentId = Agent.Id.ToString();
+
+            var expectedAgentId = await agentService.GetAgentIdByUserIdAsync(currentUserId);
+
+            Assert.That(expectedAgentId, Is.EqualTo(currentAgentId));
+        }
+
+        [Test]
+        public async Task GetAgentIdByUserIdShouldReturnFalseWhenNotExist()
+        {
+            var currentUserId = Agent.Id.ToString();
+            var currentAgentId = Agent.Id.ToString();
+
+            var expectedAgentId = await agentService.GetAgentIdByUserIdAsync(currentUserId);
+
+            Assert.AreNotEqual(expectedAgentId, currentAgentId);
+        }
+
+        [Test]
+        public async Task HasVehicleWithIdAsync_ShouldReturnTrue_WhenAgentOwnVehicle()
+        {
+            var currentUserId = Agent.UserId.ToString();
+            var vehicleId = Car.Id.ToString().ToLower();
+
+            Agent.OwnedCars.Add(Car);
+
+            var result = await agentService.HasVehicleWithIdAsync(currentUserId, vehicleId);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task HasVehicleWithIdAsync_ShouldReturnFalse_WhenAgentDoesNotOwnVehicle()
+        {
+            var currentUserId = Agent.UserId.ToString();
+            var vehicleId = "vehicle123";
+
+            Agent.OwnedCars.Add(Car);
+
+            var result = await agentService.HasVehicleWithIdAsync(currentUserId, vehicleId);
 
             Assert.IsFalse(result);
         }

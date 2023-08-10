@@ -1,4 +1,5 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
+
 namespace Vehicle2Go.Services.Tests
 {
     using Microsoft.AspNetCore.Identity;
@@ -6,12 +7,14 @@ namespace Vehicle2Go.Services.Tests
     using Vehicle2Go.Data;
     using Vehicle2Go.Data.Models.User;
     using Vehicle2Go.Data.Models.Agent;
+    using Vehicle2Go.Data.Models.Vehicle;
 
     public static class SeederDb
     {
         public static ApplicationUser AgentUser;
         public static ApplicationUser RenterUser;
         public static Agent Agent;
+        public static Car Car;
 
         public static void SeedDatabase(Vehicle2GoDbContext dbContext)
         {
@@ -58,6 +61,24 @@ namespace Vehicle2Go.Services.Tests
                 User = AgentUser,
             };
 
+            Car = new Car
+            {
+                Brand = "Hyundai",
+                Model = "Santa fe",
+                RegistrationNumber = "CC1835AK",
+                Address = "Silistra, Center",
+                PricePerDay = 80,
+                Color = "White",
+                ImageUrl =
+                    "https://upload.wikimedia.org/wikipedia/commons/f/fb/2010_Hyundai_Santa_Fe_GLS_--_09-24-2010.jpg",
+                CategoryId = 1,
+                AgentId = Guid.Parse("8af114de-010e-4b30-8920-9064facf5ae1"),
+                RenterId = RenterUser.Id,
+                CreatedOn = DateTime.UtcNow,
+                IsActive = true
+            };
+
+            dbContext.Cars.Add(Car);
             dbContext.Users.Add(AgentUser);
             dbContext.Users.Add(RenterUser);
             dbContext.Agents.Add(Agent);

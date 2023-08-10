@@ -1,7 +1,7 @@
-﻿using Vehicle2Go.Web.ViewModels.Agent;
-
-namespace Vehicle2Go.Services.Data.Interfaces
+﻿namespace Vehicle2Go.Services.Data.Interfaces
 {
+    using Web.ViewModels.Agent;
+
     public interface IAgentService
     {
         Task<bool> AgentExistByUserIdAsync(string userId);
