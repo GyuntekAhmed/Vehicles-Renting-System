@@ -1,16 +1,14 @@
-﻿using Vehicle2Go.Data.Models.Vehicle;
-using Vehicle2Go.Web.ViewModels.Vehicle;
-
-namespace Vehicle2Go.Services.Tests
+﻿namespace Vehicle2Go.Services.Tests
 {
     using Microsoft.EntityFrameworkCore;
-    
+
+    using Web.ViewModels.Vehicle;
     using Vehicle2Go.Data;
     using Data;
     using Data.Interfaces;
+    using Web.ViewModels.Vehicle.Enums;
 
     using static SeederDb;
-    using Vehicle2Go.Web.ViewModels.Vehicle.Enums;
 
     public class CarServiceTests
     {
@@ -94,7 +92,7 @@ namespace Vehicle2Go.Services.Tests
         public async Task AllByAgentIdAsync_ReturnsCorrectCars()
         {
             string agentId = AgentUser.Id.ToString();
-            
+
 
             var result = await carService.AllByAgentIdAsync(agentId);
 
@@ -131,7 +129,7 @@ namespace Vehicle2Go.Services.Tests
 
 
             var result = await carService.AllByUserIdAsync(userId);
-            
+
             Assert.IsEmpty(result);
         }
 
@@ -196,7 +194,7 @@ namespace Vehicle2Go.Services.Tests
             string agentId = Car.AgentId.ToString();
 
             var result = await carService.IsAgentWithIdOwnerOfCarWithIdAsync(carId, agentId);
-            
+
             Assert.IsTrue(result);
         }
 
@@ -229,7 +227,7 @@ namespace Vehicle2Go.Services.Tests
             };
 
             await carService.EditCarByIdAndFormModelAsync(carId, carFormModel);
-            
+
             Assert.That(Car.Brand, Is.EqualTo(carFormModel.Brand));
             Assert.That(Car.Model, Is.EqualTo(carFormModel.Model));
             Assert.That(Car.RegistrationNumber, Is.EqualTo(carFormModel.RegistrationNumber));

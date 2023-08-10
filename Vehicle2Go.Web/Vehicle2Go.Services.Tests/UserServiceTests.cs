@@ -1,10 +1,8 @@
-﻿using Vehicle2Go.Data.Models.User;
-using Vehicle2Go.Web.ViewModels.User;
-
-namespace Vehicle2Go.Services.Tests
+﻿namespace Vehicle2Go.Services.Tests
 {
     using Microsoft.EntityFrameworkCore;
-    
+
+    using Web.ViewModels.User;
     using Vehicle2Go.Data;
     using Data;
     using Data.Interfaces;
