@@ -138,9 +138,30 @@
         {
             string carId = Car.Id.ToString();
 
+            var model = new VehicleDetailsViewModel
+            {
+                Id = Car.Id.ToString(),
+                Brand = Car.Brand,
+                Model = Car.Model,
+                RegistrationNumber = Car.RegistrationNumber,
+                Address = Car.Address,
+                Color = Car.Color,
+                ImageUrl = Car.ImageUrl,
+                PricePerDay = Car.PricePerDay,
+                IsRented = Car.RenterId.HasValue,
+                Category = "Crossover",
+            };
+
             var result = await carService.GetDetailsByIdAsync(carId);
 
             Assert.NotNull(result);
+            Assert.That(result.Brand, Is.EqualTo(model.Brand));
+            Assert.That(result.Model, Is.EqualTo(model.Model));
+            Assert.That(result.RegistrationNumber, Is.EqualTo(model.RegistrationNumber));
+            Assert.That(result.Address, Is.EqualTo(model.Address));
+            Assert.That(result.Color, Is.EqualTo(model.Color));
+            Assert.That(result.ImageUrl, Is.EqualTo(model.ImageUrl));
+            Assert.That(result.PricePerDay, Is.EqualTo(model.PricePerDay));
         }
 
         [Test]
@@ -182,9 +203,15 @@
 
             var result = await carService.GetCarForEditByIdAsync(carId);
 
-            Assert.IsNotNull(model);
-
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
+            Assert.That(result.Brand, Is.EqualTo(Car.Brand));
+            Assert.That(result.Model, Is.EqualTo(Car.Model));
+            Assert.That(result.RegistrationNumber, Is.EqualTo(Car.RegistrationNumber));
+            Assert.That(result.Address, Is.EqualTo(Car.Address));
+            Assert.That(result.PricePerDay, Is.EqualTo(Car.PricePerDay));
+            Assert.That(result.ImageUrl, Is.EqualTo(Car.ImageUrl));
+            Assert.That(result.Color, Is.EqualTo(Car.Color));
+            Assert.That(result.CategoryId, Is.EqualTo(Car.CategoryId));
         }
 
         [Test]
@@ -214,12 +241,14 @@
         {
             string carId = Car.Id.ToString();
 
+            string changedAddress = "Plovdiv";
+
             VehicleFormModel carFormModel = new VehicleFormModel
             {
                 Brand = Car.Brand,
                 Model = Car.Model,
                 RegistrationNumber = Car.RegistrationNumber,
-                Address = Car.Address,
+                Address = changedAddress,
                 PricePerDay = Car.PricePerDay,
                 ImageUrl = Car.ImageUrl,
                 Color = Car.Color,
@@ -228,10 +257,12 @@
 
             await carService.EditCarByIdAndFormModelAsync(carId, carFormModel);
 
+            var newCar = await carService.GetDetailsByIdAsync(carId);
+
+            Assert.That(newCar.Address, Is.EqualTo(changedAddress));
             Assert.That(Car.Brand, Is.EqualTo(carFormModel.Brand));
             Assert.That(Car.Model, Is.EqualTo(carFormModel.Model));
             Assert.That(Car.RegistrationNumber, Is.EqualTo(carFormModel.RegistrationNumber));
-            Assert.That(Car.Address, Is.EqualTo(carFormModel.Address));
             Assert.That(Car.PricePerDay, Is.EqualTo(carFormModel.PricePerDay));
             Assert.That(Car.ImageUrl, Is.EqualTo(carFormModel.ImageUrl));
             Assert.That(Car.Color, Is.EqualTo(carFormModel.Color));
@@ -260,14 +291,96 @@
         [Test]
         public async Task DeleteByIdAsync_ShouldDeleteWithExistCarId()
         {
-            var carId = Car.Id;
-
             var deletedCar = Car;
-            deletedCar.Id = carId;
 
             await carService.DeleteByIdAsync(deletedCar.Id.ToString());
 
             Assert.IsFalse(deletedCar.IsActive);
+        }
+
+        [Test]
+        public async Task DeleteByIdAsync_ThrowWenCarNotExist()
+        {
+            var deletedCar = Car;
+            string carId = "car123";
+
+            var result =  carService.DeleteByIdAsync(carId);
+
+            Assert.That(result.IsFaulted);
+            Assert.IsTrue(deletedCar.IsActive);
+        }
+
+        [Test]
+        public void IsRentedByIdAsync_WorkCorrectly()
+        {
+            string carId = Car.Id.ToString();
+
+            var result = carService.IsRentedByIdAsync(carId);
+
+            var hasRenter = Car.RenterId.HasValue;
+            
+            Assert.NotNull(result);
+            Assert.That(hasRenter, Is.True);
+        }
+
+        [Test]
+        public void IsRentedByIdAsync_NotWorkCorrectly()
+        {
+            string carId = "car123";
+
+            var result = carService.IsRentedByIdAsync(carId);
+
+            Assert.That(result.IsFaulted);
+        }
+
+        [Test]
+        public async Task RentCarAsync_WorkCorrect()
+        {
+            var newCar = Car;
+            var newUser = RenterUser;
+
+            await carService.RentCarAsync(newCar.Id.ToString(), newUser.Id.ToString());
+
+            bool result = newCar.RenterId.HasValue;
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task IsRentedByUserWithIdAsync_WorkCorrect()
+        {
+            var newCar = Car;
+            var newUser = RenterUser;
+
+            await carService.RentCarAsync(newCar.Id.ToString(), newUser.Id.ToString());
+
+            var result = carService.IsRentedByUserWithIdAsync(newCar.Id.ToString(), newUser.Id.ToString());
+
+            Assert.IsTrue(result.IsCompleted);
+        }
+
+        [Test]
+        public async Task IsRentedByUserWithIdAsync_NotWorkCorrect()
+        {
+            var newCar = Car;
+            var newUser = RenterUser;
+
+            newCar.RenterId = Guid.Parse(AgentUser.Id.ToString());
+
+            var result = await carService.IsRentedByUserWithIdAsync(newCar.Id.ToString(), newUser.Id.ToString());
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void LeaveAsync_ShouldLeaveCarWhenIsRented()
+        {
+            var newCar = Car;
+
+            carService.LeaveAsync(newCar.Id.ToString());
+
+            Assert.IsNotNull(newCar);
+            Assert.IsNull(newCar.RenterId);
         }
     }
 }
