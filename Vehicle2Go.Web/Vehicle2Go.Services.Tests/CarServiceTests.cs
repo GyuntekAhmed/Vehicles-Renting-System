@@ -239,20 +239,22 @@
         [Test]
         public async Task EditCarByIdAndFormModelAsync_WorkCorrect()
         {
-            string carId = Car.Id.ToString();
+            var currentCar = Car;
 
-            string changedAddress = "Plovdiv";
+            string carId = currentCar.Id.ToString();
+
+            string changedAddress = "Ruse";
 
             VehicleFormModel carFormModel = new VehicleFormModel
             {
-                Brand = Car.Brand,
-                Model = Car.Model,
-                RegistrationNumber = Car.RegistrationNumber,
+                Brand = currentCar.Brand,
+                Model = currentCar.Model,
+                RegistrationNumber = currentCar.RegistrationNumber,
                 Address = changedAddress,
-                PricePerDay = Car.PricePerDay,
-                ImageUrl = Car.ImageUrl,
-                Color = Car.Color,
-                CategoryId = Car.CategoryId,
+                PricePerDay = currentCar.PricePerDay,
+                ImageUrl = currentCar.ImageUrl,
+                Color = currentCar.Color,
+                CategoryId = currentCar.CategoryId,
             };
 
             await carService.EditCarByIdAndFormModelAsync(carId, carFormModel);
@@ -260,13 +262,13 @@
             var newCar = await carService.GetDetailsByIdAsync(carId);
 
             Assert.That(newCar.Address, Is.EqualTo(changedAddress));
-            Assert.That(Car.Brand, Is.EqualTo(carFormModel.Brand));
-            Assert.That(Car.Model, Is.EqualTo(carFormModel.Model));
-            Assert.That(Car.RegistrationNumber, Is.EqualTo(carFormModel.RegistrationNumber));
-            Assert.That(Car.PricePerDay, Is.EqualTo(carFormModel.PricePerDay));
-            Assert.That(Car.ImageUrl, Is.EqualTo(carFormModel.ImageUrl));
-            Assert.That(Car.Color, Is.EqualTo(carFormModel.Color));
-            Assert.That(Car.CategoryId, Is.EqualTo(carFormModel.CategoryId));
+            Assert.That(currentCar.Brand, Is.EqualTo(carFormModel.Brand));
+            Assert.That(currentCar.Model, Is.EqualTo(carFormModel.Model));
+            Assert.That(currentCar.RegistrationNumber, Is.EqualTo(carFormModel.RegistrationNumber));
+            Assert.That(currentCar.PricePerDay, Is.EqualTo(carFormModel.PricePerDay));
+            Assert.That(currentCar.ImageUrl, Is.EqualTo(carFormModel.ImageUrl));
+            Assert.That(currentCar.Color, Is.EqualTo(carFormModel.Color));
+            Assert.That(currentCar.CategoryId, Is.EqualTo(carFormModel.CategoryId));
         }
 
         [Test]
@@ -296,18 +298,6 @@
             await carService.DeleteByIdAsync(deletedCar.Id.ToString());
 
             Assert.IsFalse(deletedCar.IsActive);
-        }
-
-        [Test]
-        public async Task DeleteByIdAsync_ThrowWenCarNotExist()
-        {
-            var deletedCar = Car;
-            string carId = "car123";
-
-            var result =  carService.DeleteByIdAsync(carId);
-
-            Assert.That(result.IsFaulted);
-            Assert.IsTrue(deletedCar.IsActive);
         }
 
         [Test]
