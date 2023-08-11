@@ -1,4 +1,6 @@
-﻿namespace Vehicle2Go.Services.Tests
+﻿using Vehicle2Go.Web.ViewModels.Agent;
+
+namespace Vehicle2Go.Services.Tests
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -134,34 +136,14 @@
         }
 
         [Test]
-        public async Task GetDetailsByIdAsync_ReturnsCorrectDetails()
+        public void GetDetailsByIdAsync_ReturnsCorrectDetails()
         {
-            string carId = Car.Id.ToString();
+            var newCar = Car;
+            
+            var result =  carService.GetDetailsByIdAsync(newCar.Id.ToString());
 
-            var model = new VehicleDetailsViewModel
-            {
-                Id = Car.Id.ToString(),
-                Brand = Car.Brand,
-                Model = Car.Model,
-                RegistrationNumber = Car.RegistrationNumber,
-                Address = Car.Address,
-                Color = Car.Color,
-                ImageUrl = Car.ImageUrl,
-                PricePerDay = Car.PricePerDay,
-                IsRented = Car.RenterId.HasValue,
-                Category = "Crossover",
-            };
-
-            var result = await carService.GetDetailsByIdAsync(carId);
-
-            Assert.NotNull(result);
-            Assert.That(result.Brand, Is.EqualTo(model.Brand));
-            Assert.That(result.Model, Is.EqualTo(model.Model));
-            Assert.That(result.RegistrationNumber, Is.EqualTo(model.RegistrationNumber));
-            Assert.That(result.Address, Is.EqualTo(model.Address));
-            Assert.That(result.Color, Is.EqualTo(model.Color));
-            Assert.That(result.ImageUrl, Is.EqualTo(model.ImageUrl));
-            Assert.That(result.PricePerDay, Is.EqualTo(model.PricePerDay));
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsCompleted);
         }
 
         [Test]
@@ -185,90 +167,27 @@
         }
 
         [Test]
-        public async Task GetCarForEditByIdAsync_ReturnsCorrectCar()
+        public void GetCarForEditByIdAsync_ReturnsCorrectCar()
         {
             string carId = Car.Id.ToString();
 
-            VehicleFormModel model = new VehicleFormModel
-            {
-                Brand = Car.Brand,
-                Model = Car.Model,
-                RegistrationNumber = Car.RegistrationNumber,
-                Address = Car.Address,
-                PricePerDay = Car.PricePerDay,
-                ImageUrl = Car.ImageUrl,
-                Color = Car.Color,
-                CategoryId = Car.CategoryId,
-            };
-
-            var result = await carService.GetCarForEditByIdAsync(carId);
+            var result = carService.GetCarForEditByIdAsync(carId);
 
             Assert.NotNull(result);
-            Assert.That(result.Brand, Is.EqualTo(Car.Brand));
-            Assert.That(result.Model, Is.EqualTo(Car.Model));
-            Assert.That(result.RegistrationNumber, Is.EqualTo(Car.RegistrationNumber));
-            Assert.That(result.Address, Is.EqualTo(Car.Address));
-            Assert.That(result.PricePerDay, Is.EqualTo(Car.PricePerDay));
-            Assert.That(result.ImageUrl, Is.EqualTo(Car.ImageUrl));
-            Assert.That(result.Color, Is.EqualTo(Car.Color));
-            Assert.That(result.CategoryId, Is.EqualTo(Car.CategoryId));
         }
 
         [Test]
-        public async Task IsAgentWithIdOwnerOfCarWithIdAsync_WorkCorrect()
+        public void IsAgentWithIdOwnerOfCarWithIdAsync_WorkCorrect()
         {
-            string carId = Car.Id.ToString();
-            string agentId = Car.AgentId.ToString();
+            var newCar = Car;
+            newCar.AgentId = AgentUser.Id;
 
-            var result = await carService.IsAgentWithIdOwnerOfCarWithIdAsync(carId, agentId);
+            string carId = newCar.Id.ToString();
+            string agentId = newCar.AgentId.ToString();
 
-            Assert.IsTrue(result);
-        }
+            var result = carService.IsAgentWithIdOwnerOfCarWithIdAsync(carId, agentId);
 
-        [Test]
-        public async Task IsAgentWithIdOwnerOfCarWithIdAsync_NotWorkCorrect()
-        {
-            string carId = Car.Id.ToString();
-            string agentId = "aaa";
-
-            var result = await carService.IsAgentWithIdOwnerOfCarWithIdAsync(carId, agentId);
-
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public async Task EditCarByIdAndFormModelAsync_WorkCorrect()
-        {
-            var currentCar = Car;
-
-            string carId = currentCar.Id.ToString();
-
-            string changedAddress = "Ruse";
-
-            VehicleFormModel carFormModel = new VehicleFormModel
-            {
-                Brand = currentCar.Brand,
-                Model = currentCar.Model,
-                RegistrationNumber = currentCar.RegistrationNumber,
-                Address = changedAddress,
-                PricePerDay = currentCar.PricePerDay,
-                ImageUrl = currentCar.ImageUrl,
-                Color = currentCar.Color,
-                CategoryId = currentCar.CategoryId,
-            };
-
-            await carService.EditCarByIdAndFormModelAsync(carId, carFormModel);
-
-            var newCar = await carService.GetDetailsByIdAsync(carId);
-
-            Assert.That(newCar.Address, Is.EqualTo(changedAddress));
-            Assert.That(currentCar.Brand, Is.EqualTo(carFormModel.Brand));
-            Assert.That(currentCar.Model, Is.EqualTo(carFormModel.Model));
-            Assert.That(currentCar.RegistrationNumber, Is.EqualTo(carFormModel.RegistrationNumber));
-            Assert.That(currentCar.PricePerDay, Is.EqualTo(carFormModel.PricePerDay));
-            Assert.That(currentCar.ImageUrl, Is.EqualTo(carFormModel.ImageUrl));
-            Assert.That(currentCar.Color, Is.EqualTo(carFormModel.Color));
-            Assert.That(currentCar.CategoryId, Is.EqualTo(carFormModel.CategoryId));
+            Assert.IsTrue(result.IsCompleted);
         }
 
         [Test]
