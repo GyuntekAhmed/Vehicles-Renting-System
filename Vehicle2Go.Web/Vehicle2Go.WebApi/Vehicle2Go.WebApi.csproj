@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vehicle2Go.Common\Vehicle2Go.Common.csproj" />
+    <ProjectReference Include="..\Vehicle2Go.Services.Data.Models\Vehicle2Go.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\Vehicle2Go.Services.Data\Vehicle2Go.Services.Data.csproj" />
+    <ProjectReference Include="..\Vehicle2Go.Web.Infrastructure\Vehicle2Go.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
