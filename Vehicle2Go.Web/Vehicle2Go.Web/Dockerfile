@@ -14,7 +14,7 @@ COPY ["Vehicle2Go.Data.Models/Vehicle2Go.Data.Models.csproj", "Vehicle2Go.Data.M
 COPY ["Vehicle2Go.Data/Vehicle2Go.Data.csproj", "Vehicle2Go.Data/"]
 COPY ["Vehicle2Go.Services.Data.Models/Vehicle2Go.Services.Data.Models.csproj", "Vehicle2Go.Services.Data.Models/"]
 COPY ["Vehicle2Go.Web.ViewModels/Vehicle2Go.Web.ViewModels.csproj", "Vehicle2Go.Web.ViewModels/"]
-COPY ["Vehicle2Go.Web.Vehicle2Go.Services.Data/Vehicle2Go.Services.Data.csproj", "Vehicle2Go.Services.Data/"]
+COPY ["Vehicle2Go.Web/Vehicle2Go.Services.Data/Vehicle2Go.Services.Data.csproj", "Vehicle2Go.Services.Data/"]
 COPY ["Vehicle2Go.Web/Vehicle2Go.Web.Infrastructure/Vehicle2Go.Web.Infrastructure.csproj", "Vehicle2Go.Web.Infrastructure/"]
 RUN dotnet restore "./Vehicle2Go.Web/./Vehicle2Go.Web.csproj"
 COPY . .
