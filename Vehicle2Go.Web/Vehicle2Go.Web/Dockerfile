@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Vehicle2Go.Web/Vehicle2Go.Web.csproj", "Vehicle2Go.Web/"]
-COPY ["Vehicle2Go.Common/Vehicle2Go.Common.csproj", "Vehicle2Go.Common/"]
+COPY ["Vehicle2Go.Web/Vehicle2Go.Common/Vehicle2Go.Common.csproj", "Vehicle2Go.Common/"]
 COPY ["Vehicle2Go.Web/Vehicle2Go.Data.Models/Vehicle2Go.Data.Models.csproj", "Vehicle2Go.Data.Models/"]
 COPY ["Vehicle2Go.Web/Vehicle2Go.Data/Vehicle2Go.Data.csproj", "Vehicle2Go.Data/"]
 COPY ["Vehicle2Go.Web/Vehicle2Go.Services.Data.Models/Vehicle2Go.Services.Data.Models.csproj", "Vehicle2Go.Services.Data.Models/"]
